@@ -11,7 +11,8 @@ git push origin main
 #include <iostream>
 using namespace std;
 
-int main() {
+int main()
+{
 
     cout << "Hello World" << endl;
 }
