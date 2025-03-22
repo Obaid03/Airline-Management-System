@@ -17,7 +17,6 @@ using namespace std;
 
 int main() {
     cout << "Hello World" << endl;
-    Flight f1;
-
-    //setting up clion
+    Flight f1("test");
+    f1.display();
 }

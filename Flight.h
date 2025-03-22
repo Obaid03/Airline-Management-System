@@ -4,18 +4,18 @@
 
 #ifndef FLIGHT_H
 #define FLIGHT_H
-
+using namespace std;
 
 class Flight {
 private:
     std::string flightName;
 
 public:
-    Flight(std::string strname) : flightName(strname) {
+    Flight(string strname) : flightName(strname) {
     };
 
     void display() const {
-        std::cout << "Flight " << flightName << std::endl;
+        cout << "Flight " << flightName << endl;
     };
 };
 
