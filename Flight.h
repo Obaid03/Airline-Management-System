@@ -8,15 +8,8 @@ using namespace std;
 
 class Flight {
 private:
-    std::string flightName;
 
 public:
-    Flight(string strname) : flightName(strname) {
-    };
-
-    void display() const {
-        cout << "Flight " << flightName << endl;
-    };
 };
 
 
