@@ -12,11 +12,12 @@ git push origin main
 //test comment
 //Hasnain test comment
 #include <iostream>
+#include "Flight.h"
 using namespace std;
 
-int main()
-{
-
+int main() {
     cout << "Hello World" << endl;
+    Flight f1;
+
     //setting up clion
 }
