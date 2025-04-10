@@ -30,6 +30,10 @@ public:
     void setUserName(const string& name) {userName = name;}
     void setUserEmail(const string& email) {userEmail = email;}
     void setUserPassword(const string& password) {userPassword = password;}
+
+    string getUserName() const {return userEmail;}
+    string getUserEmail() const {return userEmail;}
+    string getUserPassword() const {return userPassword;}
 };
 
 int User::noOfUsers = 0;

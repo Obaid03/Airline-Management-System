@@ -15,9 +15,46 @@ git push origin main
 #include "User.h"
 using namespace std;
 
-void userScreen()
+void userScreen(const vector<Customer> customers)
 {
-    cout << "This will show functions related to user" << endl;
+    bool flag = false;
+    string temp;
+    do
+    {
+        cout << "Enter email of user" << endl;
+        cin >> temp;
+        for (Customer i : customers)
+        {
+            if (temp == i.getUserEmail())
+            {
+                flag = true;
+                break;
+            }
+            else
+            {
+                flag = false;
+            }
+        }
+        if (flag == false)
+        {
+            cout << "user not found" << endl;
+        }
+    } while (flag == false);
+    cout << "Enter password" << endl;
+    cin >> temp;
+    for (Customer i : customers)
+    {
+        if (temp == i.getUserPassword())
+        {
+            cout << "Login Successful" << endl;
+            cout << "This will show functions related to user" << endl;
+        }
+        else {
+            cout << "Wrong Password!" << endl;
+        }
+
+    }
+    
 }
 
 void adminScreen()
@@ -128,7 +165,7 @@ int main()
                 addUser(customers);
                 break;
             case 2:
-                userScreen();
+                userScreen(customers);
                 break;
             case 3:
                 break;
@@ -140,5 +177,5 @@ int main()
         default:
             break;
         }
-    } while (temp!=0);
+    } while (temp != 0);
 }
