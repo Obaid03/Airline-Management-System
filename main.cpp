@@ -137,54 +137,62 @@ void addAdmin(vector<Admin> &admins)
 
 void adminScreen(vector<Admin> &admins)
 {
-    int choice = 0, key;
-    system("cls");
-    getAirportManagementSystemText();
-    // gotoxy(15, 20);
-    cout << "What do you want to do?(admin)" << endl;
-    if (choice == 0)
-        cout << YELLOW ">";
-    cout << "1.Register New" << RESET << endl;
-    if (choice == 1)
-        cout << YELLOW ">";
-    cout << "2.Login" << RESET << endl;
-
-    key = _getch();
-
-    switch (key)
+    bool exit = false;
+    int choice = 0, key, maxChoices = 3;;
+    do
     {
-    case 'w':
-    case 'W':
-        if (choice > 0)
+        system("cls");
+        getAirportManagementSystemText();
+        // gotoxy(15, 20);
+        cout << "What do you want to do?(admin)" << endl;
+        if (choice == 0)
+            cout << YELLOW ">";
+        cout << "1.Register New" << RESET << endl;
+        if (choice == 1)
+            cout << YELLOW ">";
+        cout << "2.Login" << RESET << endl;
+        if (choice == 2)
+            cout << YELLOW " ";
+        cout << "<Go Back>" << RESET << endl;
+        //update maxChoices if adding another menu item
+
+        key = _getch();
+
+        if ((key == 'w' || key == 'W') && (choice > 0))
         {
-            choice = choice - 1;
+            choice--;
+            cout << "W";
         }
-        break;
-    case 's':
-    case 'S':
-        if (choice < 2)
+        else if ((key == 's' || key == 'S') && (choice < maxChoices))
         {
-            choice = choice + 1;
+            choice++;
+            cout << "S";
         }
-        break;
-    case '\r': // enter key
-    case ' ':
-        switch (choice)
+        else if ((key == '\r' || key == ' ') && (choice < maxChoices))
         {
-        case 0:
-            addAdmin(admins);
-            break;
-        case 1:
-            adminLoginScreen();
-            break;
-        default:
-            cout << "Error" << endl;
-            break;
-           
+            switch (choice)
+            {
+            case 0:
+                addAdmin(admins);
+                break;
+            case 1:
+                adminLoginScreen();
+                break;
+            case 2:
+                exit = true;
+                cout << "Exit selected" << endl;
+                break;
+            default:
+                break;
+            }
+            cout << "R";
         }
-    default:
-        break;
-    }
+        else
+        {
+            cout << "error" << endl;
+        }
+
+    } while (exit == false);
 }
 
 void customerScreen(vector<Customer> &customers)
@@ -231,13 +239,11 @@ void customerScreen(vector<Customer> &customers)
         default:
             cout << "Error" << endl;
             break;
-           
         }
     default:
         break;
     }
 }
-
 
 int main()
 {
@@ -246,10 +252,10 @@ int main()
 
     // cout << "Testing" << endl;
     int temp;
-
+    int choice = 0, key;
     do
     {
-        int choice = 0, key;
+
         system("cls");
         getAirportManagementSystemText();
         // gotoxy(15, 20);
@@ -263,15 +269,20 @@ int main()
 
         hideCursor();
         key = _getch();
-        cout << key;
-    
-        if((key=='w' || key=='W') && (choice>0)){
+        cout << key << endl;
+
+        if ((key == 'w' || key == 'W') && (choice > 0))
+        {
             choice = choice - 1;
+            cout << "W";
         }
-        else if((key=='s' || key=='S') && (choice<2)){
-            choice = choice + 1;
+        else if ((key == 's' || key == 'S') && (choice < 2))
+        {
+            choice++;
+            cout << "S";
         }
-        else if((key=='\r' || key==' ') && (choice<2)) {
+        else if ((key == '\r' || key == ' ') && (choice < 2))
+        {
             switch (choice)
             {
             case 0:
@@ -283,9 +294,11 @@ int main()
             default:
                 break;
             }
+            cout << "R";
         }
-        else {
+        else
+        {
             cout << "idk" << endl;
         }
-    } while (temp != 0);
+    } while (1);
 }
