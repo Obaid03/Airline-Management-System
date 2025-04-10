@@ -11,11 +11,25 @@ git push origin main
 // test comment
 // Hasnain test comment
 #include <iostream>
+#include <windows.h>
+#include <conio.h>
+
 #include "Flight.h"
 #include "User.h"
+#include "ConsoleManipulation.h"
+
+#define RESET "\033[0m"
+#define BLACK "\033[30m"   /* Black */
+#define RED "\033[31m"     /* Red */
+#define GREEN "\033[32m"   /* Green */
+#define YELLOW "\033[33m"  /* Yellow */
+#define BLUE "\033[34m"    /* Blue */
+#define MAGENTA "\033[35m" /* Magenta */
+#define CYAN "\033[36m"    /* Cyan */
+#define WHITE "\033[37m"   /* White */
 using namespace std;
 
-void userScreen(const vector<Customer> customers)
+void customerLoginScreen(const vector<Customer> customers)
 {
     bool flag = false;
     string temp;
@@ -49,20 +63,19 @@ void userScreen(const vector<Customer> customers)
             cout << "Login Successful" << endl;
             cout << "This will show functions related to user" << endl;
         }
-        else {
+        else
+        {
             cout << "Wrong Password!" << endl;
         }
-
     }
-    
 }
 
-void adminScreen()
+void adminLoginScreen()
 {
     cout << "This will show functions related to admin" << endl;
 }
 
-void addUser(vector<Customer> &customers)
+void addCustomer(vector<Customer> &customers)
 {
     string temp, passRepeat;
     Customer newUser;
@@ -92,7 +105,7 @@ void addUser(vector<Customer> &customers)
     customers.push_back(newUser);
 }
 
-void addUser(vector<Admin> &admins)
+void addAdmin(vector<Admin> &admins)
 {
     string temp, passRepeat;
     Admin newUser;
@@ -122,60 +135,157 @@ void addUser(vector<Admin> &admins)
     admins.push_back(newUser);
 }
 
+void adminScreen(vector<Admin> &admins)
+{
+    int choice = 0, key;
+    system("cls");
+    getAirportManagementSystemText();
+    // gotoxy(15, 20);
+    cout << "What do you want to do?(admin)" << endl;
+    if (choice == 0)
+        cout << YELLOW ">";
+    cout << "1.Register New" << RESET << endl;
+    if (choice == 1)
+        cout << YELLOW ">";
+    cout << "2.Login" << RESET << endl;
+
+    key = _getch();
+
+    switch (key)
+    {
+    case 'w':
+    case 'W':
+        if (choice > 0)
+        {
+            choice = choice - 1;
+        }
+        break;
+    case 's':
+    case 'S':
+        if (choice < 2)
+        {
+            choice = choice + 1;
+        }
+        break;
+    case '\r': // enter key
+    case ' ':
+        switch (choice)
+        {
+        case 0:
+            addAdmin(admins);
+            break;
+        case 1:
+            adminLoginScreen();
+            break;
+        default:
+            cout << "Error" << endl;
+            break;
+           
+        }
+    default:
+        break;
+    }
+}
+
+void customerScreen(vector<Customer> &customers)
+{
+    int choice = 0, key;
+    system("cls");
+    getAirportManagementSystemText();
+    // gotoxy(15, 20);
+    cout << "What do you want to do(cUSTOMER)?" << endl;
+    if (choice == 0)
+        cout << YELLOW ">";
+    cout << "1.Register New" << RESET << endl;
+    if (choice == 1)
+        cout << YELLOW ">";
+    cout << "2.Login" << RESET << endl;
+
+    key = _getch();
+    switch (key)
+    {
+    case 'w':
+    case 'W':
+        if (choice > 0)
+        {
+            choice = choice - 1;
+        }
+        break;
+    case 's':
+    case 'S':
+        if (choice < 2)
+        {
+            choice = choice + 1;
+        }
+        break;
+    case '\r': // enter key
+    case ' ':
+        switch (choice)
+        {
+        case 0:
+            addCustomer(customers);
+            break;
+        case 1:
+            customerLoginScreen(customers);
+            break;
+        default:
+            cout << "Error" << endl;
+            break;
+           
+        }
+    default:
+        break;
+    }
+}
+
+
 int main()
 {
     vector<Admin> admins;
     vector<Customer> customers;
 
-    cout << "Testing" << endl;
+    // cout << "Testing" << endl;
     int temp;
 
     do
     {
-        cout << "1.Admin, 2.User\n>";
-        cin >> temp;
-        switch (temp)
-        {
-        case 1:
-            cout << "1.Register new Admin\n2.Login Admin\n>";
-            cin >> temp;
-            switch (temp)
+        int choice = 0, key;
+        system("cls");
+        getAirportManagementSystemText();
+        // gotoxy(15, 20);
+        cout << "Who Is Using?" << endl;
+        if (choice == 0)
+            cout << YELLOW ">";
+        cout << "1.Admin" << RESET << endl;
+        if (choice == 1)
+            cout << YELLOW ">";
+        cout << "2.Customer" << RESET << endl;
+
+        hideCursor();
+        key = _getch();
+        cout << key;
+    
+        if((key=='w' || key=='W') && (choice>0)){
+            choice = choice - 1;
+        }
+        else if((key=='s' || key=='S') && (choice<2)){
+            choice = choice + 1;
+        }
+        else if((key=='\r' || key==' ') && (choice<2)) {
+            switch (choice)
             {
+            case 0:
+                adminScreen(admins);
+                break;
             case 1:
-                addUser(admins);
-                break;
-            case 2:
-                adminScreen();
-                break;
-            case 3:
+                customerScreen(customers);
                 break;
             default:
-                cout << "Not a Valid command\n>" << endl;
                 break;
             }
-
-            break;
-
-        case 2:
-            cout << "1.Register new User\n2.Login User\n>";
-            cin >> temp;
-            switch (temp)
-            {
-            case 1:
-                addUser(customers);
-                break;
-            case 2:
-                userScreen(customers);
-                break;
-            case 3:
-                break;
-            default:
-                cout << "Not a Valid command\n>" << endl;
-                break;
-            }
-            break;
-        default:
-            break;
+        }
+        else {
+            cout << "idk" << endl;
         }
     } while (temp != 0);
 }
