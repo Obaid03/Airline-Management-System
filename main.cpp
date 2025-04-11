@@ -189,7 +189,6 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
 {
     bool exit = false;
     int choice = 0, key, maxChoices = 3;
-    ;
     do
     {
         system("cls");
@@ -259,9 +258,30 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
 
 int main()
 {
+    /*
     vector<Admin> admins;
     vector<Customer> customers;
+    */
+    
 
+    // Temporary hardcoded Admins
+    vector<Admin> admins = {
+        Admin("A001", "Alice", "alice@admin.com", "alice123"),
+        Admin("A002", "Bob", "bob@admin.com", "bob123"),
+        Admin("A003", "Charlie", "charlie@admin.com", "charlie123"),
+        Admin("A004", "Diana", "diana@admin.com", "diana123"),
+        Admin("A005", "Evan", "evan@admin.com", "evan123")
+    };
+
+    // Temporary hardcoded Customers
+    vector<Customer> customers = {
+        Customer("C001", "Fahad", "fahad@user.com", "fahad123"),
+        Customer("C002", "Gina", "gina@user.com", "gina123"),
+        Customer("C003", "Hassan", "hassan@user.com", "hassan123"),
+        Customer("C004", "Isha", "isha@user.com", "isha123"),
+        Customer("C005", "Junaid", "junaid@user.com", "junaid123")
+    };
+    
     int temp;
     int choice = 0, key;
     do
