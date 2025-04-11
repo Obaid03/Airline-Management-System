@@ -29,6 +29,7 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 
+//login screen
 void customerLoginScreen(const vector<Customer> customers)
 {
     bool flag = false;
@@ -75,6 +76,7 @@ void adminLoginScreen()
     cout << "This will show functions related to admin" << endl;
 }
 
+//register functions(new user registration screen)
 void addCustomer(vector<Customer> &customers)
 {
     string temp, passRepeat;
@@ -135,6 +137,8 @@ void addAdmin(vector<Admin> &admins)
     admins.push_back(newUser);
 }
 
+
+//admin menu screen(calls admin register function and admin login function)
 void adminScreen(vector<Admin> &admins)
 {
     bool exit = false;
@@ -195,6 +199,7 @@ void adminScreen(vector<Admin> &admins)
     } while (exit == false);
 }
 
+//customer menu screen(calls customer register function and admin login function)
 void customerScreen(vector<Customer> &customers)
 {
     int choice = 0, key;
@@ -244,6 +249,8 @@ void customerScreen(vector<Customer> &customers)
         break;
     }
 }
+
+
 
 int main()
 {
