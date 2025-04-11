@@ -40,7 +40,7 @@ public:
     void setUserEmail(const string &email) { userEmail = email; }
     void setUserPassword(const string &password) { userPassword = password; }
 
-    string getUserName() const { return userEmail; }
+    string getUserName() const { return userName; }
     string getUserEmail() const { return userEmail; }
     string getUserPassword() const { return userPassword; }
 };
