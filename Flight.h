@@ -6,8 +6,17 @@
 #define FLIGHT_H
 using namespace std;
 
+
 class Flight {
 private:
+    int flightNumber;//unique identifier
+    string departure;//from which city
+    string destination;//to which city
+    float flightTime;//time for flight in hours
+    double distanceInKms;
+    int numOfSeatsInFlight;
+
+    vector<Customer> listOfCustomers;
 
 public:
 };
