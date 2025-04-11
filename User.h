@@ -19,7 +19,7 @@ private:
 
 public:
     User(string userID, string userName, string userEmail, string userPassword) : userID(userID), userName(userName), userEmail(userEmail), userPassword(userPassword) {
-        this->userID = noOfUsers++;
+        this->userID = ++noOfUsers;
     };
     
     bool verifyCredential(const string& email, const string& password) {
@@ -35,17 +35,20 @@ public:
     string getUserPassword() const {return userPassword;}
 };
 
-int User::noOfUsers = 0;
+
 
 class Admin : public User {
 private:
+    static int noOfAdmins;
 
 public:
-Admin(string userID="", string userName="", string userEmail="", string userPassword="") : User(userID,userName,userEmail,userPassword) {}
+Admin(string userID="", string userName="", string userEmail="", string userPassword="") : User(userID,userName,userEmail,userPassword) {
+    noOfAdmins++;
+}
    
 
-    void addNewFlight() {
-
+    void addNewFlight(vector<Flight>& flights, Flight& newFlightToAdd) {
+        flights.push_back(newFlightToAdd);
     }
 
     void removeFlight() {
@@ -65,15 +68,13 @@ Admin(string userID="", string userName="", string userEmail="", string userPass
 class Customer : public User {
 private:
     static int noOfCustomers;
-    vector<Flight> flightsRegisteredByUser;
-    int noOfFlights = flightsRegisteredByUser.size();
 
-    vector<Flight> flightsBookedByUser;
-    int noOfBookedFlights = flightsBookedByUser.size();
+    vector<Flight> flightsBookedByCustomer;
+    int noOfBookedFlights = flightsBookedByCustomer.size();
 
 
 public:
-    Customer(string userID="", string userName="", string userEmail="", string userPassword="") : User(userID,userName,userEmail,userPassword) , flightsRegisteredByUser(0) {
+    Customer(string userID="", string userName="", string userEmail="", string userPassword="") : User(userID,userName,userEmail,userPassword) , flightsBookedByCustomer(0) {
         noOfCustomers++;
     }
 
@@ -108,5 +109,7 @@ public:
 };
 
 int Customer::noOfCustomers = 0;
+int Admin::noOfAdmins = 0;
+int User::noOfUsers = 0;
 
 #endif //USER_H

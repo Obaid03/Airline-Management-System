@@ -8,8 +8,6 @@ git commit -m "Your commit message"
 git push origin main
 */
 
-// test comment
-// Hasnain test comment
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -29,7 +27,7 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 
-//login screen
+// login screen(when admin and user want to login)
 void customerLoginScreen(const vector<Customer> customers)
 {
     bool flag = false;
@@ -71,12 +69,49 @@ void customerLoginScreen(const vector<Customer> customers)
     }
 }
 
-void adminLoginScreen()
+void adminLoginScreen(const vector<Admin> admins)
 {
-    cout << "This will show functions related to admin" << endl;
+    bool flag = false;
+    string temp;
+    do
+    {
+        cout << "Enter email of user" << endl;
+        cin >> temp;
+        for (Admin i : admins)
+        {
+            if (temp == i.getUserEmail())
+            {
+                flag = true;
+                break;
+            }
+            else
+            {
+                flag = false;
+            }
+        }
+        if (flag == false)
+        {
+            cout << "user not found" << endl;
+        }
+    } while (flag == false);
+    cout << "Enter password" << endl;
+    cin >> temp;
+    for (Admin i : admins)
+    {
+        if (temp == i.getUserPassword())
+        {
+            cout << "Login Successful" << endl;
+            cout << "This will show functions related to user" << endl;
+        }
+        else
+        {
+            cout << "Wrong Password!" << endl;
+        }
+    }
 }
+// end of login screen functions
 
-//register functions(new user registration screen)
+// register functions(new user registration screen)
 void addCustomer(vector<Customer> &customers)
 {
     string temp, passRepeat;
@@ -136,19 +171,20 @@ void addAdmin(vector<Admin> &admins)
 
     admins.push_back(newUser);
 }
+// end of register functions(new user registration functions)
 
-
-//admin menu screen(calls admin register function and admin login function)
-void adminScreen(vector<Admin> &admins)
+// admin menu screen(calls admin register function and admin login function)
+void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     bool exit = false;
-    int choice = 0, key, maxChoices = 3;;
+    int choice = 0, key, maxChoices = 3;
+    ;
     do
     {
         system("cls");
         getAirportManagementSystemText();
         // gotoxy(15, 20);
-        cout << "What do you want to do?(admin)" << endl;
+        cout << "What do you want to do?" << endl;
         if (choice == 0)
             cout << YELLOW ">";
         cout << "1.Register New" << RESET << endl;
@@ -158,7 +194,7 @@ void adminScreen(vector<Admin> &admins)
         if (choice == 2)
             cout << YELLOW " ";
         cout << "<Go Back>" << RESET << endl;
-        //update maxChoices if adding another menu item
+        // update maxChoices if adding another menu item
 
         key = _getch();
 
@@ -177,10 +213,16 @@ void adminScreen(vector<Admin> &admins)
             switch (choice)
             {
             case 0:
-                addAdmin(admins);
+                if (isAdmin)
+                    addAdmin(admins);
+                else
+                    addCustomer(customers);
                 break;
             case 1:
-                adminLoginScreen();
+                if (isAdmin)
+                    adminLoginScreen(admins);
+                else
+                    customerLoginScreen(customers);
                 break;
             case 2:
                 exit = true;
@@ -199,65 +241,12 @@ void adminScreen(vector<Admin> &admins)
     } while (exit == false);
 }
 
-//customer menu screen(calls customer register function and admin login function)
-void customerScreen(vector<Customer> &customers)
-{
-    int choice = 0, key;
-    system("cls");
-    getAirportManagementSystemText();
-    // gotoxy(15, 20);
-    cout << "What do you want to do(cUSTOMER)?" << endl;
-    if (choice == 0)
-        cout << YELLOW ">";
-    cout << "1.Register New" << RESET << endl;
-    if (choice == 1)
-        cout << YELLOW ">";
-    cout << "2.Login" << RESET << endl;
-
-    key = _getch();
-    switch (key)
-    {
-    case 'w':
-    case 'W':
-        if (choice > 0)
-        {
-            choice = choice - 1;
-        }
-        break;
-    case 's':
-    case 'S':
-        if (choice < 2)
-        {
-            choice = choice + 1;
-        }
-        break;
-    case '\r': // enter key
-    case ' ':
-        switch (choice)
-        {
-        case 0:
-            addCustomer(customers);
-            break;
-        case 1:
-            customerLoginScreen(customers);
-            break;
-        default:
-            cout << "Error" << endl;
-            break;
-        }
-    default:
-        break;
-    }
-}
-
-
 
 int main()
 {
     vector<Admin> admins;
     vector<Customer> customers;
 
-    // cout << "Testing" << endl;
     int temp;
     int choice = 0, key;
     do
@@ -280,7 +269,7 @@ int main()
 
         if ((key == 'w' || key == 'W') && (choice > 0))
         {
-            choice = choice - 1;
+            choice--;
             cout << "W";
         }
         else if ((key == 's' || key == 'S') && (choice < 2))
@@ -293,10 +282,10 @@ int main()
             switch (choice)
             {
             case 0:
-                adminScreen(admins);
+                registerAndLoginScreen(admins, customers, true);
                 break;
             case 1:
-                customerScreen(customers);
+                registerAndLoginScreen(admins, customers, false);
                 break;
             default:
                 break;
