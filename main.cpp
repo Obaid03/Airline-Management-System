@@ -28,6 +28,7 @@ git push origin main
 using namespace std;
 
 
+
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, bool isAdmin)
 {
@@ -35,26 +36,26 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
     string temp;
     int noOfUsers;
     vector<User *> users; // list/array of pointers to either admin or customer
-    int i = 0;
+
+    /*The Range for loop stores one item of a container in the left hand side, so in each iteration
+    it is actually storing an object/index of an array/vector in the left hand side, so by storing it
+    as a refrence we are directly passing the memory address of admin users to users vector*/
     if (isAdmin)
     {
         noOfUsers = admins.size(); // get no of admins through vector
-        for (Admin a : admins)
+        for (const Admin &a : admins)
         {
-            users.push_back(&a);
-            i++;
+            users.push_back(const_cast<Admin *>(&a));//here it is typecasting from refrence to pointer
         }
     }
     else
     {
         noOfUsers = customers.size(); // get no of customers through vector
-        for (Customer c : customers)
+        for (const Customer &c : customers)
         {
-            users.push_back(&c);
-            i++;
+            users.push_back(const_cast<Customer *>(&c));
         }
     }
-    i = 0;
     do
     {
         cout << "Enter email of user" << endl;
@@ -83,7 +84,8 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
         if (temp == users[i]->getUserPassword())
         {
             cout << "Login Successful" << endl;
-            cout << "This will show functions related to user" << endl;
+            users[i]->userPanel();
+            
         }
         else
         {

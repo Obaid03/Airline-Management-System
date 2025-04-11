@@ -26,6 +26,8 @@ public:
         return(userEmail==email && userPassword==password);
     }
 
+    virtual void userPanel() = 0;
+
     void setUserName(const string& name) {userName = name;}
     void setUserEmail(const string& email) {userEmail = email;}
     void setUserPassword(const string& password) {userPassword = password;}
@@ -61,6 +63,11 @@ Admin(string userID="", string userName="", string userEmail="", string userPass
 
     void listAllCustomers() {
 
+    }
+
+    void userPanel() override{
+        system("cls");
+        cout << "Control over to Admin" << endl;
     }
 };
 
@@ -104,7 +111,13 @@ public:
 
     }
 
+    void userPanel() override{
+        system("cls");
+        cout << "Customer Control Panel" << endl;
+        cout << "======================" << endl;
 
+        
+    }
 
 };
 
