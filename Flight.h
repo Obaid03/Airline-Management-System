@@ -1,6 +1,6 @@
-//
-// Created by muhammad-ibrahim on 3/23/25.
-//
+
+
+//Contains Flight Class
 
 #ifndef FLIGHT_H
 #define FLIGHT_H

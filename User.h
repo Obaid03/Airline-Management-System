@@ -1,6 +1,5 @@
-//
-// Created by muhammad-ibrahim on 3/23/25.
-//
+
+//Contains User Class
 
 #ifndef USER_H
 #define USER_H
