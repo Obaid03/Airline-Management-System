@@ -27,22 +27,41 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 
-void customerScreen(vector<Customer> customers)
-{
-}
 
 // login screen(when admin and user want to login)
-void customerLoginScreen(const vector<Customer> customers)
+void loginScreen(const vector<Customer> customers, const vector<Admin> admins, bool isAdmin)
 {
-    bool flag = false;
+    bool flag = false; // flag true if email entered by user is equal to an email in storage(the email user wants to log in to)
     string temp;
+    int noOfUsers;
+    vector<User *> users; // list/array of pointers to either admin or customer
+    int i = 0;
+    if (isAdmin)
+    {
+        noOfUsers = admins.size(); // get no of admins through vector
+        for (Admin a : admins)
+        {
+            users.push_back(&a);
+            i++;
+        }
+    }
+    else
+    {
+        noOfUsers = customers.size(); // get no of customers through vector
+        for (Customer c : customers)
+        {
+            users.push_back(&c);
+            i++;
+        }
+    }
+    i = 0;
     do
     {
         cout << "Enter email of user" << endl;
         cin >> temp;
-        for (Customer i : customers)
+        for (int i = 0; i < noOfUsers; i++) // int i = 0; i < noUsers; i++
         {
-            if (temp == i.getUserEmail())
+            if (temp == users[i]->getUserEmail()) // users[i]->getUserEmail();
             {
                 flag = true;
                 break;
@@ -54,14 +73,14 @@ void customerLoginScreen(const vector<Customer> customers)
         }
         if (flag == false)
         {
-            cout << "user not found" << endl;
+            cout << "User not found" << endl;
         }
     } while (flag == false);
     cout << "Enter password" << endl;
     cin >> temp;
-    for (Customer i : customers)
+    for (int i = 0; i < noOfUsers; i++)
     {
-        if (temp == i.getUserPassword())
+        if (temp == users[i]->getUserPassword())
         {
             cout << "Login Successful" << endl;
             cout << "This will show functions related to user" << endl;
@@ -73,6 +92,7 @@ void customerLoginScreen(const vector<Customer> customers)
     }
 }
 
+/*
 void adminLoginScreen(const vector<Admin> admins)
 {
     bool flag = false;
@@ -114,7 +134,9 @@ void adminLoginScreen(const vector<Admin> admins)
     }
 }
 // end of login screen functions
+*/
 
+//when new user is need to be added
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     system("cls");
@@ -155,11 +177,10 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         admins.push_back(admin);
     else
         customers.push_back(customer);
-    
+
     cout << "User Added Successfully[Press Enter To Return]" << endl;
     cin >> temp;
 }
-// end of register functions(new user registration functions)
 
 // register and login screen
 void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
@@ -205,7 +226,7 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         {
             switch (choice)
             {
-            case 0://register new user
+            case 0: // register new user
                 if (isAdmin)
                     addNewUser(admins, customers, true);
                 else
@@ -213,9 +234,9 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
                 break;
             case 1:
                 if (isAdmin)
-                    adminLoginScreen(admins);
+                    loginScreen(customers, admins, true);
                 else
-                    customerLoginScreen(customers);
+                    loginScreen(customers, admins, false);
                 break;
             case 2:
                 exit = true;
@@ -274,10 +295,10 @@ int main()
         {
             switch (choice)
             {
-            case 0:
+            case 0: // admin
                 registerAndLoginScreen(admins, customers, true);
                 break;
-            case 1:
+            case 1: // customer
                 registerAndLoginScreen(admins, customers, false);
                 break;
             default:
