@@ -27,7 +27,9 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 
-
+void customerScreen(vector<Customer> customers)
+{
+}
 
 // login screen(when admin and user want to login)
 void customerLoginScreen(const vector<Customer> customers)
@@ -113,17 +115,25 @@ void adminLoginScreen(const vector<Admin> admins)
 }
 // end of login screen functions
 
-// register functions(new user registration screen)
-void addCustomer(vector<Customer> &customers)
+void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
+    system("cls");
     string temp, passRepeat;
-    Customer newUser;
+    User *newUser;
+    Admin admin;
+    Customer customer;
+
+    if (isAdmin)
+        newUser = &admin;
+    else
+        newUser = &customer;
+
     cout << "Enter name of new user" << endl;
     cin >> temp;
-    newUser.setUserName(temp);
+    newUser->setUserName(temp);
     cout << "Enter email of new user" << endl;
     cin >> temp; // can add a function to check valid email
-    newUser.setUserEmail(temp);
+    newUser->setUserEmail(temp);
     do
     {
         cout << "Enter password for user" << endl;
@@ -132,7 +142,7 @@ void addCustomer(vector<Customer> &customers)
         cin >> passRepeat;
         if (temp == passRepeat)
         {
-            newUser.setUserPassword(passRepeat);
+            newUser->setUserPassword(passRepeat);
             cout << "User added successfully" << endl;
         }
         else
@@ -141,42 +151,17 @@ void addCustomer(vector<Customer> &customers)
         }
     } while (temp != passRepeat); // can add a function to push the user to generate a strong password
 
-    customers.push_back(newUser);
-}
-
-void addAdmin(vector<Admin> &admins)
-{
-    string temp, passRepeat;
-    Admin newUser;
-    cout << "Enter name of new user" << endl;
+    if (isAdmin)
+        admins.push_back(admin);
+    else
+        customers.push_back(customer);
+    
+    cout << "User Added Successfully[Press Enter To Return]" << endl;
     cin >> temp;
-    newUser.setUserName(temp);
-    cout << "Enter email of new user" << endl;
-    cin >> temp; // can add a function to check valid email
-    newUser.setUserEmail(temp);
-    do
-    {
-        cout << "Enter password for user" << endl;
-        cin >> temp;
-        cout << "Repeat password" << endl;
-        cin >> passRepeat;
-        if (temp == passRepeat)
-        {
-            newUser.setUserPassword(passRepeat);
-            cout << "User added successfully" << endl;
-        }
-        else
-        {
-            cout << "Passwords do not match! Enter Again" << endl;
-        }
-    } while (temp != passRepeat); // can add a function to push the user to generate a strong password
-
-    admins.push_back(newUser);
 }
 // end of register functions(new user registration functions)
 
-
-//register and login screen
+// register and login screen
 void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     bool exit = false;
@@ -188,11 +173,10 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         getAirportManagementSystemText();
         // gotoxy(15, 20);
         cout << "What do you want to do?";
-        if(isAdmin)
+        if (isAdmin)
             cout << "--[Admin]" << endl;
         else
             cout << "--[Customer]" << endl;
-
 
         if (choice == 0)
             cout << YELLOW ">";
@@ -221,11 +205,11 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         {
             switch (choice)
             {
-            case 0:
+            case 0://register new user
                 if (isAdmin)
-                    addAdmin(admins);
+                    addNewUser(admins, customers, true);
                 else
-                    addCustomer(customers);
+                    addNewUser(admins, customers, false);
                 break;
             case 1:
                 if (isAdmin)
@@ -250,7 +234,6 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
     } while (exit == false);
 }
 
-
 int main()
 {
     vector<Admin> admins;
@@ -263,6 +246,7 @@ int main()
 
         system("cls");
         getAirportManagementSystemText();
+
         // gotoxy(15, 20);
         cout << "Who Is Using?" << endl;
         if (choice == 0)
