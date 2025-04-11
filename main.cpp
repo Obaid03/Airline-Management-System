@@ -266,20 +266,20 @@ int main()
 
     // Temporary hardcoded Admins
     vector<Admin> admins = {
-        Admin("A001", "Alice", "alice@admin.com", "alice123"),
-        Admin("A002", "Bob", "bob@admin.com", "bob123"),
-        Admin("A003", "Charlie", "charlie@admin.com", "charlie123"),
-        Admin("A004", "Diana", "diana@admin.com", "diana123"),
-        Admin("A005", "Evan", "evan@admin.com", "evan123")
+        Admin("A001", "Alice", "alice@admin.com", "123"),
+        Admin("A002", "Bob", "bob@admin.com", "123"),
+        Admin("A003", "Charlie", "charlie@admin.com", "123"),
+        Admin("A004", "Diana", "diana@admin.com", "123"),
+        Admin("A005", "Evan", "evan@admin.com", "123")
     };
 
     // Temporary hardcoded Customers
     vector<Customer> customers = {
-        Customer("C001", "Fahad", "fahad@user.com", "fahad123"),
-        Customer("C002", "Gina", "gina@user.com", "gina123"),
-        Customer("C003", "Hassan", "hassan@user.com", "hassan123"),
-        Customer("C004", "Isha", "isha@user.com", "isha123"),
-        Customer("C005", "Junaid", "junaid@user.com", "junaid123")
+        Customer("C001", "Fahad", "fahad@user.com", "123"),
+        Customer("C002", "Gina", "gina@user.com", "123"),
+        Customer("C003", "Hassan", "hassan@user.com", "123"),
+        Customer("C004", "Isha", "isha@user.com", "123"),
+        Customer("C005", "Junaid", "junaid@user.com", "123")
     };
     
     int temp;
