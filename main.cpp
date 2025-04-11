@@ -27,6 +27,8 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 
+
+
 // login screen(when admin and user want to login)
 void customerLoginScreen(const vector<Customer> customers)
 {
@@ -173,7 +175,8 @@ void addAdmin(vector<Admin> &admins)
 }
 // end of register functions(new user registration functions)
 
-// admin menu screen(calls admin register function and admin login function)
+
+//register and login screen
 void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     bool exit = false;
@@ -184,7 +187,13 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         system("cls");
         getAirportManagementSystemText();
         // gotoxy(15, 20);
-        cout << "What do you want to do?" << endl;
+        cout << "What do you want to do?";
+        if(isAdmin)
+            cout << "--[Admin]" << endl;
+        else
+            cout << "--[Customer]" << endl;
+
+
         if (choice == 0)
             cout << YELLOW ">";
         cout << "1.Register New" << RESET << endl;
@@ -296,5 +305,5 @@ int main()
         {
             cout << "idk" << endl;
         }
-    } while (1);
+    } while (key != 0);
 }
