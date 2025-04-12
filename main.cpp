@@ -185,12 +185,12 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         if ((key == 'w' || key == 'W') && (choice > 0))
         {
             choice--;
-            cout << "W";
+            // cout << "W";
         }
         else if ((key == 's' || key == 'S') && (choice < maxChoices))
         {
             choice++;
-            cout << "S";
+            // cout << "S";
         }
         else if (key == '\r' || key == ' ')
         {
@@ -279,12 +279,12 @@ int main()
         if ((key == 'w' || key == 'W') && (choice > 0))
         {
             choice--;
-            cout << "W";
+            // cout << "W";
         }
         else if ((key == 's' || key == 'S') && (choice < maxChoices))
         {
             choice++;
-            cout << "S";
+            // cout << "S";
         }
         else if (key == '\r' || key == ' ')
         {

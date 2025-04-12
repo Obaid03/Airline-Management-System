@@ -34,7 +34,8 @@ public:
 
     virtual void userPanel() = 0;
 
-    void editInformation() {
+    void editInformation()
+    {
         cout << "will d";
     }
 
@@ -79,38 +80,34 @@ public:
     {
         system("cls");
 
-        int choice = 0, key, maxChoices = 0;
+        int choice = 0;
+        int key; 
+        int maxChoices = 5;
         bool exit = false;
         do
         {
             system("cls");
             cout << "Admin Control Panel" << endl;
             cout << "======================" << endl;
-            cout << "Hello, " << getUserName() << endl;
+            cout << "Hello, " << getUserName() << endl << "\n";
             if (choice == 0)
                 cout << YELLOW ">";
             cout << "1.Edit Information" << RESET << endl;
-            maxChoices++;
             if (choice == 1)
                 cout << YELLOW ">";
             cout << "2.Add New Flight" << RESET << endl;
-            maxChoices++;
             if (choice == 2)
                 cout << YELLOW ">";
             cout << "3.Remove Flight" << RESET << endl;
-            maxChoices++;
             if (choice == 3)
                 cout << YELLOW ">";
             cout << "4.List All Flights" << RESET << endl;
-            maxChoices++;
             if (choice == 4)
                 cout << YELLOW ">";
             cout << "5.List All Customers" << RESET << endl;
-            maxChoices++;
             if (choice == 5)
                 cout << YELLOW ">";
             cout << "6.Exit" << RESET << endl;
-            maxChoices++;
             // update maxChoices if adding another menu item
 
             key = _getch();
@@ -118,14 +115,14 @@ public:
             if ((key == 'w' || key == 'W') && (choice > 0))
             {
                 choice--;
-                cout << "W";
+                // cout << "W";
             }
             else if ((key == 's' || key == 'S') && (choice < maxChoices))
             {
                 choice++;
-                cout << "S";
+                // cout << "S";
             }
-            else if ((key == '\r' || key == ' ') && (choice < maxChoices))
+            else if (key == '\r' || key == ' ')
             {
                 switch (choice)
                 {
@@ -140,7 +137,7 @@ public:
                 case 3: // list all flights
                     listAllFlights();
                     break;
-                case 4: 
+                case 4:
                     listAllCustomers();
                     break;
                 case 5:
@@ -159,7 +156,6 @@ public:
         } while (exit == false);
     }
 };
-
 
 class Customer : public User
 {
@@ -195,34 +191,32 @@ public:
     {
         system("cls");
 
-        int choice = 0, key, maxChoices = 0;
+        int choice = 0;
+        int key = 0;
+        int maxChoices = 4;
         bool exit = false;
         do
         {
             system("cls");
             cout << "Customer Control Panel" << endl;
             cout << "======================" << endl;
-            cout << "Hello, " << getUserName() << endl;
+            cout << "Hello, " << getUserName() << endl
+                 << "\n";
             if (choice == 0)
                 cout << YELLOW ">";
             cout << "1.Edit Information" << RESET << endl;
-            maxChoices++;
             if (choice == 1)
                 cout << YELLOW ">";
             cout << "2.Display Data" << RESET << endl;
-            maxChoices++;
             if (choice == 2)
                 cout << YELLOW ">";
             cout << "3.Book New Flight" << RESET << endl;
-            maxChoices++;
             if (choice == 3)
                 cout << YELLOW ">";
             cout << "4.Remove Flight" << RESET << endl;
-            maxChoices++;
             if (choice == 4)
                 cout << YELLOW ">";
             cout << "5.Exit" << RESET << endl;
-            maxChoices++;
             // update maxChoices if adding another menu item
 
             key = _getch();
@@ -230,14 +224,14 @@ public:
             if ((key == 'w' || key == 'W') && (choice > 0))
             {
                 choice--;
-                cout << "W";
+                // cout << "W";
             }
             else if ((key == 's' || key == 'S') && (choice < maxChoices))
             {
                 choice++;
-                cout << "S";
+                // cout << "S";
             }
-            else if ((key == '\r' || key == ' ') && (choice < maxChoices))
+            else if (key == '\r' || key == ' ')
             {
                 switch (choice)
                 {
@@ -256,7 +250,6 @@ public:
                     exit = true;
                     break;
                 default:
-
                     break;
                 }
             }
