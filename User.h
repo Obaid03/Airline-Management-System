@@ -112,12 +112,12 @@ public:
 
             key = _getch();
 
-            if ((key == 'w' || key == 'W') && (choice > 0))
+            if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
             {
                 choice--;
                 // cout << "W";
             }
-            else if ((key == 's' || key == 'S') && (choice < maxChoices))
+            else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
             {
                 choice++;
                 // cout << "S";
@@ -221,12 +221,12 @@ public:
 
             key = _getch();
 
-            if ((key == 'w' || key == 'W') && (choice > 0))
+            if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
             {
                 choice--;
                 // cout << "W";
             }
-            else if ((key == 's' || key == 'S') && (choice < maxChoices))
+            else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
             {
                 choice++;
                 // cout << "S";
