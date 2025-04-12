@@ -27,8 +27,6 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 
-
-
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, bool isAdmin)
 {
@@ -45,7 +43,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
         noOfUsers = admins.size(); // get no of admins through vector
         for (const Admin &a : admins)
         {
-            users.push_back(const_cast<Admin *>(&a));//here it is typecasting from refrence to pointer
+            users.push_back(const_cast<Admin *>(&a)); // here it is typecasting from refrence to pointer
         }
     }
     else
@@ -85,7 +83,6 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
         {
             cout << "Login Successful" << endl;
             users[i]->userPanel();
-            
         }
         else
         {
@@ -94,51 +91,8 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
     }
 }
 
-/*
-void adminLoginScreen(const vector<Admin> admins)
-{
-    bool flag = false;
-    string temp;
-    do
-    {
-        cout << "Enter email of user" << endl;
-        cin >> temp;
-        for (Admin i : admins)
-        {
-            if (temp == i.getUserEmail())
-            {
-                flag = true;
-                break;
-            }
-            else
-            {
-                flag = false;
-            }
-        }
-        if (flag == false)
-        {
-            cout << "user not found" << endl;
-        }
-    } while (flag == false);
-    cout << "Enter password" << endl;
-    cin >> temp;
-    for (Admin i : admins)
-    {
-        if (temp == i.getUserPassword())
-        {
-            cout << "Login Successful" << endl;
-            cout << "This will show functions related to user" << endl;
-        }
-        else
-        {
-            cout << "Wrong Password!" << endl;
-        }
-    }
-}
-// end of login screen functions
-*/
 
-//when new user is need to be added
+// when new user is need to be added
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     system("cls");
@@ -152,7 +106,6 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     else
         newUser = &customer;
 
-    
     cout << "Enter name of new user" << endl;
     cin >> temp;
     newUser->setUserName(temp);
@@ -168,7 +121,6 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         if (temp == passRepeat)
         {
             newUser->setUserPassword(passRepeat);
-            cout << "User added successfully" << endl;
         }
         else
         {
@@ -188,15 +140,15 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
 // register and login screen
 void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
-    bool exit = false;//exit condition to check at the end of do while
-    int choice = 0; 
+    bool exit = false; // exit condition to check at the end of do while
+    int choice = 0;
     int maxChoices = 2;
     int key;
     do
     {
         system("cls");
         getAirportManagementSystemText();
-        
+
         cout << "What do you want to do?";
         if (isAdmin)
             cout << "--[Admin]" << endl;
@@ -264,7 +216,6 @@ int main()
     vector<Admin> admins;
     vector<Customer> customers;
     */
-    
 
     // Temporary hardcoded Admins
     vector<Admin> admins = {
@@ -272,8 +223,7 @@ int main()
         Admin("A002", "Bob", "bob@admin.com", "123"),
         Admin("A003", "Charlie", "charlie@admin.com", "123"),
         Admin("A004", "Diana", "diana@admin.com", "123"),
-        Admin("A005", "Evan", "evan@admin.com", "123")
-    };
+        Admin("A005", "Evan", "evan@admin.com", "123")};
 
     // Temporary hardcoded Customers
     vector<Customer> customers = {
@@ -281,17 +231,16 @@ int main()
         Customer("C002", "Gina", "gina@user.com", "123"),
         Customer("C003", "Hassan", "hassan@user.com", "123"),
         Customer("C004", "Isha", "isha@user.com", "123"),
-        Customer("C005", "Junaid", "junaid@user.com", "123")
-    };
-    
+        Customer("C005", "Junaid", "junaid@user.com", "123")};
+
     bool exit = false;
-    int choice = 0;//selects the option to choose
+    int choice = 0; // selects the option to choose
     // here choice = 0 ->Admin\\ and choice = 1->Customer
 
-    int maxChoices = 2;//used as an upper limit so choice cannot be higher than this
-    //lower limit is always 0
+    int maxChoices = 2; // used as an upper limit so choice cannot be higher than this
+    // lower limit is always 0
 
-    int key;//variable to take input from the user 
+    int key; // variable to take input from the user
     do
     {
 
