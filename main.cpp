@@ -34,7 +34,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
     string temp;
     int noOfUsers;
     vector<User *> users; // list/array of pointers to either admin or customer
-
+    int indexOfMatchedUser = -1;
     /*The Range for loop stores one item of a container in the left hand side, so in each iteration
     it is actually storing an object/index of an array/vector in the left hand side, so by storing it
     as a refrence we are directly passing the memory address of admin users to users vector*/
@@ -69,6 +69,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
             if (temp == users[i]->getUserEmail()) // users[i]->getUserEmail();
             {
                 flag = true;
+                indexOfMatchedUser = i;
                 break;
             }
             else
@@ -91,7 +92,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
             system("cls");
             cout << "Login Successful" << endl;
             system("pause");
-            users[i]->userPanel();
+            users[indexOfMatchedUser]->userPanel();
             return;
         }
         else
@@ -233,7 +234,7 @@ int main()
 
     // Temporary hardcoded Admins
     vector<Admin> admins = {
-        Admin("A001", "Alice", "test admin", "123"),
+        Admin("A001", "TestAdmin", "testadmin", "123"),
         Admin("A002", "Bob", "bob@admin.com", "123"),
         Admin("A003", "Charlie", "charlie@admin.com", "123"),
         Admin("A004", "Diana", "diana@admin.com", "123"),
@@ -241,7 +242,7 @@ int main()
 
     // Temporary hardcoded Customers
     vector<Customer> customers = {
-        Customer("C001", "Fahad", "test user", "123"),
+        Customer("C001", "TestUser", "testuser", "123"),
         Customer("C002", "Gina", "gina@user.com", "123"),
         Customer("C003", "Hassan", "hassan@user.com", "123"),
         Customer("C004", "Isha", "isha@user.com", "123"),
