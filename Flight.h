@@ -4,9 +4,10 @@
 
 #ifndef FLIGHT_H
 #define FLIGHT_H
+#include<vector>
 using namespace std;
 
-
+class Customer;
 class Flight {
 private:
     int flightNumber;//unique identifier
