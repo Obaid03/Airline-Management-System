@@ -3,11 +3,13 @@
 
 #ifndef USER_H
 #define USER_H
-#include "Flight.h"
+#include <iostream>
+#include <string>
 #include <vector>
+#include "Flight.h"
+#include <conio.h>
 #define YELLOW "\033[33m" /* Yellow */
 #define RESET "\033[0m"
-
 using namespace std;
 
 class User
