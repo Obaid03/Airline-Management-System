@@ -54,6 +54,12 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
             users.push_back(const_cast<Customer *>(&c));
         }
     }
+
+    system("cls");
+
+    cout << "Login Screen" << endl;
+    cout << "============" << endl;
+
     do
     {
         cout << "Enter email of user" << endl;
@@ -75,18 +81,23 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
             cout << "User not found" << endl;
         }
     } while (flag == false);
+
     cout << "Enter password" << endl;
     cin >> temp;
     for (int i = 0; i < noOfUsers; i++)
     {
         if (temp == users[i]->getUserPassword())
         {
+            system("cls");
             cout << "Login Successful" << endl;
+            system("pause");
             users[i]->userPanel();
+            return;
         }
         else
         {
             cout << "Wrong Password!" << endl;
+            system("pause");
         }
     }
 }
@@ -96,6 +107,9 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     system("cls");
+    cout << "User Registrarion" << endl;
+    cout << "=================" << endl;
+
     string temp, passRepeat;
     User *newUser;
     Admin admin;
@@ -133,7 +147,7 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     else
         customers.push_back(customer);
 
-    cout << "User Added Successfully[Press Enter To Return]" << endl;
+    cout << "User Added Successfully" << endl;
     system("pause");
 }
 
