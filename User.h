@@ -217,11 +217,11 @@ public:
             maxChoices++;
             if (choice == 3)
                 cout << YELLOW ">";
-            cout << "3.Remove Flight" << RESET << endl;
+            cout << "4.Remove Flight" << RESET << endl;
             maxChoices++;
             if (choice == 4)
                 cout << YELLOW ">";
-            cout << "4.Exit" << RESET << endl;
+            cout << "5.Exit" << RESET << endl;
             maxChoices++;
             // update maxChoices if adding another menu item
 

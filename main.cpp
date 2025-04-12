@@ -152,6 +152,7 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     else
         newUser = &customer;
 
+    
     cout << "Enter name of new user" << endl;
     cin >> temp;
     newUser->setUserName(temp);
@@ -181,19 +182,21 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         customers.push_back(customer);
 
     cout << "User Added Successfully[Press Enter To Return]" << endl;
-    cin >> temp;
+    system("pause");
 }
 
 // register and login screen
 void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
-    bool exit = false;
-    int choice = 0, key, maxChoices = 3;
+    bool exit = false;//exit condition to check at the end of do while
+    int choice = 0; 
+    int maxChoices = 2;
+    int key;
     do
     {
         system("cls");
         getAirportManagementSystemText();
-        // gotoxy(15, 20);
+        
         cout << "What do you want to do?";
         if (isAdmin)
             cout << "--[Admin]" << endl;
@@ -223,7 +226,7 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
             choice++;
             cout << "S";
         }
-        else if ((key == '\r' || key == ' ') && (choice < maxChoices))
+        else if (key == '\r' || key == ' ')
         {
             switch (choice)
             {
@@ -246,11 +249,10 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
             default:
                 break;
             }
-            cout << "R";
         }
         else
         {
-            cout << "error" << endl;
+            cout << "Error" << endl;
         }
 
     } while (exit == false);
@@ -282,15 +284,20 @@ int main()
         Customer("C005", "Junaid", "junaid@user.com", "123")
     };
     
-    int temp;
-    int choice = 0, key;
+    bool exit = false;
+    int choice = 0;//selects the option to choose
+    // here choice = 0 ->Admin\\ and choice = 1->Customer
+
+    int maxChoices = 2;//used as an upper limit so choice cannot be higher than this
+    //lower limit is always 0
+
+    int key;//variable to take input from the user 
     do
     {
 
         system("cls");
         getAirportManagementSystemText();
 
-        // gotoxy(15, 20);
         cout << "Who Is Using?" << endl;
         if (choice == 0)
             cout << YELLOW ">";
@@ -298,6 +305,9 @@ int main()
         if (choice == 1)
             cout << YELLOW ">";
         cout << "2.Customer" << RESET << endl;
+        if (choice == 2)
+            cout << YELLOW ">";
+        cout << "3.Exit" << RESET << endl;
 
         hideCursor();
         key = _getch();
@@ -308,12 +318,12 @@ int main()
             choice--;
             cout << "W";
         }
-        else if ((key == 's' || key == 'S') && (choice < 2))
+        else if ((key == 's' || key == 'S') && (choice < maxChoices))
         {
             choice++;
             cout << "S";
         }
-        else if ((key == '\r' || key == ' ') && (choice < 2))
+        else if (key == '\r' || key == ' ')
         {
             switch (choice)
             {
@@ -323,14 +333,16 @@ int main()
             case 1: // customer
                 registerAndLoginScreen(admins, customers, false);
                 break;
+            case 2:
+                exit = true;
             default:
                 break;
             }
-            cout << "R";
         }
         else
         {
-            cout << "idk" << endl;
+            cout << "Use W and S to navigate" << endl;
         }
-    } while (key != 0);
+    } while (exit == false);
+    return 0;
 }
