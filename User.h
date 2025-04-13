@@ -10,6 +10,7 @@
 
 //classes
 #include "Flight.h"
+#include "ConsoleManipulation.h"
 
 
 #define YELLOW "\033[33m"
@@ -21,6 +22,7 @@
 #define MAGENTA "\033[35m"
 #define WHITE "\033[37m"
 using namespace std;
+const int screenWidth = 100;
 
 //Global Functions
 bool isValidEmail(const string &email)
@@ -467,23 +469,33 @@ public:
         {
             system("cls");
 
-            cout << CYAN << "+--------------------------------------------------+" << endl;
-            cout << "| " << YELLOW << "               CUSTOMER DASHBOARD                " << CYAN << "|" << endl;
-            cout << "+--------------------------------------------------+" << endl;
-            cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                   |" << endl;
+            // cout << CYAN << "+--------------------------------------------------+" << endl;
+            printLine(screenWidth, CYAN);
+            printText("CUSTOMER DASHBOARD", screenWidth, YELLOW, true);
+            printLine(screenWidth, CYAN);
+            printText("Welcome, " + getUserName(), screenWidth, WHITE, false);
+            // cout << "| " << YELLOW << "               CUSTOMER DASHBOARD               " << CYAN << "|" << endl;
+            // cout << "+--------------------------------------------------+" << endl;
+            // cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                    |" << endl;
 
             // Show upcoming flight if any
             if (!flightsBookedByCustomer.empty())
             {
                 const Flight &nextFlight = flightsBookedByCustomer[0];
-                cout << "+--------------------------------------------------+" << endl;
-                cout << "| " << YELLOW << "YOUR NEXT FLIGHT:                                " << CYAN << " |" << endl;
-                cout << "| " << WHITE << "Flight: " << nextFlight.getFlightNumber() << "   " << nextFlight.getOrigin() << " to " << nextFlight.getDestination() << CYAN << "            |" << endl;
-                cout << "| " << WHITE << "Date: " << nextFlight.getDate() << "   Time: " << nextFlight.getTime() << CYAN << "                 |" << endl;
+                printLine(screenWidth,CYAN);
+                printText(" YOUR NEXT FLIGHT:", screenWidth, YELLOW, false);
+                printText(" Flight: " + nextFlight.getFlightNumber() + "   " + nextFlight.getOrigin() + " to " + nextFlight.getDestination(), screenWidth, WHITE, false);
+                printText(" Date: " + nextFlight.getDate() + "   Time: " + nextFlight.getTime(), screenWidth, WHITE, false);
+                // cout << "+--------------------------------------------------+" << endl;
+                // cout << "| " << YELLOW << "YOUR NEXT FLIGHT:                                " << CYAN << " |" << endl;
+                // cout << "| " << WHITE << "Flight: " << nextFlight.getFlightNumber() << "   " << nextFlight.getOrigin() << " to " << nextFlight.getDestination() << CYAN << "            |" << endl;
+                // cout << "| " << WHITE << "Date: " << nextFlight.getDate() << "   Time: " << nextFlight.getTime() << CYAN << "                 |" << endl;
             }
 
-            cout << "+--------------------------------------------------+" << endl;
-            cout << "| " << MAGENTA << "MENU OPTIONS:                                    " << CYAN << " |" << endl;
+            printLine(screenWidth, CYAN);
+            printText("MENU OPTIONS:", screenWidth, MAGENTA, false);
+            // cout << "+--------------------------------------------------+" << endl;
+            // cout << "| " << MAGENTA << "MENU OPTIONS:                                    " << CYAN << " |" << endl;
 
             
             string options[5] = {
@@ -496,15 +508,21 @@ public:
             for (int i = 0; i < 5; i++)
             {
                 if (choice == i)
-                    cout << "| " << YELLOW << "=> " << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
+                    printText(string("=> ") + "0" + ". " + options[i], screenWidth, YELLOW, false);
+                    // cout << "| " << YELLOW << "=> " << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
                 else
-                    cout << "|    " << WHITE << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
+                    printText(string(" => ") + "0" + ". " + options[i], screenWidth, WHITE, false);
+                    // cout << "|    " << WHITE << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
             }
 
-            cout << "+--------------------------------------------------+" << endl;
-            cout << "| " << WHITE << "Total Booked Flights: " << flightsBookedByCustomer.size() << CYAN << "                        |" << endl;
-            cout << "| " << WHITE << "Navigation: [W/S] Move   [Enter] Select           " << CYAN << " |" << endl;
-            cout << "+--------------------------------------------------+" << RESET << endl;
+            // cout << "+--------------------------------------------------+" << endl;
+            printLine(screenWidth, CYAN);
+            printText(" Total Booked Flights: " + flightsBookedByCustomer.size(), screenWidth, WHITE, false);
+            printText(" Navigation: [W/S] Move   [Enter] Select", screenWidth, WHITE, false);
+            printLine(screenWidth, CYAN);
+            // cout << "| " << WHITE << "Total Booked Flights: " << flightsBookedByCustomer.size() << CYAN << "                        |" << endl;
+            // cout << "| " << WHITE << "Navigation: [W/S] Move   [Enter] Select           " << CYAN << " |" << endl;
+            // cout << "+--------------------------------------------------+" << RESET << endl;
 
             key = _getch();
 

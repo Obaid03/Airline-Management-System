@@ -22,18 +22,38 @@ void getAirportManagementSystemText() {
     cout << "\n           _      _ _              __  __                                                   _      _____           _                 \n     /\\   (_)    | (_)            |  \\/  |                                                 | |    / ____|         | |                \n    /  \\   _ _ __| |_ _ __   ___  | \\  / | __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_  | (___  _   _ ___| |_ ___ _ __ ___  \n   / /\\ \\ | | '__| | | '_ \\ / _ \\ | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '_ ` _ \\ / _ \\ '_ \\| __|  \\___ \\| | | / __| __/ _ \\ '_ ` _ \\ \n  / ____ \\| | |  | | | | | |  __/ | |  | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_   ____) | |_| \\__ \\ ||  __/ | | | | | \n /_/    \\_\\_|_|  |_|_|_| |_|\\___| |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_| |_| |_|\\___|_| |_|\\__| |_____/ \\__, |___/\\__\\___|_| |_| |_| \n                                                             __/ |                                        __/ |                      \n                                                            |___/                                        |___/                        \n\n" << endl;
 }
 
-void printSpaces(int noOfSpaces) {
-    for(int i = 0 ; i < noOfSpaces; i++) {
+ostream& printText(string textToPrint, int screenWidth, string color, bool isCenter) {
+    int takenSpaceByText = textToPrint.length();
+    int noOfSpacesBeforeText;
+    if(isCenter) {
+        noOfSpacesBeforeText = (screenWidth - takenSpaceByText)/2;
+    }
+    else {
+        noOfSpacesBeforeText = 0;
+    }
+    
+    int noOfSpacesAfterText = screenWidth - (takenSpaceByText+noOfSpacesBeforeText);
+
+    cout << CYAN << "|" << RESET;
+    for(int i = 0; i < noOfSpacesBeforeText; i++) {
         cout << " ";
     }
+    cout << color << textToPrint;
+    for(int i = 0 ; i < noOfSpacesAfterText; i++) {
+        cout << " ";
+    }
+    cout << CYAN << "|" << RESET << endl;
 }
-void printLine(int noOfDashes){
-    cout << BLUE << "+";
-    for(int i = 0; i < noOfDashes; i++) {
+
+
+ostream& printLine(int screenWidth, string color){
+    cout << color << "+";
+    for(int i = 0; i < screenWidth; i++) {
         cout << "-";
     }
-    cout << "+"
+    cout << "+" << RESET << endl;
 }
+
 void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;
