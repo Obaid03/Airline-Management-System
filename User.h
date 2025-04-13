@@ -6,9 +6,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Flight.h"
 #include <conio.h>
-#define YELLOW "\033[33m" /* Yellow */
+
+//classes
+#include "Flight.h"
+
+
+#define YELLOW "\033[33m"
 #define RESET "\033[0m"
 #define CYAN "\033[36m"
 #define GREEN "\033[32m"
@@ -18,10 +22,13 @@
 #define WHITE "\033[37m"
 using namespace std;
 
+//Global Functions
 bool isValidEmail(const string &email)
 {
     return email.find('@') != string::npos && email.find('.') != string::npos;
 }
+
+
 
 class User
 {
@@ -163,6 +170,8 @@ public:
         } while (exit == false);
     }
 };
+
+
 class Customer : public User
 {
 private:
@@ -459,9 +468,9 @@ public:
             system("cls");
 
             cout << CYAN << "+--------------------------------------------------+" << endl;
-            cout << "| " << YELLOW << "               CUSTOMER DASHBOARD                " << CYAN << " |" << endl;
+            cout << "| " << YELLOW << "               CUSTOMER DASHBOARD                " << CYAN << "|" << endl;
             cout << "+--------------------------------------------------+" << endl;
-            cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                  |" << endl;
+            cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                   |" << endl;
 
             // Show upcoming flight if any
             if (!flightsBookedByCustomer.empty())
@@ -476,7 +485,7 @@ public:
             cout << "+--------------------------------------------------+" << endl;
             cout << "| " << MAGENTA << "MENU OPTIONS:                                    " << CYAN << " |" << endl;
 
-            // Menu options with improved formatting
+            
             string options[5] = {
                 "Edit Profile Information",
                 "View My Flights",

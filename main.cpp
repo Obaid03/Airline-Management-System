@@ -96,6 +96,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
 
     } while (flag == false);
 }
+
 // when new user is need to be added
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
@@ -245,9 +246,10 @@ int main()
         Flight("PK302", "Lahore", "Islamabad", "11:00", "2025-04-21", 380, 80),
         Flight("PK303", "Karachi", "Islamabad", "14:00", "2025-04-22", 1200, 90),
         Flight("PK304", "Islamabad", "Quetta", "17:00", "2025-04-23", 700, 60),
-        Flight("PK305", "Lahore", "Karachi", "20:00", "2025-04-24", 1020, 110),
-    };
+        Flight("PK305", "Lahore", "Karachi", "20:00", "2025-04-24", 1020, 110),};
 
+
+        
     bool exit = false;
     int choice = 0; // selects the option to choose
     // here choice = 0 ->Admin\\ and choice = 1->Customer
