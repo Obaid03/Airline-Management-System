@@ -283,7 +283,7 @@ public:
             {
                 const Flight &flight = flightsBookedByCustomer[i];
 
-                // Create a boarding pass-like display for each flight
+               
                 cout << "|  " << YELLOW << "+------------------------------------------+" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|  " << WHITE << "BOARDING PASS                           " << YELLOW << "|" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|  " << WHITE << "Flight: " << flight.getFlightNumber() << "                             " << YELLOW << "|" << CYAN << "    |" << endl;
@@ -456,8 +456,7 @@ public:
         _getch();
     }
 
-    // Simplified version of the customer dashboard that will work in standard terminals
-    // Version with ASCII box characters but keeping all colors
+  
     void userPanel(vector<Flight> &allFlights) override
     {
         int choice = 0, key, maxChoices = 4;
@@ -472,7 +471,7 @@ public:
             cout << "+--------------------------------------------------+" << endl;
             cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                   |" << endl;
 
-            // Show upcoming flight if any
+            //yahan jo first booked flight hongo wo ayin gi 
             if (!flightsBookedByCustomer.empty())
             {
                 const Flight &nextFlight = flightsBookedByCustomer[0];
@@ -508,8 +507,7 @@ public:
 
             key = _getch();
 
-            // Rest of the function remains the same
-            // ...
+            
             if ((key == 'w' || key == 'W') && (choice > 0))
                 choice--;
             else if ((key == 's' || key == 'S') && (choice < maxChoices))
