@@ -43,6 +43,7 @@ ostream& printText(string textToPrint, int screenWidth, string color, bool isCen
         cout << " ";
     }
     cout << CYAN << "|" << RESET << endl;
+    return cout;
 }
 
 ostream& printLine(int screenWidth, string color){
@@ -51,6 +52,7 @@ ostream& printLine(int screenWidth, string color){
         cout << "-";
     }
     cout << "+" << RESET << endl;
+    return cout;
 }
 
 void gotoxy(int x, int y) {
