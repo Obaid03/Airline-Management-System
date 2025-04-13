@@ -285,7 +285,7 @@ public:
             {
                 const Flight &flight = flightsBookedByCustomer[i];
 
-                // Create a boarding pass-like display for each flight
+               
                 cout << "|  " << YELLOW << "+------------------------------------------+" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|  " << WHITE << "BOARDING PASS                           " << YELLOW << "|" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|  " << WHITE << "Flight: " << flight.getFlightNumber() << "                             " << YELLOW << "|" << CYAN << "    |" << endl;
@@ -294,7 +294,7 @@ public:
                 cout << "|  " << YELLOW << "|  " << WHITE << "Passenger: " << getUserName() << "                      " << YELLOW << "|" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|  " << WHITE << "Seat: " << (10 + i) << "A                             " << YELLOW << "|" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|                                          |" << CYAN << "    |" << endl;
-                cout << "|  " << YELLOW << "|  " << WHITE << "****** BOARDING TIME: " << (stoi(flight.getTime().substr(0, 2)) - 1) << ":" << flight.getTime().substr(3, 2) << " ******" << YELLOW << "     |" << CYAN << "    |" << endl;
+                cout << "|  " << YELLOW << "|  " << WHITE << "****** BOARDING TIME: " << flight.getTime() << ":" << flight.getTime().substr(3, 2) << " ******" << YELLOW << "     |" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "+------------------------------------------+" << CYAN << "    |" << endl;
 
                 if (i < flightsBookedByCustomer.size() - 1)
@@ -347,7 +347,7 @@ public:
             return;
         }
 
-        cout << "|  " << GREEN << "√ " << matchingFlights.size() << " flights found!                            " << CYAN << " |" << endl;
+        cout << "|  " << GREEN << " " << matchingFlights.size() << " flights found!                            " << CYAN << " |" << endl;
         cout << "|  " << WHITE << "STEP 2: Select your preferred flight              " << CYAN << " |" << endl;
         cout << "+==================================================+" << endl;
 
@@ -369,7 +369,7 @@ public:
             flightsBookedByCustomer.push_back(matchingFlights[select - 1]);
 
             cout << CYAN << "+==================================================+" << endl;
-            cout << "|  " << GREEN << "√ Flight booked successfully!                    " << CYAN << " |" << endl;
+            cout << "|  " << GREEN << " Flight booked successfully!                    " << CYAN << " |" << endl;
             cout << "|                                                  |" << endl;
             cout << "|  " << YELLOW << "BOOKING CONFIRMATION:                            " << CYAN << " |" << endl;
             cout << "|  " << WHITE << "Flight: " << matchingFlights[select - 1].getFlightNumber() << CYAN << "                                    |" << endl;
@@ -458,8 +458,7 @@ public:
         _getch();
     }
 
-    // Simplified version of the customer dashboard that will work in standard terminals
-    // Version with ASCII box characters but keeping all colors
+  
     void userPanel(vector<Flight> &allFlights) override
     {
         int choice = 0, key, maxChoices = 4;
@@ -478,7 +477,7 @@ public:
             // cout << "+--------------------------------------------------+" << endl;
             // cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                    |" << endl;
 
-            // Show upcoming flight if any
+            //yahan jo first booked flight hongo wo ayin gi 
             if (!flightsBookedByCustomer.empty())
             {
                 const Flight &nextFlight = flightsBookedByCustomer[0];
@@ -526,8 +525,7 @@ public:
 
             key = _getch();
 
-            // Rest of the function remains the same
-            // ...
+            
             if ((key == 'w' || key == 'W') && (choice > 0))
                 choice--;
             else if ((key == 's' || key == 'S') && (choice < maxChoices))
@@ -559,7 +557,7 @@ public:
         } while (exit == false);
     }
 };
-
+//test comment  by hasnain for git checking..
 int Customer::noOfCustomers = 0;
 int Admin::noOfAdmins = 0;
 int User::noOfUsers = 0;
