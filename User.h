@@ -345,7 +345,7 @@ public:
             return;
         }
 
-        cout << "|  " << GREEN << "√ " << matchingFlights.size() << " flights found!                            " << CYAN << " |" << endl;
+        cout << "|  " << GREEN << " " << matchingFlights.size() << " flights found!                            " << CYAN << " |" << endl;
         cout << "|  " << WHITE << "STEP 2: Select your preferred flight              " << CYAN << " |" << endl;
         cout << "+==================================================+" << endl;
 
@@ -367,7 +367,7 @@ public:
             flightsBookedByCustomer.push_back(matchingFlights[select - 1]);
 
             cout << CYAN << "+==================================================+" << endl;
-            cout << "|  " << GREEN << "√ Flight booked successfully!                    " << CYAN << " |" << endl;
+            cout << "|  " << GREEN << " Flight booked successfully!                    " << CYAN << " |" << endl;
             cout << "|                                                  |" << endl;
             cout << "|  " << YELLOW << "BOOKING CONFIRMATION:                            " << CYAN << " |" << endl;
             cout << "|  " << WHITE << "Flight: " << matchingFlights[select - 1].getFlightNumber() << CYAN << "                                    |" << endl;
