@@ -539,7 +539,7 @@ public:
         } while (exit == false);
     }
 };
-
+//test comment  by hasnain for git checking..
 int Customer::noOfCustomers = 0;
 int Admin::noOfAdmins = 0;
 int User::noOfUsers = 0;
