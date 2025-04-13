@@ -17,4 +17,4 @@ int main() {
     printText(yellow, screenWidth, WHITE, false);
     // cout << "| " << WHITE << "Welcome, " << WHITE << "!" 
 }
-printText("+======================+", scre, YELLOW, true)
+// printText("+======================+", scre, YELLOW, true)
