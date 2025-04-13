@@ -148,7 +148,10 @@ public:
         system("cls");
         Flight newflight;
         newflight.AddFlight(allflights);
-        allflights.push_back(newflight);
+        if(newflight.getFlightNumber() != ""){
+            allflights.push_back(newflight);
+
+        }
         cout << "Flight Added Successfuly" << endl;
         cout << "+==================================================+" << endl;
         cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;

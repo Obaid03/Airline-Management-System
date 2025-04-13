@@ -5,7 +5,7 @@
 #ifndef FLIGHT_H
 #define FLIGHT_H
 #include <vector>
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 #define YELLOW "\033[33m"
@@ -62,92 +62,125 @@ public:
     {
         return flightDate;
     }
-    
-     vector<Customer>& getCustomers() {
+
+    vector<Customer> &getCustomers()
+    {
         return listOfCustomers;
     }
-    
-    void AddFlight(vector<Flight>& allflights){
-        //existing flight numbers
+
+    void AddFlight(vector<Flight> &allflights)
+    {
+        // existing flight numbers
         cout << "\nCurrent Flights:\n";
-        for (const Flight& flight : allflights) {
+        for (const Flight &flight : allflights)
+        {
             cout << "Flight Number -->" << flight.getFlightNumber() << "\n";
         }
-        while(true){
-            int flag=0;
+        while (true)
+        {
+            int flag = 0;
             string fn;
-            cout <<CYAN<< "\nEnter Flight Number to remove (or '0' to cancel): "<<RESET;
+            cout << CYAN << "\nEnter Flight Number to add (or '0' to cancel): " << RESET;
             cin >> fn;
-    
+
             // cancelling
-            if (fn == "0") {
-                cout <<RED<< "Cancelled flight Adding.\n"<<RESET;
+            if (fn == "0")
+            {
+                cout << RED << "Cancelled flight Adding.\n"
+                     << RESET;
                 return;
             }
-            for(const Flight& flight:allflights){
-                if (flight.getFlightNumber()==fn){
+            for (const Flight &flight : allflights)
+            {
+                if (flight.getFlightNumber() == fn)
+                {
                     // cout << "Flight number already exists! Try again."<< endl;
-                    flag=1;
-                    break;}
-                else 
-                    {flag=0;
-                    continue;} 
+                    flag = 1;
+                    break;
+                }
+                else
+                {
+                    flag = 0;
+                    continue;
+                }
+            }
+            if (!flag)
+            {
+                flightNumber = fn;
+                break;
+            }
+            cout << RED << "Invalid Flight Number! Try again.\n"
+                 << RESET;
         }
-        if (!flag){flightNumber=fn;
-            break;}
-        cout << RED << "Invalid Flight Number! Try again.\n" << RESET;}
-        
-        cout<<"Enter city of Departure "<<endl;                                         cin >>flightorigin;
-        cout<<"Enter city of Arrival "<<endl;                                           cin >>flightdestination;
-        cout<<"Enter Flight Time "<<endl;                                               cin >>flightTime;
-        cout<<"Enter Flight Date "<<endl;                                               cin >>flightDate;
-        cout<<"Enter Distance in KM "<<endl;                                            cin >>distanceInKms;
-        cout<<"Enter Number of Seats Available "<<endl;                                 cin >>numOfSeatsInFlight;
+
+        cout << "Enter city of Departure " << endl;
+        cin >> flightorigin;
+        cout << "Enter city of Arrival " << endl;
+        cin >> flightdestination;
+        cout << "Enter Flight Time " << endl;
+        cin >> flightTime;
+        cout << "Enter Flight Date " << endl;
+        cin >> flightDate;
+        cout << "Enter Distance in KM " << endl;
+        cin >> distanceInKms;
+        cout << "Enter Number of Seats Available " << endl;
+        cin >> numOfSeatsInFlight;
     }
-    void RemoveFlight(vector<Flight>& allflights) {
+    void RemoveFlight(vector<Flight> &allflights)
+    {
         string fn;
         int found = 0;
-        
-        //existing flight numbers
+
+        // existing flight numbers
         cout << "\nCurrent Flights:\n";
-        for (const Flight& flight : allflights) {
+        for (const Flight &flight : allflights)
+        {
             cout << "Flight Number -->" << flight.getFlightNumber() << "\n";
         }
-    
-        while (true) {
+
+        while (true)
+        {
             cout << "\nEnter Flight Number to remove (or '0' to cancel): ";
             cin >> fn;
-    
+
             // cancelling
-            if (fn == "0") {
+            if (fn == "0")
+            {
                 cout << "Cancelled flight removal.\n";
                 return;
             }
-    
+
             // finding  flight
-            for (auto itr = allflights.begin(); itr != allflights.end(); ++itr) {
-                if ((itr->getFlightNumber()) == fn) {
+            for (auto itr = allflights.begin(); itr != allflights.end(); ++itr)
+            {
+                if ((itr->getFlightNumber()) == fn)
+                {
                     allflights.erase(itr);
-                    cout <<RED << "Flight Number" << fn << " removed successfully!\n" << RESET;
+                    cout << RED << "Flight Number" << fn << " removed successfully!\n"
+                         << RESET;
                     found = 1;
                     break;
                 }
             }
-    
-            if (found) break;
-    
-            cout << RED << "Invalid Flight Number! Try again.\n" << RESET;
+
+            if (found)
+                break;
+
+            cout << RED << "Invalid Flight Number! Try again.\n"
+                 << RESET;
         }
     }
-    friend ostream& operator <<(ostream& out,  const Flight& flight);
+    friend ostream &operator<<(ostream &out, const Flight &flight);
 };
-ostream& operator <<(ostream& out,  const Flight& flight){
-    out<<"Flight Number "<<flight.flightNumber<<endl;
-    out<<"city of Departure "<< flight.flightorigin<<endl;
-    out<<"city of Arrival " << flight.flightdestination<<endl;
-    out<<"Flight Time "<<    flight.flightTime<<endl;
-    out<<"Flight Date "<<  flight.flightDate<<endl;
-    out<<"Distance in KM "<< flight.distanceInKms<<endl;
-    out<<"Number of Seats Available "<<flight.numOfSeatsInFlight<<endl;
-    return  out;}
+ostream &operator<<(ostream &out, const Flight &flight)
+{
+    out << "Flight Number " << flight.flightNumber << endl;
+    out << "city of Departure " << flight.flightorigin << endl;
+    out << "city of Arrival " << flight.flightdestination << endl;
+    out << "Flight Time " << flight.flightTime << endl;
+    out << "Flight Date " << flight.flightDate << endl;
+    out << "Distance in KM " << flight.distanceInKms << endl;
+    out << "Number of Seats Available " << flight.numOfSeatsInFlight << endl;
+    return out;
+}
 #endif // FLIGHT_H
