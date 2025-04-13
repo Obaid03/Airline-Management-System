@@ -70,40 +70,32 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
             {
                 flag = true;
                 indexOfMatchedUser = i;
-                break;
+                cout << "Enter password" << endl;
+                cin >> temp;
+                if (temp == users[indexOfMatchedUser]->getUserPassword())
+                {
+                    cout << "Login Successful" << endl;
+                    system("pause");
+                    users[indexOfMatchedUser]->userPanel();
+                    return;
+                }
+                else
+                {
+                    cout << "Wrong Password!" << endl;
+                    system("pause");
+                }
+                // break;
             }
             else
             {
-                flag = false;
+                flag == false;
             }
         }
-        if (flag == false)
-        {
-            cout << "User not found" << endl;
-        }
-    } while (flag == false);
-
-    cout << "Enter password" << endl;
-    cin >> temp;
-    for (int i = 0; i < noOfUsers; i++)
-    {
-        if (temp == users[i]->getUserPassword())
-        {
-            system("cls");
-            cout << "Login Successful" << endl;
-            system("pause");
-            users[indexOfMatchedUser]->userPanel();
-            return;
-        }
-        else
-        {
-            cout << "Wrong Password!" << endl;
-            system("pause");
-        }
-    }
+        if(flag == false)
+            cout << "User not found" << endl;   
+            
+    }while (flag == false);
 }
-
-
 // when new user is need to be added
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
