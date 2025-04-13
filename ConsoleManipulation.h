@@ -45,7 +45,6 @@ ostream& printText(string textToPrint, int screenWidth, string color, bool isCen
     cout << CYAN << "|" << RESET << endl;
 }
 
-
 ostream& printLine(int screenWidth, string color){
     cout << color << "+";
     for(int i = 0; i < screenWidth; i++) {

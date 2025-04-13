@@ -23,6 +23,7 @@
 #define WHITE "\033[37m"
 using namespace std;
 const int screenWidth = 100;
+//normal size 52
 
 //Global Functions
 bool isValidEmail(const string &email)
