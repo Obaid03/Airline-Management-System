@@ -292,7 +292,7 @@ public:
                 cout << "|  " << YELLOW << "|  " << WHITE << "Passenger: " << getUserName() << "                      " << YELLOW << "|" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|  " << WHITE << "Seat: " << (10 + i) << "A                             " << YELLOW << "|" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "|                                          |" << CYAN << "    |" << endl;
-                cout << "|  " << YELLOW << "|  " << WHITE << "****** BOARDING TIME: " << (stoi(flight.getTime().substr(0, 2)) - 1) << ":" << flight.getTime().substr(3, 2) << " ******" << YELLOW << "     |" << CYAN << "    |" << endl;
+                cout << "|  " << YELLOW << "|  " << WHITE << "****** BOARDING TIME: " << flight.getTime() << ":" << flight.getTime().substr(3, 2) << " ******" << YELLOW << "     |" << CYAN << "    |" << endl;
                 cout << "|  " << YELLOW << "+------------------------------------------+" << CYAN << "    |" << endl;
 
                 if (i < flightsBookedByCustomer.size() - 1)
