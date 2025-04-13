@@ -28,7 +28,7 @@ git push origin main
 using namespace std;
 
 // login screen(when admin and user want to login)
-void loginScreen(const vector<Customer> customers, const vector<Admin> admins, bool isAdmin)
+void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
 {
     bool flag = false; // flag true if email entered by user is equal to an email in storage(the email user wants to log in to)
     string temp;
@@ -76,7 +76,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
                 {
                     cout << "Login Successful" << endl;
                     system("pause");
-                    users[indexOfMatchedUser]->userPanel();
+                    users[indexOfMatchedUser]->userPanel(allFlights);
                     return;
                 }
                 else
@@ -91,10 +91,10 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, b
                 flag == false;
             }
         }
-        if(flag == false)
-            cout << "User not found" << endl;   
-            
-    }while (flag == false);
+        if (flag == false)
+            cout << "User not found" << endl;
+
+    } while (flag == false);
 }
 // when new user is need to be added
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
@@ -145,7 +145,7 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
 }
 
 // register and login screen
-void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
+void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, vector<Flight> &flights, bool isAdmin)
 {
     bool exit = false; // exit condition to check at the end of do while
     int choice = 0;
@@ -197,9 +197,9 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
                 break;
             case 1:
                 if (isAdmin)
-                    loginScreen(customers, admins, true);
+                    loginScreen(customers, admins, flights, true);
                 else
-                    loginScreen(customers, admins, false);
+                    loginScreen(customers, admins, flights, false);
                 break;
             case 2:
                 exit = true;
@@ -239,6 +239,14 @@ int main()
         Customer("C003", "Hassan", "hassan@user.com", "123"),
         Customer("C004", "Isha", "isha@user.com", "123"),
         Customer("C005", "Junaid", "junaid@user.com", "123")};
+
+    vector<Flight> flights = {
+        Flight("PK301", "Karachi", "Lahore", "08:00", "2025-04-20", 1020, 100),
+        Flight("PK302", "Lahore", "Islamabad", "11:00", "2025-04-21", 380, 80),
+        Flight("PK303", "Karachi", "Islamabad", "14:00", "2025-04-22", 1200, 90),
+        Flight("PK304", "Islamabad", "Quetta", "17:00", "2025-04-23", 700, 60),
+        Flight("PK305", "Lahore", "Karachi", "20:00", "2025-04-24", 1020, 110),
+    };
 
     bool exit = false;
     int choice = 0; // selects the option to choose
@@ -284,10 +292,10 @@ int main()
             switch (choice)
             {
             case 0: // admin
-                registerAndLoginScreen(admins, customers, true);
+                registerAndLoginScreen(admins, customers, flights, true);
                 break;
             case 1: // customer
-                registerAndLoginScreen(admins, customers, false);
+                registerAndLoginScreen(admins, customers, flights, false);
                 break;
             case 2:
                 exit = true;
