@@ -25,10 +25,10 @@ int screenWidth = 100;
 // normal size 52
 
 // Global Functions
-bool isValidEmail(const string &email)
-{
-    return email.find('@') != string::npos && email.find('.') != string::npos;
-}
+// bool isValidEmail(const string &email)
+// {
+//     return email.find('@') != string::npos && email.find('.') != string::npos;
+// }
 
 class User
 {
