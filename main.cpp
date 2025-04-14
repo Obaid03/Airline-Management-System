@@ -28,7 +28,6 @@ git push origin main
 using namespace std;
 const int scr = 130;
 
-
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
 {
@@ -94,7 +93,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
                     printLine(scr, CYAN);
                     printText("Wrong Password", scr, RED, true);
                     printLine(scr, CYAN);
-                    system("pause"); 
+                    system("pause");
                 }
                 // break;
             }
@@ -124,6 +123,7 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     printLine(scr, CYAN);
 
     string temp, passRepeat;
+    bool isValid = false;
     User *newUser;
     Admin admin;
     Customer customer;
@@ -138,10 +138,24 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     cout << CYAN << "|=>>>> " << RESET;
     cin >> temp;
     newUser->setUserName(temp);
-    printText("Enter email of User", scr, WHITE, false);
-    cout << CYAN << "|=>>>> " << RESET;
-    cin >> temp; // can add a function to check valid email
-    newUser->setUserEmail(temp);
+
+    do
+    {
+        printText("Enter email of User", scr, WHITE, false);
+        cout << CYAN << "|=>>>> " << RESET;
+        cin >> temp;
+        isValid = isValidEmail(temp);
+        if (isValid)
+        {
+            newUser->setUserEmail(temp);
+        }
+        else {
+            printLine(scr, CYAN);
+            printText("Email Not Valid! Enter Again", scr, RED, true);
+            printLine(scr, CYAN);
+        }
+    } while(!isValid);
+
     do
     {
         // cout << "Enter password for user" << endl;
