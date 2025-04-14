@@ -1,6 +1,4 @@
 
-// Contains User Class
-
 #ifndef USER_H
 #define USER_H
 #include <iostream>
@@ -8,7 +6,7 @@
 #include <vector>
 #include <conio.h>
 
-// classes
+// Importing Other Header Files
 #include "Flight.h"
 #include "ConsoleManipulation.h"
 
@@ -22,13 +20,7 @@
 #define WHITE "\033[37m"
 using namespace std;
 int screenWidth = 100;
-// normal size 52
 
-// Global Functions
-// bool isValidEmail(const string &email)
-// {
-//     return email.find('@') != string::npos && email.find('.') != string::npos;
-// }
 
 class User
 {
@@ -64,7 +56,6 @@ public:
 class Admin : public User
 {
 private:
-    // vector<Flight>& flights;
     static int noOfAdmins;
 
 public:
@@ -72,6 +63,8 @@ public:
     {
         noOfAdmins++;
     }
+    
+
     void editInformation()
     {
         system("cls");
@@ -183,24 +176,7 @@ public:
         _getch();
     }
 
-    /*
-        void addNewFlight(vector<Flight> &allflights)
-        {
-            system("cls");
-            Flight newflight;
-            newflight.AddFlight(allflights);
-            if(newflight.getFlightNumber() != ""){
-                allflights.push_back(newflight);
 
-            }
-            cout << "Flight Added Successfuly" << endl;
-            cout << "+==================================================+" << endl;
-            cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
-            cout << "+--------------------------------------------------+" << RESET << endl;
-
-            _getch();
-        }
-    */
     void addNewFlight(vector<Flight> &allflights)
     {
         system("cls");
@@ -226,6 +202,7 @@ public:
         _getch();
     }
 
+
     void removeFlight(vector<Flight> &allflights)
     {
         system("cls");
@@ -246,6 +223,7 @@ public:
 
         _getch();
     }
+
 
     void listAllFlights(vector<Flight> &allflights)
 {
@@ -403,194 +381,6 @@ public:
         noOfCustomers++;
     }
 
-    // void editInformation()
-    // {
-    //     system("cls");
-    //     cout << CYAN << "=====================================================================" << endl;
-    //     cout << CYAN << "||" << YELLOW << " Attention: You are changing your personal details                " << CYAN << "||" << endl;
-    //     cout << CYAN << "=====================================================================" << RESET << endl;
-    //     _getch();
-    //     system("cls");
-
-    //     string NewName, NewEmail, NewPassword;
-    //     char c, ch;
-
-    //     cout << "Current Username: " << getUserName() << endl;
-    //     cout << "Enter New Username:\n-> ";
-    //     cin >> NewName;
-    //     cout << "\nCurrent Email: " << getUserEmail() << endl;
-    //     cout << "Enter New Email:\n-> ";
-    //     cin >> NewEmail;
-    //     while (!isValidEmail(NewEmail))
-    //     {
-    //         cout << RED << "Invalid email format! Please enter again:\n-> " << RESET;
-    //         cin >> NewEmail;
-    //     }
-    //     // cout << "New Password:\n-> ";
-    //     // cin >> NewPassword;
-    //     cout << "\nEnter New Password:\n-> ";
-    //     NewPassword = "";
-    //     while ((ch = _getch()) != '\r')
-    //     {
-    //         if (ch == '\b')
-    //         {
-    //             if (!NewPassword.empty())
-    //             {
-    //                 cout << "\b \b";
-    //                 NewPassword.pop_back();
-    //             }
-    //         }
-    //         else
-    //         {
-    //             cout << '*';
-    //             NewPassword += ch;
-    //         }
-    //     }
-    //     cout << endl;
-
-    //     system("cls");
-    //     cout << YELLOW << BOLD << " Please confirm your updated details:\n"
-    //          << RESET;
-    //     cout << "Username: " << NewName << endl;
-    //     cout << "Email: " << NewEmail << endl;
-    //     cout << "Password: " << string(NewPassword.length(), '*') << endl;
-    //     cout << "\n"
-    //          << CYAN << "Do you want to save these changes? (y/n): " << RESET;
-    //     cin >> c;
-
-    //     if (c == 'y' || c == 'Y')
-    //     {
-    //         userName = NewName;         // setUserName(NewName);
-    //         userEmail = NewEmail;       // setUserEmail(NewEmail);
-    //         userPassword = NewPassword; // setUserPassword(NewPassword);
-    //         system("cls");
-    //         cout << GREEN << BOLD << " Success! Your information has been updated." << RESET << endl;
-    //     }
-    //     else
-    //     {
-    //         cout << RED << "Update cancelled. Returning to main menu..." << RESET << endl;
-    //     }
-    //     cout << "\nPress any key to continue..." << endl;
-    //     _getch();
-    // }
-
-    // void displayEnhancedData()
-    // {
-    //     system("cls");
-
-    //     cout << CYAN << "+--------------------------------------------------+" << endl;
-    //     cout << "| " << YELLOW << "                MY FLIGHT DETAILS                 " << CYAN << " |" << endl;
-    //     cout << "+==================================================+" << endl;
-    //     cout << "|  " << WHITE << "PERSONAL INFORMATION:                            " << CYAN << " |" << endl;
-    //     cout << "|  " << WHITE << "Name: " << getUserName() << CYAN << "                                 |" << endl;
-    //     cout << "|  " << WHITE << "Email: " << getUserEmail() << CYAN << "                           |" << endl;
-    //     cout << "+==================================================+" << endl;
-
-    //     if (flightsBookedByCustomer.empty())
-    //     {
-    //         cout << "|  " << RED << "You have no flights booked yet!                 " << CYAN << " |" << endl;
-    //         cout << "|  " << YELLOW << "Use the 'Book New Flight' option to make a booking." << CYAN << " |" << endl;
-    //     }
-    //     else
-    //     {
-    //         cout << "|  " << GREEN << "YOUR BOOKED FLIGHTS:                            " << CYAN << " |" << endl;
-    //         cout << "+==================================================+" << endl;
-
-    //         for (int i = 0; i < flightsBookedByCustomer.size(); i++)
-    //         {
-    //             const Flight &flight = flightsBookedByCustomer[i];
-
-               
-    //             cout << "|  " << YELLOW << "+------------------------------------------+" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "BOARDING PASS                           " << YELLOW << "|" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "Flight: " << flight.getFlightNumber() << "                             " << YELLOW << "|" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "From: " << flight.getOrigin() << " To: " << flight.getDestination() << "                  " << YELLOW << "|" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "Date: " << flight.getDate() << "    Time: " << flight.getTime() << "          " << YELLOW << "|" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "Passenger: " << getUserName() << "                      " << YELLOW << "|" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "Seat: " << (10 + i) << "A                             " << YELLOW << "|" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|                                          |" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "|  " << WHITE << "****** BOARDING TIME: " << flight.getTime() << ":" << flight.getTime().substr(3, 2) << " ******" << YELLOW << "     |" << CYAN << "    |" << endl;
-    //             cout << "|  " << YELLOW << "+------------------------------------------+" << CYAN << "    |" << endl;
-
-    //             if (i < flightsBookedByCustomer.size() - 1)
-    //                 cout << "|                                                  |" << endl;
-    //         }
-    //     }
-
-    //     cout << "+==================================================+" << endl;
-    //     cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
-    //     cout << "+--------------------------------------------------+" << RESET << endl;
-
-    //     _getch();
-    // }
-    // void removeFlightEnhanced()
-    // {
-    //     system("cls");
-
-    //     cout << CYAN << "+--------------------------------------------------+" << endl;
-    //     cout << "| " << YELLOW << "              CANCEL FLIGHT BOOKING               " << CYAN << " |" << endl;
-    //     cout << "+==================================================+" << endl;
-
-    //     if (flightsBookedByCustomer.empty())
-    //     {
-    //         cout << "|  " << RED << "You have no flights booked to cancel.           " << CYAN << " |" << endl;
-    //         cout << "|  " << WHITE << "Press any key to return...                       " << CYAN << " |" << endl;
-    //         cout << "+--------------------------------------------------+" << RESET << endl;
-    //         _getch();
-    //         return;
-    //     }
-
-    //     cout << "|  " << WHITE << "YOUR CURRENT BOOKINGS:                          " << CYAN << " |" << endl;
-    //     cout << "+==================================================+" << endl;
-
-    //     for (int i = 0; i < flightsBookedByCustomer.size(); i++)
-    //     {
-    //         const Flight &flight = flightsBookedByCustomer[i];
-    //         cout << "|  " << WHITE << (i + 1) << ". " << flight.getFlightNumber()
-    //              << " | " << flight.getOrigin() << " to " << flight.getDestination()
-    //              << " | " << flight.getDate() << CYAN << "  |" << endl;
-    //     }
-
-    //     cout << "+==================================================+" << endl;
-    //     cout << "|  " << WHITE << "Enter the number of the flight to cancel (1-"
-    //          << flightsBookedByCustomer.size() << "): " << RESET;
-
-    //     int choice;
-    //     cin >> choice;
-
-    //     if (choice >= 1 && choice <= flightsBookedByCustomer.size())
-    //     {
-    //         string flightNo = flightsBookedByCustomer[choice - 1].getFlightNumber();
-
-    //         cout << CYAN << "+==================================================+" << endl;
-    //         cout << "|  " << YELLOW << "Are you sure you want to cancel this flight? (y/n): " << RESET;
-
-    //         char confirm;
-    //         cin >> confirm;
-
-    //         if (confirm == 'y' || confirm == 'Y')
-    //         {
-    //             flightsBookedByCustomer.erase(flightsBookedByCustomer.begin() + choice - 1);
-
-    //             cout << CYAN << "+==================================================+" << endl;
-    //             cout << "|  " << GREEN << "√ Flight " << flightNo << " has been cancelled successfully!" << CYAN << " |" << endl;
-    //         }
-    //         else
-    //         {
-    //             cout << CYAN << "+==================================================+" << endl;
-    //             cout << "|  " << YELLOW << "Flight cancellation aborted.                     " << CYAN << " |" << endl;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         cout << CYAN << "+==================================================+" << endl;
-    //         cout << "|  " << RED << "X Invalid selection!                            " << CYAN << " |" << endl;
-    //     }
-
-    //     cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
-    //     cout << "+--------------------------------------------------+" << RESET << endl;
-    //     _getch();
-    // }
     void editInformation()
     {
         system("cls");
@@ -701,6 +491,8 @@ public:
 
         _getch();
     }
+    
+    
     void displayEnhancedData()
     {
         system("cls");
@@ -750,7 +542,6 @@ public:
         _getch();
     }
     
-
 
     void bookNewFlightEnhanced(vector<Flight> &allFlights)
     {
@@ -861,6 +652,8 @@ public:
         //cout << "+--------------------------------------------------+" << RESET << endl;
         _getch();
     }
+   
+   
     void removeFlightEnhanced()
     {
         system("cls");
@@ -929,6 +722,7 @@ public:
         _getch();
     }
     
+
     void userPanel(vector<Flight> &allFlights) override
     {
         int choice = 0, key, maxChoices = 4;
@@ -1027,7 +821,8 @@ public:
         } while (exit == false);
     }
 };
-// test comment  by hasnain for git checking..
+
+
 int Customer::noOfCustomers = 0;
 int Admin::noOfAdmins = 0;
 int User::noOfUsers = 0;
