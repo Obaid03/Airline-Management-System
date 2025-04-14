@@ -21,7 +21,7 @@
 #define MAGENTA "\033[35m"
 #define WHITE "\033[37m"
 using namespace std;
-const int screenWidth = 100;
+int screenWidth = 100;
 // normal size 52
 
 // Global Functions
@@ -75,29 +75,48 @@ public:
     void editInformation()
     {
         system("cls");
-        cout << CYAN << "=====================================================================" << endl;
-        cout << CYAN << "||" << YELLOW << " Attention: You are changing your personal details                " << CYAN << "||" << endl;
-        cout << CYAN << "=====================================================================" << RESET << endl;
+        // cout << CYAN << "=====================================================================" << endl;
+        // cout << CYAN << "||" << YELLOW << " Attention: You are changing your personal details                " << CYAN << "||" << endl;
+        // cout << CYAN << "=====================================================================" << RESET << endl;
+        printLine(screenWidth, CYAN);
+        printText("Attention: You are changing your personal detail", screenWidth, RED, true);
+        printLine(screenWidth, CYAN);
+
         _getch();
         system("cls");
 
         string NewName, NewEmail, NewPassword;
         char c, ch;
 
-        cout << "Current Username: " << getUserName() << endl;
-        cout << "Enter New Username:\n-> ";
+        // cout << "Current Username: " << getUserName() << endl;
+        printLine(screenWidth, CYAN);
+        printText("Current Username:" + getUserName(), screenWidth, WHITE, false);
+
+        printText("Enter New Username", screenWidth, WHITE, false);
+        cout << "-> ";
         cin >> NewName;
-        cout << "\nCurrent Email: " << getUserEmail() << endl;
-        cout << "Enter New Email:\n-> ";
+
+        // cout << "\nCurrent Email: " << getUserEmail() << endl;
+        printLine(screenWidth, CYAN);
+        printText("Current Email:" + getUserEmail(), screenWidth, WHITE, false);
+
+        printText("Enter New Email", screenWidth, WHITE, false);
+        cout << "-> ";
         cin >> NewEmail;
+
         while (!isValidEmail(NewEmail))
         {
-            cout << RED << "Invalid email format! Please enter again:\n-> " << RESET;
+            // cout << RED << "Invalid email format! Please enter again:\n-> " << RESET;
+            printText("Invalid email format! Please enter again", screenWidth, RED, false);
+            cout << "-> ";
             cin >> NewEmail;
         }
-        // cout << "New Password:\n-> ";
-        // cin >> NewPassword;
-        cout << "\nEnter New Password:\n-> ";
+
+        // cout << "Enter New Password:\n-> ";
+        printLine(screenWidth, CYAN);
+        printText("Enter New Password", screenWidth, WHITE, false);
+        cout << "-> ";
+
         NewPassword = "";
         while ((ch = _getch()) != '\r')
         {
@@ -118,44 +137,91 @@ public:
         cout << endl;
 
         system("cls");
-        cout << YELLOW << BOLD << " Please confirm your updated details:\n"
-             << RESET;
-        cout << "Username: " << NewName << endl;
-        cout << "Email: " << NewEmail << endl;
-        cout << "Password: " << string(NewPassword.length(), '*') << endl;
-        cout << "\n"
-             << CYAN << "Do you want to save these changes? (y/n): " << RESET;
+
+        // cout << YELLOW << BOLD << " Please confirm your updated details:\n" << RESET;
+        printLine(screenWidth, CYAN);
+        printText("Please confirm your updated details", screenWidth, YELLOW, false);
+
+        // cout << "Username: " << NewName << endl;
+        printText("Username:" + NewName, screenWidth, WHITE, false);
+
+        // cout << "Email: " << NewEmail << endl;
+        printText("Email:" + NewEmail, screenWidth, WHITE, false);
+
+        // cout << "Password: " << string(NewPassword.length(), '*') << endl;
+        printText("Password:" + string(NewPassword.length(), '*'), screenWidth, WHITE, false);
+        printLine(screenWidth, CYAN);
+
+        // cout << "\n" << CYAN << "Do you want to save these changes? (y/n): " << RESET;
+        // printLine(screenWidth, CYAN);
+        printText("Do you want to save these changes? (y/n):", screenWidth, YELLOW, false);
         cin >> c;
 
         if (c == 'y' || c == 'Y')
         {
-            userName = NewName;         // setUserName(NewName);
-            userEmail = NewEmail;       // setUserEmail(NewEmail);
-            userPassword = NewPassword; // setUserPassword(NewPassword);
+            userName = NewName;
+            userEmail = NewEmail;
+            userPassword = NewPassword;
             system("cls");
-            cout << GREEN << BOLD << " Success! Your information has been updated." << RESET << endl;
+
+            // cout << GREEN << BOLD << " Success! Your information has been updated." << RESET << endl;
+            printLine(screenWidth, CYAN);
+            printText("Success! Your information has been updated.", screenWidth, GREEN, true);
+            printLine(screenWidth, CYAN);
         }
         else
         {
-            cout << RED << "Update cancelled. Returning to main menu..." << RESET << endl;
+            // cout << RED << "Update cancelled. Returning to main menu..." << RESET << endl;
+            printLine(screenWidth, CYAN);
+            printText("Update cancelled. Returning to main menu...", screenWidth, RED, true);
+            printLine(screenWidth, CYAN);
         }
-        cout << "\nPress any key to continue..." << endl;
+
+        printText("Press any key to return to the main menu...", screenWidth, CYAN, true);
+        printLine(screenWidth, CYAN);
+
         _getch();
     }
 
+    /*
+        void addNewFlight(vector<Flight> &allflights)
+        {
+            system("cls");
+            Flight newflight;
+            newflight.AddFlight(allflights);
+            if(newflight.getFlightNumber() != ""){
+                allflights.push_back(newflight);
+
+            }
+            cout << "Flight Added Successfuly" << endl;
+            cout << "+==================================================+" << endl;
+            cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
+            cout << "+--------------------------------------------------+" << RESET << endl;
+
+            _getch();
+        }
+    */
     void addNewFlight(vector<Flight> &allflights)
     {
         system("cls");
         Flight newflight;
         newflight.AddFlight(allflights);
-        if(newflight.getFlightNumber() != ""){
-            allflights.push_back(newflight);
 
+        if (newflight.getFlightNumber() != "")
+        {
+            allflights.push_back(newflight);
         }
-        cout << "Flight Added Successfuly" << endl;
-        cout << "+==================================================+" << endl;
-        cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
-        cout << "+--------------------------------------------------+" << RESET << endl;
+
+        // cout << "Flight Added Successfuly" << endl;
+        printLine(screenWidth, CYAN);
+        printText("Flight Added Successfully", screenWidth, GREEN, true);
+
+        // cout << "+==================================================+" << endl;
+        // cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
+        // cout << "+--------------------------------------------------+" << RESET << endl;
+        printLine(screenWidth, CYAN);
+        printText("Press any key to return to the main menu...", screenWidth, CYAN, true);
+        printLine(screenWidth, CYAN);
 
         _getch();
     }
@@ -164,46 +230,58 @@ public:
     {
         system("cls");
         Flight temp;
+
         // string fn;
-        // cout<<"Enter Flight Number "<<endl;                                         cin >>fn;
+        // cout << "Enter Flight Number " << endl;
+        // cin >> fn;
+
         temp.RemoveFlight(allflights);
-        cout << "+==================================================+" << endl;
-        cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
-        cout << "+--------------------------------------------------+" << RESET << endl;
+
+        // cout << "+==================================================+" << endl;
+        // cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
+        // cout << "+--------------------------------------------------+" << RESET << endl;
+        printLine(screenWidth, CYAN);
+        printText("Press any key to return to the main menu...", screenWidth, CYAN, true);
+        printLine(screenWidth, CYAN);
 
         _getch();
     }
 
     void listAllFlights(vector<Flight> &allflights)
+{
+    char choice;
+    system("cls");
+
+    if (allflights.empty())
     {
-        char choice;
-        system("cls");
-
-        if (allflights.empty())
-        {
-            cout << RED << "No flights available!\n"
-                 << RESET;
-        }
-        else
-        {
-            cout << CYAN << "==== ALL AVAILABLE FLIGHTS ====\n"
-                 << RESET;
-            cout << RED << "--------------------------------\n"
-                 << RESET;
-
-            for (const Flight &flight : allflights)
-            {
-                cout << flight << "\n"; // << overloading
-                cout << RED << "--------------------------------\n"
-                     << RESET;
-            }
-        }
-
-        cout << "+==================================================+" << endl;
-        cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
-        cout << "+--------------------------------------------------+" << RESET << endl;
-        _getch();
+        // cout << RED << "No flights available!\n" << RESET;
+        printText("No flights available!", screenWidth, RED, true);
     }
+    else
+    {
+        // cout << CYAN << "==== ALL AVAILABLE FLIGHTS ====\n" << RESET;
+        printText("==== ALL AVAILABLE FLIGHTS ====", screenWidth, CYAN, true);
+        // cout << RED << "--------------------------------\n" << RESET;
+        printLine(screenWidth, RED);
+
+        for (const Flight &flight : allflights)
+        {
+            cout << flight << "\n"; // Flight info via overloaded <<
+            // cout << RED << "--------------------------------\n" << RESET;
+            printLine(screenWidth, RED);
+        }
+    }
+
+    // cout << "+==================================================+" << endl;
+    // cout << "|  " << WHITE << "Press any key to return to the main menu...      " << CYAN << " |" << endl;
+    // cout << "+--------------------------------------------------+" << RESET << endl;
+    printLine(screenWidth, CYAN);
+    printText("Press any key to return to the main menu...", screenWidth, CYAN, true);
+    printLine(screenWidth, CYAN);
+
+    _getch();
+}
+
 
     // void listAllCustomers(vector<Flight>& allFlights){}
 
@@ -289,6 +367,7 @@ public:
                     break;
                 case 2: // remove flight
                     removeFlight(allFlights);
+                    break;
                 case 3: // list all flights
                     listAllFlights(allFlights);
                     break;
@@ -304,6 +383,7 @@ public:
                 }
             }
         } while (exit == false);
+        printLine(screenWidth, CYAN);
     }
 };
 
