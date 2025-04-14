@@ -3,6 +3,7 @@
 #define USER_H
 #include <iostream>
 #include <string>
+#include <cctype>//for tolowercase function
 #include <vector>
 #include <conio.h>
 
@@ -566,7 +567,7 @@ public:
         // Find matching flights
         for (const Flight &flight : allFlights)
         {
-            if (flight.getOrigin() == origin && flight.getDestination() == destination)
+            if (toLowercase(flight.getOrigin()) == toLowercase(origin) && toLowercase(flight.getDestination()) == toLowercase(destination))
             {
                 matchingFlights.push_back(flight);
             }

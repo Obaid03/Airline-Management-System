@@ -27,6 +27,18 @@ bool isValidEmail(const string &email)
     return email.find('@') != string::npos && email.find('.') != string::npos;
 }
 
+string toLowercase(string s)
+{
+    for (int i = 0; s[i] != '\0'; i++)
+    {
+        if (s[i] >= 'A' && s[i] <= 'Z')
+        {
+            s[i] += 32;
+        }
+        return s;
+    }
+}
+
 ostream &printText(const string &textToPrint, int screenWidth, const string &color, bool isCenter)
 {
     int paddingBefore = isCenter ? (screenWidth - textToPrint.length()) / 2 : 0;

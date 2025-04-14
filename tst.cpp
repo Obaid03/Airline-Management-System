@@ -3,16 +3,11 @@
 #include <string>
 #define YELLOW "\033[33m"
 using namespace std;
-int screenWidth = 20;
 
-
-void print(string color, string text) {
-    cout << color << text ;
-}
 
 int main() {
-    gotoxy(60,14);
-    cout << ".\n";
-    system("pause");
+   string str = "Test";
+    cout << toLowercase(str);
 }
+
 // printText("+======================+", scre, YELLOW, true)
