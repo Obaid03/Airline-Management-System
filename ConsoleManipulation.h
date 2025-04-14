@@ -13,12 +13,13 @@
 #include <windows.h>
 using namespace std;
 
-
 // inline constexpr int screenWidth = 100;
 
-//The Airport Management Text that appears on top of login screen
-void getAirportManagementSystemText() {
-    cout << "\n           _      _ _              __  __                                                   _      _____           _                 \n     /\\   (_)    | (_)            |  \\/  |                                                 | |    / ____|         | |                \n    /  \\   _ _ __| |_ _ __   ___  | \\  / | __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_  | (___  _   _ ___| |_ ___ _ __ ___  \n   / /\\ \\ | | '__| | | '_ \\ / _ \\ | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '_ ` _ \\ / _ \\ '_ \\| __|  \\___ \\| | | / __| __/ _ \\ '_ ` _ \\ \n  / ____ \\| | |  | | | | | |  __/ | |  | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_   ____) | |_| \\__ \\ ||  __/ | | | | | \n /_/    \\_\\_|_|  |_|_|_| |_|\\___| |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_| |_| |_|\\___|_| |_|\\__| |_____/ \\__, |___/\\__\\___|_| |_| |_| \n                                                             __/ |                                        __/ |                      \n                                                            |___/                                        |___/                        \n\n" << endl;
+// The Airport Management Text that appears on top of login screen
+void getAirportManagementSystemText()
+{
+    cout << "\n           _      _ _              __  __                                                   _      _____           _                 \n     /\\   (_)    | (_)            |  \\/  |                                                 | |    / ____|         | |                \n    /  \\   _ _ __| |_ _ __   ___  | \\  / | __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_  | (___  _   _ ___| |_ ___ _ __ ___  \n   / /\\ \\ | | '__| | | '_ \\ / _ \\ | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '_ ` _ \\ / _ \\ '_ \\| __|  \\___ \\| | | / __| __/ _ \\ '_ ` _ \\ \n  / ____ \\| | |  | | | | | |  __/ | |  | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_   ____) | |_| \\__ \\ ||  __/ | | | | | \n /_/    \\_\\_|_|  |_|_|_| |_|\\___| |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_| |_| |_|\\___|_| |_|\\__| |_____/ \\__, |___/\\__\\___|_| |_| |_| \n                                                             __/ |                                        __/ |                      \n                                                            |___/                                        |___/                        \n\n"
+         << endl;
 }
 
 bool isValidEmail(const string &email)
@@ -26,44 +27,50 @@ bool isValidEmail(const string &email)
     return email.find('@') != string::npos && email.find('.') != string::npos;
 }
 
-ostream& printText(const string &textToPrint, int screenWidth, const string &color, bool isCenter) {
+ostream &printText(const string &textToPrint, int screenWidth, const string &color, bool isCenter)
+{
     int paddingBefore = isCenter ? (screenWidth - textToPrint.length()) / 2 : 0;
     int paddingAfter = screenWidth - (textToPrint.length() + paddingBefore);
 
     // Build the whole line first
     string fullLine = string(CYAN) + "|" + RESET +
-                  string(paddingBefore, ' ') +
-                  color + textToPrint + RESET +
-                  string(paddingAfter, ' ') +
-                  CYAN + "|" + RESET;
+                      string(paddingBefore, ' ') +
+                      color + textToPrint + RESET +
+                      string(paddingAfter, ' ') +
+                      CYAN + "|" + RESET;
 
     cout << fullLine << endl;
     return cout;
 }
 
-ostream& printLine(int screenWidth, const string &color) {
+ostream &printLine(int screenWidth, const string &color)
+{
     cout << color << "+" << string(screenWidth, '-') << "+" << RESET << endl;
     return cout;
 }
 
-ostream& printLineD(int screenWidth, const string &color) {
+ostream &printLineD(int screenWidth, const string &color)
+{
     cout << color << "+" << string(screenWidth, '=') << "+" << RESET << endl;
     return cout;
 }
 
-ostream& printLineS(int screenWidth, const string &color) {
+ostream &printLineS(int screenWidth, const string &color)
+{
     cout << color << "+" << string(screenWidth, ' ') << "+" << RESET << endl;
     return cout;
-}//prints spaces
+} // prints spaces
 
-void gotoxy(int x, int y) {
+void gotoxy(int x, int y)
+{
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void hideCursor() {
+void hideCursor()
+{
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO info;
     info.dwSize = 100;
@@ -71,7 +78,8 @@ void hideCursor() {
     SetConsoleCursorInfo(consoleHandle, &info);
 }
 
-void clearScreen() {
+void clearScreen()
+{
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     DWORD count;
@@ -85,5 +93,4 @@ void clearScreen() {
     SetConsoleCursorPosition(hConsole, {0, 0});
 }
 
-#endif 
-
+#endif
