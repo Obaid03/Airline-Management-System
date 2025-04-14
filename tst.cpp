@@ -11,10 +11,8 @@ void print(string color, string text) {
 }
 
 int main() {
-    // cout<< "A";
-    string yellow = "a3saooooooooooooooooooooooooooooooooooooooooooooooooopppppppppppppppppppppppppppppppppppppppppppppp";
-    // cout << yellow << "hello" << endl;
-    printText(yellow, screenWidth, WHITE, false);
-    // cout << "| " << WHITE << "Welcome, " << WHITE << "!" 
+    gotoxy(60,14);
+    cout << ".\n";
+    system("pause");
 }
 // printText("+======================+", scre, YELLOW, true)

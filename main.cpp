@@ -26,7 +26,7 @@ git push origin main
 #define CYAN "\033[36m"    /* Cyan */
 #define WHITE "\033[37m"   /* White */
 using namespace std;
-
+const int scr = 130;
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
 {
@@ -56,13 +56,16 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
     }
 
     system("cls");
-
-    cout << "Login Screen" << endl;
-    cout << "============" << endl;
+    printLine(scr, CYAN);
+    printText("USER LOGIN", scr, GREEN, true);
+    printLine(scr, CYAN);
 
     do
     {
-        cout << "Enter email of user" << endl;
+        printLine(scr, CYAN);
+        printText("Enter Email", scr, WHITE, false);
+        cout << CYAN << "|=>>>> " << RESET;
+        // cout << "Enter email of user" << endl;
         cin >> temp;
         for (int i = 0; i < noOfUsers; i++) // int i = 0; i < noUsers; i++
         {
@@ -70,19 +73,26 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
             {
                 flag = true;
                 indexOfMatchedUser = i;
-                cout << "Enter password" << endl;
+                // cout << "Enter password" << endl;
+                printLine(scr, CYAN);
+                printText("Enter Password", scr, WHITE, false);
+                cout << CYAN << "|=>>>> " << RESET;
                 cin >> temp;
                 if (temp == users[indexOfMatchedUser]->getUserPassword())
                 {
-                    cout << "Login Successful" << endl;
+                    printLine(scr, CYAN);
+                    printText("Login Successful!", scr, GREEN, true);
+                    printLine(scr, CYAN);
                     system("pause");
                     users[indexOfMatchedUser]->userPanel(allFlights);
                     return;
                 }
                 else
                 {
-                    cout << "Wrong Password!" << endl;
-                    system("pause");
+                    printLine(scr, CYAN);
+                    printText("Wrong Password", scr, RED, true);
+                    printLine(scr, CYAN);
+                    system("pause"); 
                 }
                 // break;
             }
@@ -92,7 +102,11 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
             }
         }
         if (flag == false)
-            cout << "User not found" << endl;
+        {
+            printLine(scr, CYAN);
+            printText("User Not Found!", scr, RED, true);
+            printLine(scr, CYAN);
+        }
 
     } while (flag == false);
 }
@@ -101,8 +115,11 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
 void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin)
 {
     system("cls");
-    cout << "User Registrarion" << endl;
-    cout << "=================" << endl;
+    // cout << "User Registrarion" << endl;
+    // cout << "=================" << endl;
+    printLine(scr, CYAN);
+    printText("USER REGISTRATION", scr, GREEN, true);
+    printLine(scr, CYAN);
 
     string temp, passRepeat;
     User *newUser;
@@ -114,17 +131,24 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     else
         newUser = &customer;
 
-    cout << "Enter name of new user" << endl;
+    // cout << "Enter name of new user" << endl;
+    printText("Enter name of User", scr, WHITE, false);
+    cout << CYAN << "|=>>>> " << RESET;
     cin >> temp;
     newUser->setUserName(temp);
-    cout << "Enter email of new user" << endl;
+    printText("Enter email of User", scr, WHITE, false);
+    cout << CYAN << "|=>>>> " << RESET;
     cin >> temp; // can add a function to check valid email
     newUser->setUserEmail(temp);
     do
     {
-        cout << "Enter password for user" << endl;
+        // cout << "Enter password for user" << endl;
+        printText("Enter password for User", scr, WHITE, false);
+        cout << CYAN << "|=>>>> " << RESET;
         cin >> temp;
-        cout << "Repeat password" << endl;
+        // cout << "Repeat password" << endl;
+        printText("Repeat password", scr, WHITE, false);
+        cout << CYAN << "|=>>>> " << RESET;
         cin >> passRepeat;
         if (temp == passRepeat)
         {
@@ -132,7 +156,10 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         }
         else
         {
-            cout << "Passwords do not match! Enter Again" << endl;
+            // cout << "Passwords do not match! Enter Again" << endl;
+            printLine(scr, CYAN);
+            printText("Passwords do not match! Enter Again", scr, RED, true);
+            printLine(scr, CYAN);
         }
     } while (temp != passRepeat); // can add a function to push the user to generate a strong password
 
@@ -141,7 +168,10 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     else
         customers.push_back(customer);
 
-    cout << "User Added Successfully" << endl;
+    // cout << "User Added Successfully" << endl;
+    printLine(scr, CYAN);
+    printText("User Added Successfully", scr, GREEN, true);
+    printLine(scr, CYAN);
     system("pause");
 }
 
@@ -151,28 +181,52 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
     bool exit = false; // exit condition to check at the end of do while
     int choice = 0;
     int maxChoices = 2;
+    string menuOptions[3] = {"Register", "Login", "<Go Back>"};
     int key;
     do
     {
+        // system("cls");
+        // getAirportManagementSystemText();
+
+        // cout << "What do you want to do?";
+        // if (isAdmin)
+        //     cout << "--[Admin]" << endl;
+        // else
+        //     cout << "--[Customer]" << endl;
+
+        // if (choice == 0)
+        //     cout << YELLOW ">";
+        // cout << "1.Register New" << RESET << endl;
+        // if (choice == 1)
+        //     cout << YELLOW ">";
+        // cout << "2.Login" << RESET << endl;
+        // if (choice == 2)
+        //     cout << YELLOW " ";
+        // cout << "<Go Back>" << RESET << endl;
+        // // update maxChoices if adding another menu item
         system("cls");
         getAirportManagementSystemText();
-
-        cout << "What do you want to do?";
+        printLine(scr, CYAN);
+        printText("What do you want to do?", scr, WHITE, true);
         if (isAdmin)
-            cout << "--[Admin]" << endl;
+            printText("--[Admin]--", scr, GREEN, true);
         else
-            cout << "--[Customer]" << endl;
+            printText("--[Customer]--", scr, GREEN, true);
+        printLine(scr, CYAN);
 
-        if (choice == 0)
-            cout << YELLOW ">";
-        cout << "1.Register New" << RESET << endl;
-        if (choice == 1)
-            cout << YELLOW ">";
-        cout << "2.Login" << RESET << endl;
-        if (choice == 2)
-            cout << YELLOW " ";
-        cout << "<Go Back>" << RESET << endl;
-        // update maxChoices if adding another menu item
+        for (int i = 0; i < 3; i++)
+        {
+            if (choice == i)
+            {
+                printText(string("=> ") + to_string(i + 1) + ". " + menuOptions[i], scr, YELLOW, true);
+            }
+
+            else
+            {
+                printText(to_string(i + 1) + ". " + menuOptions[i], scr, WHITE, true);
+            }
+        }
+        printLine(scr, CYAN);
 
         key = _getch();
 
@@ -246,10 +300,9 @@ int main()
         Flight("PK302", "Lahore", "Islamabad", "11:00", "2025-04-21", 380, 80),
         Flight("PK303", "Karachi", "Islamabad", "14:00", "2025-04-22", 1200, 90),
         Flight("PK304", "Islamabad", "Quetta", "17:00", "2025-04-23", 700, 60),
-        Flight("PK305", "Lahore", "Karachi", "20:00", "2025-04-24", 1020, 110),};
+        Flight("PK305", "Lahore", "Karachi", "20:00", "2025-04-24", 1020, 110),
+    };
 
-
-        
     bool exit = false;
     int choice = 0; // selects the option to choose
     // here choice = 0 ->Admin\\ and choice = 1->Customer
@@ -257,27 +310,33 @@ int main()
     int maxChoices = 2; // used as an upper limit so choice cannot be higher than this
     // lower limit is always 0
 
+    string menuOptions[3] = {"Admin", "Customer", "Exit"};
+    // int scr = 130;
     int key; // variable to take input from the user
     do
     {
-
         system("cls");
         getAirportManagementSystemText();
+        printLine(scr, CYAN);
+        printText("Who Is Using?", scr, WHITE, true);
+        printLine(scr, CYAN);
 
-        cout << "Who Is Using?" << endl;
-        if (choice == 0)
-            cout << YELLOW ">";
-        cout << "1.Admin" << RESET << endl;
-        if (choice == 1)
-            cout << YELLOW ">";
-        cout << "2.Customer" << RESET << endl;
-        if (choice == 2)
-            cout << YELLOW ">";
-        cout << "3.Exit" << RESET << endl;
+        for (int i = 0; i < 3; i++)
+        {
+            if (choice == i)
+            {
+                printText(string("=> ") + to_string(i + 1) + ". " + menuOptions[i], scr, YELLOW, true);
+            }
+
+            else
+            {
+                printText(to_string(i + 1) + ". " + menuOptions[i], scr, WHITE, true);
+            }
+        }
+        printLine(scr, CYAN);
 
         hideCursor();
         key = _getch();
-        // cout << key << endl;
 
         if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
         {
@@ -307,7 +366,7 @@ int main()
         }
         else
         {
-            cout << "Use W and S to navigate" << endl;
+            // cout << "Use W and S to navigate";
         }
     } while (exit == false);
     return 0;

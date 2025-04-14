@@ -146,14 +146,17 @@ ostream& printLine(int screenWidth, const string &color) {
     cout << color << "+" << string(screenWidth, '-') << "+" << RESET << endl;
     return cout;
 }
+
 ostream& printLineD(int screenWidth, const string &color) {
     cout << color << "+" << string(screenWidth, '=') << "+" << RESET << endl;
     return cout;
 }
+
 ostream& printLineS(int screenWidth, const string &color) {
     cout << color << "+" << string(screenWidth, ' ') << "+" << RESET << endl;
     return cout;
-}
+}//prints spaces
+
 void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;

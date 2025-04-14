@@ -273,6 +273,8 @@ public:
     {
         printText("Enter Flight Number to remove (or '0' to cancel):", screenWidtha, CYAN, false);
         cin >> fn;
+        
+
 
         // Cancelling
         if (fn == "0")

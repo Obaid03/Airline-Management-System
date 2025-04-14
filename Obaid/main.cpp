@@ -26,6 +26,7 @@ git push origin main
 #define CYAN "\033[36m"    /* Cyan */
 #define WHITE "\033[37m"   /* White */
 using namespace std;
+const int screenWidthM = 100;
 
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
@@ -263,6 +264,9 @@ int main()
 
         system("cls");
         getAirportManagementSystemText();
+        printLineD(screenWidthM, CYAN);
+        // cout << "\n\n\n";
+        // gotoxy(10,10);
 
         cout << "Who Is Using?" << endl;
         if (choice == 0)
