@@ -140,6 +140,7 @@ public:
         // cout << "Flight Number -->" << flight.getFlightNumber() << "\n";
         printText("Flight Number -->" + flight.getFlightNumber(), screenWidtha, WHITE, false);
     }
+    printLine(screenWidtha, CYAN);
 
     while (true)
     {
@@ -152,8 +153,10 @@ public:
         // Cancelling
         if (fn == "0")
         {
+            printLine(screenWidtha, CYAN);
             // cout << RED << "Cancelled flight Adding.\n" << RESET;
             printText("Cancelled flight Adding.", screenWidtha, RED, true);
+            printLine(screenWidtha, CYAN);
             return;
         }
 
@@ -172,31 +175,38 @@ public:
             flightNumber = fn;
             break;
         }
-
+        printLine(screenWidtha, CYAN);
         // cout << RED << "Invalid Flight Number! Try again.\n" << RESET;
         printText("Invalid Flight Number! Try again.", screenWidtha, RED, true);
+        printLine(screenWidtha, CYAN);
     }
 
     // cout << "Enter city of Departure " << endl;
+    printLine(screenWidtha, CYAN);
     printText("Enter city of Departure", screenWidtha, WHITE, false);
     cin >> flightorigin;
 
+    printLine(screenWidtha, CYAN);
     // cout << "Enter city of Arrival " << endl;
     printText("Enter city of Arrival", screenWidtha, WHITE, false);
     cin >> flightdestination;
 
+    printLine(screenWidtha, CYAN);
     // cout << "Enter Flight Time " << endl;
     printText("Enter Flight Time", screenWidtha, WHITE, false);
     cin >> flightTime;
 
+    printLine(screenWidtha, CYAN);
     // cout << "Enter Flight Date " << endl;
     printText("Enter Flight Date", screenWidtha, WHITE, false);
     cin >> flightDate;
 
+    printLine(screenWidtha, CYAN);
     // cout << "Enter Distance in KM " << endl;
     printText("Enter Distance in KM", screenWidtha, WHITE, false);
     cin >> distanceInKms;
 
+    printLine(screenWidtha, CYAN);
     // cout << "Enter Number of Seats Available " << endl;
     printText("Enter Number of Seats Available", screenWidtha, WHITE, false);
     cin >> numOfSeatsInFlight;
@@ -304,4 +314,5 @@ ostream &operator<<(ostream &out, const Flight &flight)
     out << "Number of Seats Available " << flight.numOfSeatsInFlight << endl;
     return out;
 }
+
 #endif // FLIGHT_H

@@ -339,6 +339,7 @@ public:
                     printText(string(" => ") + to_string(i + 1) + ". " + options[i], screenWidth, WHITE, false);
                 // cout << "|    " << WHITE << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
             }
+            printLine(screenWidth, CYAN);
 
             // cout << "+--------------------------------------------------+" << endl;
             // printLine(screenWidth, CYAN);
@@ -382,8 +383,9 @@ public:
                     break;
                 }
             }
+            
         } while (exit == false);
-        printLine(screenWidth, CYAN);
+        
     }
 };
 
