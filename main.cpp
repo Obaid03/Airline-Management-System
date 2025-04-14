@@ -27,6 +27,8 @@ git push origin main
 #define WHITE "\033[37m"   /* White */
 using namespace std;
 const int scr = 130;
+
+
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
 {
