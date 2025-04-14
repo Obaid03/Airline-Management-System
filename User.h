@@ -3,7 +3,6 @@
 #define USER_H
 #include <iostream>
 #include <string>
-#include <cctype>//for tolowercase function
 #include <vector>
 #include <conio.h>
 
@@ -85,7 +84,7 @@ public:
         printText("Current Username:" + getUserName(), screenWidth, WHITE, false);
 
         printText("Enter New Username", screenWidth, WHITE, false);
-        cout << "-> ";
+        cout << CYAN << "|=>>>> " << RESET;
         cin >> NewName;
 
         // cout << "\nCurrent Email: " << getUserEmail() << endl;
@@ -93,7 +92,7 @@ public:
         printText("Current Email:" + getUserEmail(), screenWidth, WHITE, false);
 
         printText("Enter New Email", screenWidth, WHITE, false);
-        cout << "-> ";
+        cout << CYAN << "|=>>>> " << RESET;
         cin >> NewEmail;
 
         while (!isValidEmail(NewEmail))
