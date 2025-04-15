@@ -22,6 +22,7 @@ A basic OOP implementation semester project in C++. This command-line-based syst
 ### 🛠️ Compile
 ```bash
 g++ main.cpp User.cpp ConsoleManipulation.cpp Flight.cpp -o AirlineManagement.exe
+```
 
 ---
 
