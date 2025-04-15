@@ -35,8 +35,9 @@ string toLowercase(string s)
         {
             s[i] += 32;
         }
-        return s;
+        
     }
+    return s;
 }
 
 ostream &printText(const string &textToPrint, int screenWidth, const string &color, bool isCenter)
