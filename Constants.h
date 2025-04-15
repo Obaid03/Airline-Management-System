@@ -12,5 +12,7 @@
 #define CYAN "\033[36m"    /* Cyan */
 #define WHITE "\033[37m"   /* White */
 
+const int screenWidth = 120;
+
 
 #endif

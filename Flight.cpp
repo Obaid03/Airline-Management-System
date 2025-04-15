@@ -10,8 +10,6 @@
 #include "Constants.h"
 
 using namespace std;
-const int screenWidtha = 100;
-
 
 
 
@@ -56,31 +54,31 @@ void Flight::AddFlight(vector<Flight> &allflights)
 {
     // Existing flight numbers
     // cout << "\nCurrent Flights:\n";
-    printLine(screenWidtha, CYAN);
-    printText("Current Flights:", screenWidtha, CYAN, false);
+    printLine(screenWidth, CYAN);
+    printText("Current Flights:", screenWidth, CYAN, false);
 
     for (const Flight &flight : allflights)
     {
         // cout << "Flight Number -->" << flight.getFlightNumber() << "\n";
-        printText("Flight Number -->" + flight.getFlightNumber(), screenWidtha, WHITE, false);
+        printText("Flight Number -->" + flight.getFlightNumber(), screenWidth, WHITE, false);
     }
-    printLine(screenWidtha, CYAN);
+    printLine(screenWidth, CYAN);
 
     while (true)
     {
         int flag = 0;
         string fn;
         // cout << CYAN << "\nEnter Flight Number to add (or '0' to cancel): " << RESET;
-        printText("Enter Flight Number to add (or '0' to cancel):", screenWidtha, CYAN, false);
+        printText("Enter Flight Number to add (or '0' to cancel):", screenWidth, CYAN, false);
         cin >> fn;
 
         // Cancelling
         if (fn == "0")
         {
-            printLine(screenWidtha, CYAN);
+            printLine(screenWidth, CYAN);
             // cout << RED << "Cancelled flight Adding.\n" << RESET;
-            printText("Cancelled flight Adding.", screenWidtha, RED, true);
-            printLine(screenWidtha, CYAN);
+            printText("Cancelled flight Adding.", screenWidth, RED, true);
+            printLine(screenWidth, CYAN);
             return;
         }
 
@@ -99,40 +97,40 @@ void Flight::AddFlight(vector<Flight> &allflights)
             flightNumber = fn;
             break;
         }
-        printLine(screenWidtha, CYAN);
+        printLine(screenWidth, CYAN);
         // cout << RED << "Invalid Flight Number! Try again.\n" << RESET;
-        printText("Invalid Flight Number! Try again.", screenWidtha, RED, true);
-        printLine(screenWidtha, CYAN);
+        printText("Invalid Flight Number! Try again.", screenWidth, RED, true);
+        printLine(screenWidth, CYAN);
     }
 
     // cout << "Enter city of Departure " << endl;
-    printLine(screenWidtha, CYAN);
-    printText("Enter city of Departure", screenWidtha, WHITE, false);
+    printLine(screenWidth, CYAN);
+    printText("Enter city of Departure", screenWidth, WHITE, false);
     cin >> flightorigin;
 
-    printLine(screenWidtha, CYAN);
+    printLine(screenWidth, CYAN);
     // cout << "Enter city of Arrival " << endl;
-    printText("Enter city of Arrival", screenWidtha, WHITE, false);
+    printText("Enter city of Arrival", screenWidth, WHITE, false);
     cin >> flightdestination;
 
-    printLine(screenWidtha, CYAN);
+    printLine(screenWidth, CYAN);
     // cout << "Enter Flight Time " << endl;
-    printText("Enter Flight Time", screenWidtha, WHITE, false);
+    printText("Enter Flight Time", screenWidth, WHITE, false);
     cin >> flightTime;
 
-    printLine(screenWidtha, CYAN);
+    printLine(screenWidth, CYAN);
     // cout << "Enter Flight Date " << endl;
-    printText("Enter Flight Date", screenWidtha, WHITE, false);
+    printText("Enter Flight Date", screenWidth, WHITE, false);
     cin >> flightDate;
 
-    printLine(screenWidtha, CYAN);
+    printLine(screenWidth, CYAN);
     // cout << "Enter Distance in KM " << endl;
-    printText("Enter Distance in KM", screenWidtha, WHITE, false);
+    printText("Enter Distance in KM", screenWidth, WHITE, false);
     cin >> distanceInKms;
 
-    printLine(screenWidtha, CYAN);
+    printLine(screenWidth, CYAN);
     // cout << "Enter Number of Seats Available " << endl;
-    printText("Enter Number of Seats Available", screenWidtha, WHITE, false);
+    printText("Enter Number of Seats Available", screenWidth, WHITE, false);
     cin >> numOfSeatsInFlight;
 }
 
@@ -142,21 +140,21 @@ void Flight::RemoveFlight(vector<Flight> &allflights)
     int found = 0;
 
     // Existing flight numbers
-    printText("Current Flights:", screenWidtha, CYAN, false);
+    printText("Current Flights:", screenWidth, CYAN, false);
     for (const Flight &flight : allflights)
     {
-        printText("Flight Number -->" + flight.getFlightNumber(), screenWidtha, WHITE, false);
+        printText("Flight Number -->" + flight.getFlightNumber(), screenWidth, WHITE, false);
     }
 
     while (true)
     {
-        printText("Enter Flight Number to remove (or '0' to cancel):", screenWidtha, CYAN, false);
+        printText("Enter Flight Number to remove (or '0' to cancel):", screenWidth, CYAN, false);
         cin >> fn;
 
         // Cancelling
         if (fn == "0")
         {
-            printText("Cancelled flight removal.", screenWidtha, RED, false);
+            printText("Cancelled flight removal.", screenWidth, RED, false);
             return;
         }
 
@@ -166,7 +164,7 @@ void Flight::RemoveFlight(vector<Flight> &allflights)
             if ((itr->getFlightNumber()) == fn)
             {
                 allflights.erase(itr);
-                printText("Flight Number" + fn + " removed successfully!", screenWidtha, RED, false);
+                printText("Flight Number" + fn + " removed successfully!", screenWidth, RED, false);
                 found = 1;
                 break;
             }
@@ -175,7 +173,7 @@ void Flight::RemoveFlight(vector<Flight> &allflights)
         if (found)
             break;
 
-        printText("Invalid Flight Number! Try again.", screenWidtha, RED, false);
+        printText("Invalid Flight Number! Try again.", screenWidth, RED, false);
     }
 }
 

@@ -18,7 +18,6 @@ git push origin main
 #include "Constants.h"
 
 using namespace std;
-const int scr = 130;
 
 // login screen(when admin and user want to login)
 void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
@@ -49,14 +48,14 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
     }
 
     system("cls");
-    printLine(scr, CYAN);
-    printText("USER LOGIN", scr, GREEN, true);
-    printLine(scr, CYAN);
+    printLine(screenWidth, CYAN);
+    printText("USER LOGIN", screenWidth, GREEN, true);
+    printLine(screenWidth, CYAN);
 
     do
     {
-        printLine(scr, CYAN);
-        printText("Enter Email", scr, WHITE, false);
+        printLine(screenWidth, CYAN);
+        printText("Enter Email", screenWidth, WHITE, false);
         cout << CYAN << "|=>>>> " << RESET;
         // cout << "Enter email of user" << endl;
         cin >> temp;
@@ -67,24 +66,24 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
                 flag = true;
                 indexOfMatchedUser = i;
                 // cout << "Enter password" << endl;
-                printLine(scr, CYAN);
-                printText("Enter Password", scr, WHITE, false);
+                printLine(screenWidth, CYAN);
+                printText("Enter Password", screenWidth, WHITE, false);
                 cout << CYAN << "|=>>>> " << RESET;
                 cin >> temp;
                 if (temp == users[indexOfMatchedUser]->getUserPassword())
                 {
-                    printLine(scr, CYAN);
-                    printText("Login Successful!", scr, GREEN, true);
-                    printLine(scr, CYAN);
+                    printLine(screenWidth, CYAN);
+                    printText("Login Successful!", screenWidth, GREEN, true);
+                    printLine(screenWidth, CYAN);
                     system("pause");
                     users[indexOfMatchedUser]->userPanel(allFlights);
                     return;
                 }
                 else
                 {
-                    printLine(scr, CYAN);
-                    printText("Wrong Password", scr, RED, true);
-                    printLine(scr, CYAN);
+                    printLine(screenWidth, CYAN);
+                    printText("Wrong Password", screenWidth, RED, true);
+                    printLine(screenWidth, CYAN);
                     system("pause");
                 }
                 // break;
@@ -96,9 +95,9 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
         }
         if (flag == false)
         {
-            printLine(scr, CYAN);
-            printText("User Not Found!", scr, RED, true);
-            printLine(scr, CYAN);
+            printLine(screenWidth, CYAN);
+            printText("User Not Found!", screenWidth, RED, true);
+            printLine(screenWidth, CYAN);
         }
 
     } while (flag == false);
@@ -110,9 +109,9 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     system("cls");
     // cout << "User Registrarion" << endl;
     // cout << "=================" << endl;
-    printLine(scr, CYAN);
-    printText("USER REGISTRATION", scr, GREEN, true);
-    printLine(scr, CYAN);
+    printLine(screenWidth, CYAN);
+    printText("USER REGISTRATION", screenWidth, GREEN, true);
+    printLine(screenWidth, CYAN);
 
     string temp, passRepeat;
     bool isValid = false;
@@ -126,14 +125,14 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         newUser = &customer;
 
     // cout << "Enter name of new user" << endl;
-    printText("Enter name of User", scr, WHITE, false);
+    printText("Enter name of User", screenWidth, WHITE, false);
     cout << CYAN << "|=>>>> " << RESET;
     cin >> temp;
     newUser->setUserName(temp);
 
     do
     {
-        printText("Enter email of User", scr, WHITE, false);
+        printText("Enter email of User", screenWidth, WHITE, false);
         cout << CYAN << "|=>>>> " << RESET;
         cin >> temp;
         isValid = isValidEmail(temp);
@@ -142,20 +141,20 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
             newUser->setUserEmail(temp);
         }
         else {
-            printLine(scr, CYAN);
-            printText("Email Not Valid! Enter Again", scr, RED, true);
-            printLine(scr, CYAN);
+            printLine(screenWidth, CYAN);
+            printText("Email Not Valid! Enter Again", screenWidth, RED, true);
+            printLine(screenWidth, CYAN);
         }
     } while(!isValid);
 
     do
     {
         // cout << "Enter password for user" << endl;
-        printText("Enter password for User", scr, WHITE, false);
+        printText("Enter password for User", screenWidth, WHITE, false);
         cout << CYAN << "|=>>>> " << RESET;
         cin >> temp;
         // cout << "Repeat password" << endl;
-        printText("Repeat password", scr, WHITE, false);
+        printText("Repeat password", screenWidth, WHITE, false);
         cout << CYAN << "|=>>>> " << RESET;
         cin >> passRepeat;
         if (temp == passRepeat)
@@ -165,9 +164,9 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         else
         {
             // cout << "Passwords do not match! Enter Again" << endl;
-            printLine(scr, CYAN);
-            printText("Passwords do not match! Enter Again", scr, RED, true);
-            printLine(scr, CYAN);
+            printLine(screenWidth, CYAN);
+            printText("Passwords do not match! Enter Again", screenWidth, RED, true);
+            printLine(screenWidth, CYAN);
         }
     } while (temp != passRepeat); // can add a function to push the user to generate a strong password
 
@@ -177,9 +176,9 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         customers.push_back(customer);
 
     // cout << "User Added Successfully" << endl;
-    printLine(scr, CYAN);
-    printText("User Added Successfully", scr, GREEN, true);
-    printLine(scr, CYAN);
+    printLine(screenWidth, CYAN);
+    printText("User Added Successfully", screenWidth, GREEN, true);
+    printLine(screenWidth, CYAN);
     system("pause");
 }
 
@@ -214,27 +213,27 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         // // update maxChoices if adding another menu item
         system("cls");
         getAirportManagementSystemText();
-        printLine(scr, CYAN);
-        printText("What do you want to do?", scr, WHITE, true);
+        printLine(screenWidth, CYAN);
+        printText("What do you want to do?", screenWidth, WHITE, true);
         if (isAdmin)
-            printText("--[Admin]--", scr, GREEN, true);
+            printText("--[Admin]--", screenWidth, GREEN, true);
         else
-            printText("--[Customer]--", scr, GREEN, true);
-        printLine(scr, CYAN);
+            printText("--[Customer]--", screenWidth, GREEN, true);
+        printLine(screenWidth, CYAN);
 
         for (int i = 0; i < 3; i++)
         {
             if (choice == i)
             {
-                printText(string("=> ") + to_string(i + 1) + ". " + menuOptions[i], scr, YELLOW, true);
+                printText(string("=> ") + to_string(i + 1) + ". " + menuOptions[i], screenWidth, YELLOW, true);
             }
 
             else
             {
-                printText(to_string(i + 1) + ". " + menuOptions[i], scr, WHITE, true);
+                printText(to_string(i + 1) + ". " + menuOptions[i], screenWidth, WHITE, true);
             }
         }
-        printLine(scr, CYAN);
+        printLine(screenWidth, CYAN);
 
         key = _getch();
 
@@ -325,23 +324,23 @@ int main()
     {
         system("cls");
         getAirportManagementSystemText();
-        printLine(scr, CYAN);
-        printText("Who Is Using?", scr, WHITE, true);
-        printLine(scr, CYAN);
+        printLine(screenWidth, CYAN);
+        printText("Who Is Using?", screenWidth, WHITE, true);
+        printLine(screenWidth, CYAN);
 
         for (int i = 0; i < 3; i++)
         {
             if (choice == i)
             {
-                printText(string("=> ") + to_string(i + 1) + ". " + menuOptions[i], scr, YELLOW, true);
+                printText(string("=> ") + to_string(i + 1) + ". " + menuOptions[i], screenWidth, YELLOW, true);
             }
 
             else
             {
-                printText(to_string(i + 1) + ". " + menuOptions[i], scr, WHITE, true);
+                printText(to_string(i + 1) + ". " + menuOptions[i], screenWidth, WHITE, true);
             }
         }
-        printLine(scr, CYAN);
+        printLine(screenWidth, CYAN);
 
         hideCursor();
         key = _getch();

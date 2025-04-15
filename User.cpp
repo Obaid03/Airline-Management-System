@@ -13,7 +13,6 @@ using namespace std;
 
 // DEFINITION OF VARIABLES
 //==========================================================================================================
-int screenWidth = 100;
 int Customer::noOfCustomers = 0;
 int Admin::noOfAdmins = 0;
 int User::noOfUsers = 0;
