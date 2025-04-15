@@ -15,9 +15,26 @@ void getAirportManagementSystemText()
          << endl;
 }
 
-bool isValidEmail(const string &email)
-{
-    return email.find('@') != string::npos && email.find('.') != string::npos;
+bool isValidEmail(const string &email) {
+    int atposition = -1, dotposition = -1;
+    for (int i = 0; i < email.length(); i++) {
+        if (email[i] == '@') {
+            if (atposition != -1) return false; 
+            atposition = i;
+        }
+    }
+    if (atposition <= 0 || atposition >= email.length() - 1) return false;
+    for (int i = atposition + 1; i < email.length(); i++) {
+        if (email[i] == '.') {
+            if (i < email.length() - 1 && email[i + 1] != '.') {
+                dotposition = i;
+                break;
+            }
+        }
+    }
+    if (dotposition == -1) return false;          
+    if (atposition > dotposition) return false;   
+    return true;
 }
 
 string toLowercase(string s)
