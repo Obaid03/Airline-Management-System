@@ -44,16 +44,4 @@ public:
     friend ostream &operator<<(ostream &out, const Flight &flight);
 };
 
-// ostream &operator<<(ostream &out, const Flight &flight)
-// {
-//     out << "Flight Number " << flight.flightNumber << endl;
-//     out << "city of Departure " << flight.flightorigin << endl;
-//     out << "city of Arrival " << flight.flightdestination << endl;
-//     out << "Flight Time " << flight.flightTime << endl;
-//     out << "Flight Date " << flight.flightDate << endl;
-//     out << "Distance in KM " << flight.distanceInKms << endl;
-//     out << "Number of Seats Available " << flight.numOfSeatsInFlight << endl;
-//     return out;
-// }
-
 #endif // FLIGHT_H
