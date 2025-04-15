@@ -1,17 +1,12 @@
 #include <iostream>
+#include <string>
 #include <windows.h>
-using namespace std;
+#include <conio.h>
 
-#define RESET "\033[0m"
-#define BLACK "\033[30m"   
-#define RED "\033[31m"     
-#define GREEN "\033[32m"   
-#define YELLOW "\033[33m"  
-#define BLUE "\033[34m"    
-#define MAGENTA "\033[35m" 
-#define CYAN "\033[36m"    /* Cyan */
-#define WHITE "\033[37m"
-#include "ConsoleManipulation.h"
+// Importing Other Header Files
+#include "Constants.h"
+
+using namespace std;
 
 // The Airport Management Text that appears on top of login screen
 void getAirportManagementSystemText()

@@ -1,20 +1,22 @@
-#include <vector>
 #include <iostream>
-#include "ConsoleManipulation.h"
+#include <string>
+#include <vector>
+#include <conio.h>
+
+// Importing Other Header Files
 #include "Flight.h"
+#include "ConsoleManipulation.h"
 #include "User.h"
+#include "Constants.h"
 
 using namespace std;
 const int screenWidtha = 100;
 
-#define YELLOW "\033[33m"
-#define RESET "\033[0m"
-#define CYAN "\033[36m"
-#define GREEN "\033[32m"
-#define RED "\033[31m"
-#define BOLD "\033[1m"
-#define MAGENTA "\033[35m"
-#define WHITE "\033[37m"
+
+
+
+// FLIGHT CLASS MEMBER FUNCTIONS
+//==========================================================================================================
 
 Flight::Flight(string flightNumber, string origin, string destination, string time, string date, double distance, int seats)
     : flightNumber(flightNumber), flightorigin(origin), flightdestination(destination),
@@ -177,6 +179,11 @@ void Flight::RemoveFlight(vector<Flight> &allflights)
     }
 }
 
+//==========================================================================================================
+
+
+//FRIEND FUNCTION(S)
+//==========================================================================================================
 ostream &operator<<(ostream &out, const Flight &flight)
 {
     out << "Flight Number " << flight.flightNumber << endl;
@@ -188,3 +195,4 @@ ostream &operator<<(ostream &out, const Flight &flight)
     out << "Number of Seats Available " << flight.numOfSeatsInFlight << endl;
     return out;
 }
+//==========================================================================================================

@@ -6,19 +6,8 @@
 #define FLIGHT_H
 #include <vector>
 #include <iostream>
-#include "ConsoleManipulation.h"
-#include "User.h"
 using namespace std;
-// const int screenWidtha = 100;
 
-#define YELLOW "\033[33m"
-#define RESET "\033[0m"
-#define CYAN "\033[36m"
-#define GREEN "\033[32m"
-#define RED "\033[31m"
-#define BOLD "\033[1m"
-#define MAGENTA "\033[35m"
-#define WHITE "\033[37m"
 
 class Customer;
 

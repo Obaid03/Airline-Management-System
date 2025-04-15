@@ -2,10 +2,7 @@
 #define CONSOLE_H
 
 #include <iostream>
-// #include <windows.h>
 using namespace std;
-
-// inline constexpr int screenWidth = 100;
 
 // The Airport Management Text that appears on top of login screen
 void getAirportManagementSystemText();
