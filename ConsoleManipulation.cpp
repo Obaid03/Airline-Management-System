@@ -49,18 +49,21 @@ ostream &printText(const string &textToPrint, int screenWidth, const string &col
     return cout;
 }
 
+//prints +----+
 ostream &printLine(int screenWidth, const string &color)
 {
     cout << color << "+" << string(screenWidth, '-') << "+" << RESET << endl;
     return cout;
 }
 
+//prints +===+
 ostream &printLineD(int screenWidth, const string &color)
 {
     cout << color << "+" << string(screenWidth, '=') << "+" << RESET << endl;
     return cout;
 }
 
+//prints spaces
 ostream &printLineS(int screenWidth, const string &color)
 {
     cout << color << "+" << string(screenWidth, ' ') << "+" << RESET << endl;
