@@ -31,7 +31,7 @@ public:
     Date(int day = 0, int month = 0, int year = 0) : day(day), month(month), year(year) {}
 
     void setYear(const int &year) { this->year = year; }
-    void setMonth(const int &ymonth) { this->month = month; }
+    void setMonth(const int &month) { this->month = month; }
     void setDay(const int &day) { this->day = day; }
 
     int getYear() const { return year; }
