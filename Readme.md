@@ -29,7 +29,7 @@ g++ main.cpp User.cpp ConsoleManipulation.cpp Flight.cpp -o AirlineManagement.ex
 ## 📌 Features
 ### Main Menu
 
-![Main Menu Image](Screenshots/menu.png)
+![Main Menu Image](Other_Resources/Screenshots/menu.png)
 
 
 ### 🛫 Admin Panel
@@ -38,14 +38,14 @@ g++ main.cpp User.cpp ConsoleManipulation.cpp Flight.cpp -o AirlineManagement.ex
 - View all available flights
 - View all registered customers
 - Edit admin information
-![Main Menu Image](Screenshots/admin.png)
+![Main Menu Image](Other_Resources/Screenshots/admin.png)
 
 ### 🧍‍♂️ Customer Panel
 - Book new flights
 - Cancel booked flights
 - View personal and booking information
 - Edit profile details
-![Main Menu Image](Screenshots/customer.png)
+![Main Menu Image](Other_Resources/Screenshots/customer.png)
 
 ### ✈️ Flight Management
 - View complete flight details:
