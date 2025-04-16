@@ -6,6 +6,7 @@
 #define FLIGHT_H
 #include <vector>
 #include <iostream>
+#include "User.h"
 using namespace std;
 
 
@@ -25,7 +26,7 @@ private:
     vector<Customer> listOfCustomers;
 
 public:
-    Flight(string flightNumber = "", string origin = "", string destination = "", string time = 0, string date = 0, double distance = 0, int seats = 0);
+    Flight(string flightNumber = "", string origin = "", string destination = "", string time = "", string date = "", double distance = 0, int seats = 0);
        
     string getFlightNumber() const;
 

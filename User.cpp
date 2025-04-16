@@ -18,8 +18,6 @@ int Admin::noOfAdmins = 0;
 int User::noOfUsers = 0;
 //==========================================================================================================
 
-
-
 // USER CLASS MEMBER FUNCTIONS
 //==========================================================================================================
 User::User(string userID, string userName, string userEmail, string userPassword) : userID(userID), userName(userName), userEmail(userEmail), userPassword(userPassword)
@@ -43,6 +41,11 @@ string User::getUserPassword() const { return userPassword; }
 
 // ADMIN CLASS MEMBER FUNCTIONS
 //==========================================================================================================
+Admin::Admin() : User("", "", "", "")
+{
+    noOfAdmins++;
+}
+
 Admin::Admin(string userID, string userName, string userEmail, string userPassword) : User(userID, userName, userEmail, userPassword)
 {
     noOfAdmins++;
@@ -224,7 +227,7 @@ void Admin::listAllFlights(vector<Flight> &allflights)
 
         for (const Flight &flight : allflights)
         {
-            // cout << flight << "\n"; // Flight info via overloaded <<
+            cout << flight << "\n"; // Flight info via overloaded <<
             // cout << RED << "--------------------------------\n" << RESET;
             printLine(screenWidth, RED);
         }

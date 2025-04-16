@@ -3,6 +3,8 @@
 #define USER_H
 #include <vector>
 #include <iostream>
+#include "Constants.h"
+#include "ConsoleManipulation.h"
 using namespace std;
 
 
@@ -40,7 +42,8 @@ private:
     static int noOfAdmins;
 
 public:
-    Admin(string userID = "", string userName = "", string userEmail = "", string userPassword = "");
+    Admin();
+    Admin(string userID, string userName, string userEmail, string userPassword);
    
 
     void editInformation();
@@ -51,7 +54,7 @@ public:
 
     void listAllFlights(vector<Flight> &allflights);
 
-    void listAllCustomers(vector<Flight>& allFlights);
+    // void listAllCustomers(vector<Flight>& allFlights);
 
     void userPanel(vector<Flight> &allFlights) override;
    
