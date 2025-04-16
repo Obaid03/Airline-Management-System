@@ -497,11 +497,11 @@ void Customer::displayEnhancedData()
             printText("|  BOARDING PASS                           |", screenWidth, YELLOW, false);
             printText("|  Flight: " + flight.getFlightNumber(), screenWidth, WHITE, false);
             printText("|  From: " + flight.getOrigin() + " To: " + flight.getDestination(), screenWidth, WHITE, false);
-            printText("|  Date: " + flight.getDate() + "    Time: " + flight.getTime(), screenWidth, WHITE, false);
+            printText("|  Date: " + flight.getDateInString() + "    Time: " + flight.getTimeInString(), screenWidth, WHITE, false);
             printText("|  Passenger: " + getUserName(), screenWidth, WHITE, false);
             printText("|  Seat: " + to_string(10 + i) + "A", screenWidth, WHITE, false);
             printText("|                                          |", screenWidth, YELLOW, false);
-            printText("|  ****** BOARDING TIME: " + flight.getTime() + ":" + flight.getTime().substr(3, 2) + " ******", screenWidth, WHITE, false);
+            // printText("|  ****** BOARDING TIME: " + flight.getTime() + ":" + flight.getTime().substr(3, 2) + " ******", screenWidth, WHITE, false);
             printText("+------------------------------------------+", screenWidth, YELLOW, false);
 
             if (i < flightsBookedByCustomer.size() - 1)
@@ -577,7 +577,7 @@ void Customer::bookNewFlightEnhanced(vector<Flight> &allFlights)
 
     for (int i = 0; i < matchingFlights.size(); ++i)
     {
-        printText(to_string(i + 1) + ". " + matchingFlights[i].getFlightNumber() + " | " + matchingFlights[i].getDate() + " | " + matchingFlights[i].getTime(), screenWidth, WHITE, false);
+        printText(to_string(i + 1) + ". " + matchingFlights[i].getFlightNumber() + " | " + matchingFlights[i].getTimeInString() + " | " + matchingFlights[i].getDateInString(), screenWidth, WHITE, false);
         // cout << "|  " << WHITE << (i + 1) << ". " << matchingFlights[i].getFlightNumber()
         //    << " | " << matchingFlights[i].getDate()
         //  << " | " << matchingFlights[i].getTime() << CYAN << "          |" << endl;
@@ -593,6 +593,7 @@ void Customer::bookNewFlightEnhanced(vector<Flight> &allFlights)
     if (select >= 1 && select <= matchingFlights.size())
     {
         flightsBookedByCustomer.push_back(matchingFlights[select - 1]);
+        // push back and rearrange the flight booked by customer wrt time and date
 
         printLine(screenWidth, CYAN);
         printText(" Flight booked successfully!", screenWidth, GREEN, false);
@@ -600,7 +601,7 @@ void Customer::bookNewFlightEnhanced(vector<Flight> &allFlights)
         printText("BOOKING CONFIRMATION:", screenWidth, YELLOW, false);
         printText("Flight: " + matchingFlights[select - 1].getFlightNumber(), screenWidth, WHITE, false);
         printText("Route: " + matchingFlights[select - 1].getOrigin() + " -> " + matchingFlights[select - 1].getDestination(), screenWidth, WHITE, false);
-        printText("Date/Time: " + matchingFlights[select - 1].getDate() + " at " + matchingFlights[select - 1].getTime(), screenWidth, WHITE, false);
+        printText("Date/Time: " + matchingFlights[select - 1].getDateInString() + " at " + matchingFlights[select - 1].getTimeInString(), screenWidth, WHITE, false);
         // cout << CYAN << "+==================================================+" << endl;
         // cout << "|  " << GREEN << " Flight booked successfully!                    " << CYAN << " |" << endl;
         // cout << "|                                                  |" << endl;
@@ -650,7 +651,7 @@ void Customer::removeFlightEnhanced()
         const Flight &flight = flightsBookedByCustomer[i];
         printText(to_string(i + 1) + ". " + flight.getFlightNumber() + " | " +
                       flight.getOrigin() + " to " + flight.getDestination() + " | " +
-                      flight.getDate(),
+                      flight.getDateInString(),
                   screenWidth, WHITE, false);
     }
 
@@ -718,7 +719,7 @@ void Customer::userPanel(vector<Flight> &allFlights)
             printLine(screenWidth, CYAN);
             printText(" YOUR NEXT FLIGHT:", screenWidth, YELLOW, false);
             printText(" Flight: " + nextFlight.getFlightNumber() + "   " + nextFlight.getOrigin() + " to " + nextFlight.getDestination(), screenWidth, WHITE, false);
-            printText(" Date: " + nextFlight.getDate() + "   Time: " + nextFlight.getTime(), screenWidth, WHITE, false);
+            printText(" Date: " + nextFlight.getDateInString() + "   Time: " + nextFlight.getTimeInString(), screenWidth, WHITE, false);
             // cout << "+--------------------------------------------------+" << endl;
             // cout << "| " << YELLOW << "YOUR NEXT FLIGHT:                                " << CYAN << " |" << endl;
             // cout << "| " << WHITE << "Flight: " << nextFlight.getFlightNumber() << "   " << nextFlight.getOrigin() << " to " << nextFlight.getDestination() << CYAN << "            |" << endl;
@@ -789,4 +790,13 @@ void Customer::userPanel(vector<Flight> &allFlights)
     } while (exit == false);
 }
 
+// void Customer::pushBackWRTDate(const Flight &bookedFlight)
+// {
+//     for (int i = 0; i < flightsBookedByCustomer.size(); i++)
+//     {
+//         if (bookedFlight.getYear() > flight.getYear())
+//         {
+//         }
+//     }
+// }
 //==========================================================================================================

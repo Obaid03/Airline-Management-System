@@ -11,14 +11,12 @@
 
 using namespace std;
 
-
-
 // FLIGHT CLASS MEMBER FUNCTIONS
 //==========================================================================================================
 
-Flight::Flight(string flightNumber, string origin, string destination, string time, string date, double distance, int seats)
+Flight::Flight(string flightNumber, string origin, string destination, int hour, int minutes, int day, int month, int year, double distance, int seats)
     : flightNumber(flightNumber), flightorigin(origin), flightdestination(destination),
-      flightTime(time), flightDate(date), distanceInKms(distance), numOfSeatsInFlight(seats) {}
+      flightTime(hour, minutes), flightDate(day, month, year), distanceInKms(distance), numOfSeatsInFlight(seats) {}
 
 string Flight::getFlightNumber() const
 {
@@ -35,20 +33,39 @@ string Flight::getDestination() const
     return flightdestination;
 }
 
-string Flight::getTime() const
+// Time Flight::getTime() const
+// {
+//     return flightTime;
+// }
+
+// Date Flight::getDate() const
+// {
+//     return flightDate;
+// }
+
+int Flight::getMinutes() const { return flightTime.getMinutes(); }
+int Flight::getHour() const { return flightTime.getHour(); }
+
+string Flight::getTimeInString() const
 {
-    return flightTime;
+    return to_string(flightTime.getHour()) + ":" + to_string(flightTime.getMinutes());
 }
 
-string Flight::getDate() const
+int Flight::getYear() const { return flightDate.getYear(); }
+int Flight::getMonth() const { return flightDate.getMonth(); }
+int Flight::getDay() const { return flightDate.getDay(); }
+
+string Flight::getDateInString() const
 {
-    return flightDate;
+    return to_string(flightDate.getDay()) + "/" + to_string(flightDate.getMonth()) + "/" + to_string(flightDate.getYear());
 }
 
-vector<Customer>& Flight::getCustomers()
+vector<Customer> &Flight::getCustomers()
 {
     return listOfCustomers;
 }
+
+
 
 void Flight::AddFlight(vector<Flight> &allflights)
 {
@@ -103,6 +120,7 @@ void Flight::AddFlight(vector<Flight> &allflights)
         printLine(screenWidth, CYAN);
     }
 
+    int temp; // used for dates and times
     // cout << "Enter city of Departure " << endl;
     printLine(screenWidth, CYAN);
     printText("Enter city of Departure", screenWidth, WHITE, false);
@@ -116,12 +134,25 @@ void Flight::AddFlight(vector<Flight> &allflights)
     printLine(screenWidth, CYAN);
     // cout << "Enter Flight Time " << endl;
     printText("Enter Flight Time", screenWidth, WHITE, false);
-    cin >> flightTime;
+    printText("Hour", screenWidth, WHITE, false);
+    cin >> temp;
+    flightTime.setHour(temp);
+    printText("Minutes", screenWidth, WHITE, false);
+    cin >> temp;
+    flightTime.setMinutes(temp);
 
     printLine(screenWidth, CYAN);
     // cout << "Enter Flight Date " << endl;
     printText("Enter Flight Date", screenWidth, WHITE, false);
-    cin >> flightDate;
+    printText("Year", screenWidth, WHITE, false);
+    cin >> temp;
+    flightDate.setYear(temp);
+    printText("Month", screenWidth, WHITE, false);
+    cin >> temp;
+    flightDate.setMonth(temp);
+    printText("Day", screenWidth, WHITE, false);
+    cin >> temp;
+    flightDate.setDay(temp);
 
     printLine(screenWidth, CYAN);
     // cout << "Enter Distance in KM " << endl;
@@ -179,18 +210,17 @@ void Flight::RemoveFlight(vector<Flight> &allflights)
 
 //==========================================================================================================
 
-
-//FRIEND FUNCTION(S)
+// FRIEND FUNCTION(S)
 //==========================================================================================================
 ostream &operator<<(ostream &out, const Flight &flight)
 {
-    out << "Flight Number " << flight.flightNumber << endl;
-    out << "city of Departure " << flight.flightorigin << endl;
-    out << "city of Arrival " << flight.flightdestination << endl;
-    out << "Flight Time " << flight.flightTime << endl;
-    out << "Flight Date " << flight.flightDate << endl;
-    out << "Distance in KM " << flight.distanceInKms << endl;
-    out << "Number of Seats Available " << flight.numOfSeatsInFlight << endl;
+    out << "Flight Number:  " << flight.flightNumber << endl;
+    out << "city of Departure:  " << flight.flightorigin << endl;
+    out << "city of Arrival:  " << flight.flightdestination << endl;
+    out << "Flight Time: " << flight.flightTime.getHour() << ":" << flight.flightTime.getMinutes() << endl;
+    out << "Flight Date:  " << flight.flightDate.getDay() << "/" << flight.flightDate.getMonth() << "/" << flight.flightDate.getYear() << endl;
+    out << "Distance in KM:  " << flight.distanceInKms << endl;
+    out << "Number of Seats Available:  " << flight.numOfSeatsInFlight << endl;
     return out;
 }
 //==========================================================================================================

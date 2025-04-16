@@ -7,8 +7,8 @@
 #include <vector>
 #include <iostream>
 #include "User.h"
+#include "DateAndTime.h"
 using namespace std;
-
 
 class Customer;
 
@@ -18,25 +18,32 @@ private:
     string flightNumber;      // unique identifier
     string flightorigin;      // from which city
     string flightdestination; // to which city
-    string flightTime;        // time for flight in hours
-    string flightDate;
+    Time flightTime;          // time for flight in hours
+    Date flightDate;
     double distanceInKms;
     int numOfSeatsInFlight;
 
     vector<Customer> listOfCustomers;
 
 public:
-    Flight(string flightNumber = "", string origin = "", string destination = "", string time = "", string date = "", double distance = 0, int seats = 0);
-       
+    Flight(string flightNumber = "", string origin = "", string destination = "", int hour = 0, int minutes = 0, int day = 0, int month = 0, int year = 0, double distance = 0, int seats = 0);
+
     string getFlightNumber() const;
-
     string getOrigin() const;
-
     string getDestination() const;
 
-    string getTime() const;
+    // Time getTime() const;
 
-    string getDate() const;
+    // Date getDate() const;
+
+    int getMinutes() const;
+    int getHour() const;
+    string getTimeInString() const;
+
+    int getYear() const;
+    int getMonth() const;
+    int getDay() const;
+    string getDateInString() const;
 
     vector<Customer> &getCustomers();
     void AddFlight(vector<Flight> &allflights);

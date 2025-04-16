@@ -130,12 +130,13 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         {
             newUser->setUserEmail(temp);
         }
-        else {
+        else
+        {
             printLine(screenWidth, CYAN);
             printText("Email Not Valid! Enter Again", screenWidth, RED, true);
             printLine(screenWidth, CYAN);
         }
-    } while(!isValid);
+    } while (!isValid);
 
     do
     {
@@ -293,11 +294,12 @@ int main()
         Customer("C005", "Junaid", "junaid@user.com", "123")};
 
     vector<Flight> flights = {
-        Flight("PK301", "Karachi", "Lahore", "08:00", "2025-04-20", 1020, 100),
-        Flight("PK302", "Lahore", "Islamabad", "11:00", "2025-04-21", 380, 80),
-        Flight("PK303", "Karachi", "Islamabad", "14:00", "2025-04-22", 1200, 90),
-        Flight("PK304", "Islamabad", "Quetta", "17:00", "2025-04-23", 700, 60),
-        Flight("PK305", "Lahore", "Karachi", "20:00", "2025-04-24", 1020, 110),
+        // flight no, origin, destination, hour, minutes, day, month, year, distance, seats
+        Flight("PK301", "Karachi", "Lahore", 8, 1, 20, 4, 2025, 1020, 100),
+        Flight("PK302", "Lahore", "Islamabad", 11, 2, 21, 4, 2025, 380, 80),
+        Flight("PK303", "Karachi", "Islamabad", 14, 3, 22, 4, 2025, 1200, 90),
+        Flight("PK304", "Islamabad", "Quetta", 17, 4, 23, 4, 2025, 700, 60),
+        Flight("PK305", "Lahore", "Karachi", 20, 5, 24, 4, 2025, 1020, 110),
     };
 
     bool exit = false;

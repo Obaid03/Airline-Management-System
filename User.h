@@ -7,7 +7,6 @@
 #include "ConsoleManipulation.h"
 using namespace std;
 
-
 class Flight;
 
 class User
@@ -21,7 +20,6 @@ protected:
 
 public:
     User(string userID, string userName, string userEmail, string userPassword);
-
 
     bool verifyCredential(const string &email, const string &password);
 
@@ -44,10 +42,9 @@ private:
 public:
     Admin();
     Admin(string userID, string userName, string userEmail, string userPassword);
-   
 
     void editInformation();
-  
+
     void addNewFlight(vector<Flight> &allflights);
 
     void removeFlight(vector<Flight> &allflights);
@@ -57,8 +54,6 @@ public:
     // void listAllCustomers(vector<Flight>& allFlights);
 
     void userPanel(vector<Flight> &allFlights) override;
-   
-
 };
 
 class Customer : public User
@@ -71,7 +66,7 @@ private:
 
 public:
     Customer(string userID = "", string userName = "", string userEmail = "", string userPassword = "");
-   
+
     void editInformation();
 
     void displayEnhancedData();
@@ -79,11 +74,10 @@ public:
     void bookNewFlightEnhanced(vector<Flight> &allFlights);
 
     void removeFlightEnhanced();
-    
+
     void userPanel(vector<Flight> &allFlights) override;
-    
+
+    // void pushBackWRTDate(const Flight& bookedFlight);
 };
-
-
 
 #endif // USER_H
