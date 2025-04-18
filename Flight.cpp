@@ -60,10 +60,13 @@ string Flight::getDateInString() const
     return to_string(flightDate.getDay()) + "/" + to_string(flightDate.getMonth()) + "/" + to_string(flightDate.getYear());
 }
 
-vector<Customer> &Flight::getCustomers()
+const vector<Customer> &Flight::getCustomers() const
 {
     return listOfCustomers;
 }
+
+void Flight::setCustomers(Customer &cust){//setter
+    listOfCustomers.push_back(cust);    }
 
 
 

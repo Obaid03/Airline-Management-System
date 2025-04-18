@@ -51,7 +51,7 @@ public:
 
     void listAllFlights(vector<Flight> &allflights);
 
-    // void listAllCustomers(vector<Flight>& allFlights);
+    void listAllCustomers(vector<Flight>& allFlights);
 
     void userPanel(vector<Flight> &allFlights) override;
 };

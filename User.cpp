@@ -243,7 +243,44 @@ void Admin::listAllFlights(vector<Flight> &allflights)
     _getch();
 }
 
-// void Admin::listAllCustomers(vector<Flight>& allFlights){}
+void Admin::listAllCustomers(vector<Flight>& allflights){
+    char choice;
+    system("cls");
+
+    if (allflights.empty())
+    {
+        // cout << RED << "No flights available!\n" << RESET;
+        printText("No flights available!", screenWidth, RED, true);
+    }
+    else
+    {
+        // cout << CYAN << "==== ALL AVAILABLE FLIGHTS ====\n" << RESET;
+        printText("==== ALL AVAILABLE FLIGHTS ====", screenWidth, CYAN, true);
+        // cout << RED << "--------------------------------\n" << RESET;
+        printLine(screenWidth, RED);
+        for (const Flight &flight : allflights){
+
+            cout << "Flight " << flight.getFlightNumber()<< " has " << flight.getCustomers().size()<< " customers\n";
+            const vector<Customer>& customers = flight.getCustomers();
+            // if (customers.empty()) {
+            //     printText("No customers booked on this flight", screenWidth, YELLOW, true);
+            // }
+            int i=0;
+                  for (const Customer& customer : customers) {
+                        cout << "Customer " << ++i << ":\n";
+                        cout << "  Username: " << customer.getUserName() << "\n";
+                        cout << "  Email: " << customer.getUserEmail() << "\n\n";
+                    }
+         }
+    }
+        
+        printLine(screenWidth, CYAN);
+        printText("Press any key to return to the main menu...", screenWidth, CYAN, true);
+        printLine(screenWidth, CYAN);
+    
+        _getch();
+}
+
 
 void Admin::userPanel(vector<Flight> &allFlights)
 {
@@ -333,7 +370,7 @@ void Admin::userPanel(vector<Flight> &allFlights)
                 listAllFlights(allFlights);
                 break;
             case 4:
-                // listAllCustomers(allFlights);
+                listAllCustomers(allFlights);
                 break;
             case 5:
                 exit = true;
@@ -594,6 +631,15 @@ void Customer::bookNewFlightEnhanced(vector<Flight> &allFlights)
     {
         flightsBookedByCustomer.push_back(matchingFlights[select - 1]);
         // push back and rearrange the flight booked by customer wrt time and date
+
+
+     //*******************************setting the customer to listofcustomers****************************************
+
+        for ( Flight &flight : allFlights){
+            if (matchingFlights[select-1].getOrigin()==flight.getOrigin()&&matchingFlights[select-1].getDestination()==flight.getDestination()){
+                flight.setCustomers(*this);
+            }
+        }
 
         printLine(screenWidth, CYAN);
         printText(" Flight booked successfully!", screenWidth, GREEN, false);

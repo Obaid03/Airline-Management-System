@@ -45,6 +45,9 @@ public:
     int getDay() const;
     string getDateInString() const;
 
+    const vector<Customer> &getCustomers() const;//added const
+    void setCustomers(Customer &cust);//created setter
+
     vector<Customer> &getCustomers();
     void AddFlight(vector<Flight> &allflights);
 
