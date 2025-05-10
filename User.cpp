@@ -34,6 +34,7 @@ void User::setUserName(const string &name) { userName = name; }
 void User::setUserEmail(const string &email) { userEmail = email; }
 void User::setUserPassword(const string &password) { userPassword = password; }
 
+string User::getUserID() const {return userID; }
 string User::getUserName() const { return userName; }
 string User::getUserEmail() const { return userEmail; }
 string User::getUserPassword() const { return userPassword; }
@@ -392,6 +393,17 @@ Customer::Customer(string userID, string userName, string userEmail, string user
 {
     noOfCustomers++;
 }
+
+const vector<Flight>& Customer::getFlightsBooked() const {
+    return flightsBookedByCustomer;
+}
+
+// Adds a booked flight to the customer's list
+void Customer::setBookedFlight(const Flight& f) {
+    flightsBookedByCustomer.push_back(f);
+    noOfBookedFlights = flightsBookedByCustomer.size(); // update count if needed
+}
+
 
 void Customer::editInformation()
 {

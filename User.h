@@ -29,6 +29,7 @@ public:
     void setUserEmail(const string &email);
     void setUserPassword(const string &password);
 
+    string getUserID() const;
     string getUserName() const;
     string getUserEmail() const;
     string getUserPassword() const;
@@ -66,6 +67,9 @@ private:
 
 public:
     Customer(string userID = "", string userName = "", string userEmail = "", string userPassword = "");
+    const vector<Flight>& getFlightsBooked() const;
+    // Adds a booked flight to the customer's list
+void setBookedFlight(const Flight& f);
 
     void editInformation();
 
