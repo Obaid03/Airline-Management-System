@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <fstream>
+#include<exception>
 
 #include "Flight.h"
 #include "User.h"
@@ -15,6 +16,15 @@ using namespace std;
 const string FLIGHTS_FILE = "flights.csv";
 const string ADMINS_FILE = "admins.csv";
 const string CUSTOMERS_FILE = "customers.csv";
+
+class FileException : public exception{
+    string message;
+public: 
+  FileException(const string& msg) : message(msg) {} 
+const char* what() const noexcept override{
+     return message.c_str();
+}
+};
 
 // Function to save all data to files
 void saveAllData(const vector<Admin>& admins, const vector<Customer>& customers, const vector<Flight>& flights) {
@@ -297,7 +307,7 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
     } while (exit == false);
 }
 
-int main()
+/*int main()
 {
     // Initialize default vectors
     vector<Admin> admins;
@@ -331,40 +341,40 @@ int main()
         printLine(screenWidth, CYAN);
         printText("Data loaded from files", screenWidth, GREEN, true);
         printLine(screenWidth, CYAN);
-    } else {
-        // Use default hardcoded data if files don't exist
-        admins = {
-            Admin("A001", "TestAdmin", "testadmin", "123"),
-            Admin("A002", "Bob", "bob@admin.com", "123"),
-            Admin("A003", "Charlie", "charlie@admin.com", "123"),
-            Admin("A004", "Diana", "diana@admin.com", "123"),
-            Admin("A005", "Evan", "evan@admin.com", "123")
-        };
+     } //else {
+    //     // Use default hardcoded data if files don't exist
+    //     admins = {
+    //         Admin("A001", "TestAdmin", "testadmin", "123"),
+    //         Admin("A002", "Bob", "bob@admin.com", "123"),
+    //         Admin("A003", "Charlie", "charlie@admin.com", "123"),
+    //         Admin("A004", "Diana", "diana@admin.com", "123"),
+    //         Admin("A005", "Evan", "evan@admin.com", "123")
+    //     };
 
-        customers = {
-            Customer("C001", "TestUser", "testuser", "123"),
-            Customer("C002", "Gina", "gina@user.com", "123"),
-            Customer("C003", "Hassan", "hassan@user.com", "123"),
-            Customer("C004", "Isha", "isha@user.com", "123"),
-            Customer("C005", "Junaid", "junaid@user.com", "123")
-        };
+    //     customers = {
+    //         Customer("C001", "TestUser", "testuser", "123"),
+    //         Customer("C002", "Gina", "gina@user.com", "123"),
+    //         Customer("C003", "Hassan", "hassan@user.com", "123"),
+    //         Customer("C004", "Isha", "isha@user.com", "123"),
+    //         Customer("C005", "Junaid", "junaid@user.com", "123")
+    //     };
 
-        flights = {
-            Flight("PK301", "Karachi", "Lahore", 8, 1, 20, 4, 2025, 1020, 100),
-            Flight("PK302", "Lahore", "Islamabad", 11, 2, 21, 4, 2025, 380, 80),
-            Flight("PK303", "Karachi", "Islamabad", 14, 3, 22, 4, 2025, 1200, 90),
-            Flight("PK304", "Islamabad", "Quetta", 17, 4, 23, 4, 2025, 700, 60),
-            Flight("PK305", "Lahore", "Karachi", 20, 5, 24, 4, 2025, 1020, 110),
-        };
+    //     flights = {
+    //         Flight("PK301", "Karachi", "Lahore", 8, 1, 20, 4, 2025, 1020, 100),
+    //         Flight("PK302", "Lahore", "Islamabad", 11, 2, 21, 4, 2025, 380, 80),
+    //         Flight("PK303", "Karachi", "Islamabad", 14, 3, 22, 4, 2025, 1200, 90),
+    //         Flight("PK304", "Islamabad", "Quetta", 17, 4, 23, 4, 2025, 700, 60),
+    //         Flight("PK305", "Lahore", "Karachi", 20, 5, 24, 4, 2025, 1020, 110),
+    //     };
         
-        // Save default data to files
-        saveAllData(admins, customers, flights);
+    //     // Save default data to files
+    //     saveAllData(admins, customers, flights);
         
-        printLine(screenWidth, CYAN);
-        printText("Default data created and saved to files", screenWidth, GREEN, true);
-        printLine(screenWidth, CYAN);
-        system("pause");
-    }
+    //     printLine(screenWidth, CYAN);
+    //     printText("Default data created and saved to files", screenWidth, GREEN, true);
+    //     printLine(screenWidth, CYAN);
+    //     system("pause");
+    // }
 
     bool exit = false;
     int choice = 0; // selects the option to choose
@@ -434,5 +444,97 @@ int main()
     // Save all data before exiting
     saveAllData(admins, customers, flights);
     
+    return 0;
+}*/
+int main()
+{
+    // Initialize default vectors
+    vector<Admin> admins;
+    vector<Customer> customers;
+    vector<Flight> flights;
+
+    try {
+        // Try to open the files
+        ifstream flightsCheck(FLIGHTS_FILE);
+        ifstream adminsCheck(ADMINS_FILE);
+        ifstream customersCheck(CUSTOMERS_FILE);
+
+        if (!flightsCheck.good())
+            throw FileException("Flights file not found: " + FLIGHTS_FILE);
+        if (!adminsCheck.good())
+            throw FileException("Admins file not found: " + ADMINS_FILE);
+        if (!customersCheck.good())
+            throw FileException("Customers file not found: " + CUSTOMERS_FILE);
+
+        // Close file checks
+        flightsCheck.close();
+        adminsCheck.close();
+        customersCheck.close();
+
+        // Load data from files
+        flights = FileHelper::loadFlights(FLIGHTS_FILE);
+        admins = FileHelper::loadAdmins(ADMINS_FILE);
+        customers = FileHelper::loadCustomers(CUSTOMERS_FILE, flights);
+
+        printLine(screenWidth, CYAN);
+        printText("Data loaded from files", screenWidth, GREEN, true);
+        printLine(screenWidth, CYAN);
+    }
+    catch (const FileException& fe) {
+        printLine(screenWidth, RED);
+        printText("File Error: " + string(fe.what()), screenWidth, RED, true);
+        printLine(screenWidth, RED);
+        system("pause");
+        return 1; // Exit program with error
+    }
+
+    bool exit = false;
+    int choice = 0;
+    int maxChoices = 3;
+
+    string menuOptions[4] = {"Admin", "Customer", "Save All Data", "Exit"};
+    int key;
+
+    do {
+        system("cls");
+        getAirportManagementSystemText();
+        printLine(screenWidth, CYAN);
+        printText("Who Is Using?", screenWidth, WHITE, true);
+        printLine(screenWidth, CYAN);
+
+        for (int i = 0; i < 4; i++) {
+            if (choice == i)
+                printText("=> " + to_string(i + 1) + ". " + menuOptions[i], screenWidth, YELLOW, true);
+            else
+                printText(to_string(i + 1) + ". " + menuOptions[i], screenWidth, WHITE, true);
+        }
+
+        printLine(screenWidth, CYAN);
+        hideCursor();
+        key = _getch();
+
+        if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
+            choice--;
+        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
+            choice++;
+        else if (key == '\r' || key == ' ') {
+            switch (choice) {
+                case 0:
+                    registerAndLoginScreen(admins, customers, flights, true);
+                    break;
+                case 1:
+                    registerAndLoginScreen(admins, customers, flights, false);
+                    break;
+                case 2:
+                    saveAllData(admins, customers, flights);
+                    system("pause");
+                    break;
+                case 3:
+                    exit = true;
+                    break;
+            }
+        }
+    } while (!exit);
+
     return 0;
 }
