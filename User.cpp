@@ -8,6 +8,7 @@
 #include "ConsoleManipulation.h"
 #include "User.h"
 #include "Constants.h"
+#include "AirlineException.h"
 
 using namespace std;
 
@@ -284,12 +285,14 @@ void Admin::listAllCustomers(vector<Flight>& allflights){
 
 
 void Admin::userPanel(vector<Flight> &allFlights)
-{
+{ 
+
     int choice = 0, key, maxChoices = 5;
     bool exit = false;
 
     do
     {
+        try{
         system("cls");
 
         // cout << CYAN << "+--------------------------------------------------+" << endl;
@@ -382,8 +385,15 @@ void Admin::userPanel(vector<Flight> &allFlights)
             }
         }
 
-    } while (exit == false);
+    } catch (const AirlineException& e) {
+        system("cls");
+            cout << "Error: " << e.what() << endl;
+            cout<<"Again Enter the information press enter to go back"<<endl;
+            _getch();
+        }}while (exit == false);
 }
+ 
+
 
 //==========================================================================================================
 
@@ -635,7 +645,8 @@ void Customer::bookNewFlightEnhanced(vector<Flight> &allFlights)
     printText("Enter flight number (1-" + to_string(matchingFlights.size()) + "): ", screenWidth, WHITE, false);
     int select;
     cout << CYAN << "|=>>>> " << RESET;
-    cin >> select;
+    select = getValidIntInput(1,matchingFlights.size());
+   // cin >> select;
     // cout << "+==================================================+" << endl;
     // cout << "|  " << WHITE << "Enter flight number (1-" << matchingFlights.size() << "): " << RESET;
 
@@ -717,7 +728,8 @@ void Customer::removeFlightEnhanced()
     printText("Enter the number of the flight to cancel (1-" + to_string(flightsBookedByCustomer.size()) + "):", screenWidth, WHITE, false);
     cout << CYAN << "|=>>>> " << RESET;
     int choice;
-    cin >> choice;
+    choice = getValidIntInput(1,flightsBookedByCustomer.size());
+   // cin >> choice;
 
     if (choice >= 1 && choice <= flightsBookedByCustomer.size())
     {
@@ -759,91 +771,100 @@ void Customer::userPanel(vector<Flight> &allFlights)
 
     do
     {
-        clearScreen();
+        try{
 
-        // cout << CYAN << "+--------------------------------------------------+" << endl;
-        printLine(screenWidth, CYAN);
-        printText("CUSTOMER DASHBOARD", screenWidth, YELLOW, true);
-        printLine(screenWidth, CYAN);
-        printText("Welcome, " + getUserName(), screenWidth, WHITE, false);
-        // cout << "| " << YELLOW << "               CUSTOMER DASHBOARD               " << CYAN << "|" << endl;
-        // cout << "+--------------------------------------------------+" << endl;
-        // cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                    |" << endl;
-
-        // yahan jo first booked flight hongo wo ayin gi
-        if (!flightsBookedByCustomer.empty())
-        {
-            const Flight &nextFlight = flightsBookedByCustomer[0];
+            clearScreen();
+    
+            // cout << CYAN << "+--------------------------------------------------+" << endl;
             printLine(screenWidth, CYAN);
-            printText(" YOUR NEXT FLIGHT:", screenWidth, YELLOW, false);
-            printText(" Flight: " + nextFlight.getFlightNumber() + "   " + nextFlight.getOrigin() + " to " + nextFlight.getDestination(), screenWidth, WHITE, false);
-            printText(" Date: " + nextFlight.getDateInString() + "   Time: " + nextFlight.getTimeInString(), screenWidth, WHITE, false);
+            printText("CUSTOMER DASHBOARD", screenWidth, YELLOW, true);
+            printLine(screenWidth, CYAN);
+            printText("Welcome, " + getUserName(), screenWidth, WHITE, false);
+            // cout << "| " << YELLOW << "               CUSTOMER DASHBOARD               " << CYAN << "|" << endl;
             // cout << "+--------------------------------------------------+" << endl;
-            // cout << "| " << YELLOW << "YOUR NEXT FLIGHT:                                " << CYAN << " |" << endl;
-            // cout << "| " << WHITE << "Flight: " << nextFlight.getFlightNumber() << "   " << nextFlight.getOrigin() << " to " << nextFlight.getDestination() << CYAN << "            |" << endl;
-            // cout << "| " << WHITE << "Date: " << nextFlight.getDate() << "   Time: " << nextFlight.getTime() << CYAN << "                 |" << endl;
-        }
-
-        printLine(screenWidth, CYAN);
-        printText("MENU OPTIONS:", screenWidth, MAGENTA, false);
-        // cout << "+--------------------------------------------------+" << endl;
-        // cout << "| " << MAGENTA << "MENU OPTIONS:                                    " << CYAN << " |" << endl;
-
-        string options[5] = {
-            "Edit Profile Information",
-            "View My Flights",
-            "Book New Flight",
-            "Cancel a Flight",
-            "Log Out"};
-
-        for (int i = 0; i < 5; i++)
-        {
-            if (choice == i)
-                printText(string("=> ") + to_string(i + 1) + ". " + options[i], screenWidth, YELLOW, false);
-            // cout << "| " << YELLOW << "=> " << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
-            else
-                printText(string(" => ") + to_string(i + 1) + ". " + options[i], screenWidth, WHITE, false);
-            // cout << "|    " << WHITE << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
-        }
-
-        // cout << "+--------------------------------------------------+" << endl;
-        printLine(screenWidth, CYAN);
-        printText(" Total Booked Flights: " + flightsBookedByCustomer.size(), screenWidth, WHITE, false);
-        printText(" Navigation: [W/S] Move   [Enter] Select", screenWidth, WHITE, false);
-        printLine(screenWidth, CYAN);
-        // cout << "| " << WHITE << "Total Booked Flights: " << flightsBookedByCustomer.size() << CYAN << "                        |" << endl;
-        // cout << "| " << WHITE << "Navigation: [W/S] Move   [Enter] Select           " << CYAN << " |" << endl;
-        // cout << "+--------------------------------------------------+" << RESET << endl;
-
-        key = _getch();
-
-        if ((key == 'w' || key == 'W') && (choice > 0))
-            choice--;
-        else if ((key == 's' || key == 'S') && (choice < maxChoices))
-            choice++;
-        else if (key == '\r' || key == ' ')
-        {
-            switch (choice)
+            // cout << "| " << WHITE << "Welcome, " << GREEN << getUserName() << WHITE << "!" << CYAN << "                                    |" << endl;
+    
+            // yahan jo first booked flight hongo wo ayin gi
+            if (!flightsBookedByCustomer.empty())
             {
-            case 0: // Edit information
-                editInformation();
-                break;
-            case 1: // View flights
-                displayEnhancedData();
-                break;
-            case 2: // Book new flight
-                bookNewFlightEnhanced(allFlights);
-                break;
-            case 3: // Cancel flight
-                removeFlightEnhanced();
-                break;
-            case 4: // Exit
-                exit = true;
-                cout << GREEN << "Logging out...\n"
-                     << RESET << endl;
-                // Sleep(1000);
-                break;
+                const Flight &nextFlight = flightsBookedByCustomer[0];
+                printLine(screenWidth, CYAN);
+                printText(" YOUR NEXT FLIGHT:", screenWidth, YELLOW, false);
+                printText(" Flight: " + nextFlight.getFlightNumber() + "   " + nextFlight.getOrigin() + " to " + nextFlight.getDestination(), screenWidth, WHITE, false);
+                printText(" Date: " + nextFlight.getDateInString() + "   Time: " + nextFlight.getTimeInString(), screenWidth, WHITE, false);
+                // cout << "+--------------------------------------------------+" << endl;
+                // cout << "| " << YELLOW << "YOUR NEXT FLIGHT:                                " << CYAN << " |" << endl;
+                // cout << "| " << WHITE << "Flight: " << nextFlight.getFlightNumber() << "   " << nextFlight.getOrigin() << " to " << nextFlight.getDestination() << CYAN << "            |" << endl;
+                // cout << "| " << WHITE << "Date: " << nextFlight.getDate() << "   Time: " << nextFlight.getTime() << CYAN << "                 |" << endl;
             }
+    
+            printLine(screenWidth, CYAN);
+            printText("MENU OPTIONS:", screenWidth, MAGENTA, false);
+            // cout << "+--------------------------------------------------+" << endl;
+            // cout << "| " << MAGENTA << "MENU OPTIONS:                                    " << CYAN << " |" << endl;
+    
+            string options[5] = {
+                "Edit Profile Information",
+                "View My Flights",
+                "Book New Flight",
+                "Cancel a Flight",
+                "Log Out"};
+    
+            for (int i = 0; i < 5; i++)
+            {
+                if (choice == i)
+                    printText(string("=> ") + to_string(i + 1) + ". " + options[i], screenWidth, YELLOW, false);
+                // cout << "| " << YELLOW << "=> " << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
+                else
+                    printText(string(" => ") + to_string(i + 1) + ". " + options[i], screenWidth, WHITE, false);
+                // cout << "|    " << WHITE << (i + 1) << ". " << options[i] << CYAN << "                          |" << endl;
+            }
+    
+            // cout << "+--------------------------------------------------+" << endl;
+            printLine(screenWidth, CYAN);
+            printText(" Total Booked Flights: " + flightsBookedByCustomer.size(), screenWidth, WHITE, false);
+            printText(" Navigation: [W/S] Move   [Enter] Select", screenWidth, WHITE, false);
+            printLine(screenWidth, CYAN);
+            // cout << "| " << WHITE << "Total Booked Flights: " << flightsBookedByCustomer.size() << CYAN << "                        |" << endl;
+            // cout << "| " << WHITE << "Navigation: [W/S] Move   [Enter] Select           " << CYAN << " |" << endl;
+            // cout << "+--------------------------------------------------+" << RESET << endl;
+    
+            key = _getch();
+    
+            if ((key == 'w' || key == 'W') && (choice > 0))
+                choice--;
+            else if ((key == 's' || key == 'S') && (choice < maxChoices))
+                choice++;
+            else if (key == '\r' || key == ' ')
+            {
+                switch (choice)
+                {
+                case 0: // Edit information
+                    editInformation();
+                    break;
+                case 1: // View flights
+                    displayEnhancedData();
+                    break;
+                case 2: // Book new flight
+                    bookNewFlightEnhanced(allFlights);
+                    break;
+                case 3: // Cancel flight
+                    removeFlightEnhanced();
+                    break;
+                case 4: // Exit
+                    exit = true;
+                    cout << GREEN << "Logging out...\n"
+                         << RESET << endl;
+                    // Sleep(1000);
+                    break;
+                }
+            }
+        }
+        catch (const AirlineException& e) {
+        system("cls");
+            cout << "Error: " << e.what() << endl;
+            cout<<"Again Enter the information press enter to go back"<<endl;
+            _getch();
         }
     } while (exit == false);
 }

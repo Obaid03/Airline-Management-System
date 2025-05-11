@@ -25,4 +25,6 @@ void hideCursor();
 
 void clearScreen();
 
+int getValidIntInput(int min, int max);
+
 #endif

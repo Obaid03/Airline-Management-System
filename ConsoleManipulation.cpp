@@ -2,6 +2,8 @@
 #include <string>
 #include <windows.h>
 #include <conio.h>
+#include "AirlineException.h"
+#include <limits>
 
 // Importing Other Header Files
 #include "Constants.h"
@@ -117,4 +119,45 @@ void clearScreen()
     FillConsoleOutputCharacter(hConsole, ' ', cellCount, {0, 0}, &count);
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, cellCount, {0, 0}, &count);
     SetConsoleCursorPosition(hConsole, {0, 0});
+}
+
+
+// string getValidStringInput(string& prompt) {
+//     string input;
+//     bool validInput = false;
+    
+//     while (!validInput) {
+//         try {
+//             cout << prompt;
+//             getline(cin, input);
+            
+//             if (input.empty()) {
+//                 throw AirlineException("Input cannot be empty.");
+//             }
+            
+//             validInput = true;
+//         }
+//         catch (const AirlineException& e) {
+//             cout << "Error: " << e.what() << endl;
+//         }
+//     }
+    
+//     return input;
+// }
+int getValidIntInput(int min, int max) {
+    int input;
+
+    if (!(cin >> input)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw AirlineException("Invalid input. Expected an integer.");
+    }
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    if (input < min || input > max) {
+        throw AirlineException("Input must be between " + std::to_string(min) + " and " + std::to_string(max));
+    }
+
+    return input;
 }
