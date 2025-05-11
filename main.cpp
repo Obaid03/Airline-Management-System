@@ -2,36 +2,38 @@
 #include <windows.h>
 #include <conio.h>
 #include <fstream>
-#include<exception>
+#include <exception>
 
 #include "Flight.h"
 #include "User.h"
 #include "ConsoleManipulation.h"
 #include "Constants.h"
-#include "FileHelper.h" // Added FileHelper header
+#include "FileHelper.h"
 
 using namespace std;
 
-// Constants for file names
 const string FLIGHTS_FILE = "flights.csv";
 const string ADMINS_FILE = "admins.csv";
 const string CUSTOMERS_FILE = "customers.csv";
 
-class FileException : public exception{
+class FileException : public exception
+{
     string message;
-public: 
-  FileException(const string& msg) : message(msg) {} 
-const char* what() const noexcept override{
-     return message.c_str();
-}
+
+public:
+    FileException(const string &msg) : message(msg) {}
+    const char *what() const noexcept override
+    {
+        return message.c_str();
+    }
 };
 
-// Function to save all data to files
-void saveAllData(const vector<Admin>& admins, const vector<Customer>& customers, const vector<Flight>& flights) {
+void saveAllData(const vector<Admin> &admins, const vector<Customer> &customers, const vector<Flight> &flights)
+{
     FileHelper::saveFlights(flights, FLIGHTS_FILE);
     FileHelper::saveAdmins(admins, ADMINS_FILE);
     FileHelper::saveCustomers(customers, CUSTOMERS_FILE);
-    
+
     printLine(screenWidth, CYAN);
     printText("All data saved successfully!", screenWidth, GREEN, true);
     printLine(screenWidth, CYAN);
@@ -46,7 +48,7 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
     int noOfUsers;
     vector<User *> users; // list/array of pointers to either admin or customer
     int indexOfMatchedUser = -1;
-    
+
     /*The Range for loop stores one item of a container in the left hand side, so in each iteration
     it is actually storing an object/index of an array/vector in the left hand side, so by storing it
     as a refrence we are directly passing the memory address of admin users to users vector*/
@@ -124,38 +126,56 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
 }
 
 // Generate unique ID for new users
-string generateUniqueID(bool isAdmin, const vector<Admin>& admins, const vector<Customer>& customers) {
+string generateUniqueID(bool isAdmin, const vector<Admin> &admins, const vector<Customer> &customers)
+{
     string prefix = isAdmin ? "A" : "C";
     int maxID = 0;
-    
-    if (isAdmin) {
-        for (const Admin& admin : admins) {
+
+    if (isAdmin)
+    {
+        for (const Admin &admin : admins)
+        {
             string id = admin.getUserID();
-            if (id.length() > 1 && id[0] == prefix[0]) {
-                try {
+            if (id.length() > 1 && id[0] == prefix[0])
+            {
+                try
+                {
                     int num = stoi(id.substr(1));
-                    if (num > maxID) maxID = num;
-                } catch (...) {
-                    // Skip if conversion fails
+                    if (num > maxID)
+                        maxID = num;
                 }
-            }
-        }
-    } else {
-        for (const Customer& customer : customers) {
-            string id = customer.getUserID();
-            if (id.length() > 1 && id[0] == prefix[0]) {
-                try {
-                    int num = stoi(id.substr(1));
-                    if (num > maxID) maxID = num;
-                } catch (...) {
+                catch (...)
+                {
                     // Skip if conversion fails
                 }
             }
         }
     }
-    
+    else
+    {
+        for (const Customer &customer : customers)
+        {
+            string id = customer.getUserID();
+            if (id.length() > 1 && id[0] == prefix[0])
+            {
+                try
+                {
+                    int num = stoi(id.substr(1));
+                    if (num > maxID)
+                        maxID = num;
+                }
+                catch (...)
+                {
+                    // Skip if conversion fails
+                }
+            }
+        }
+    }
+
     // Format ID with leading zeros
-    return prefix + (maxID < 9 ? "00" : maxID < 99 ? "0" : "") + to_string(maxID + 1);
+    return prefix + (maxID < 9 ? "00" : maxID < 99 ? "0"
+                                                   : "") +
+           to_string(maxID + 1);
 }
 
 // when new user is need to be added
@@ -169,10 +189,10 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
     string temp, passRepeat;
     bool isValid = false;
     User *newUser;
-    
+
     // Generate unique ID for the new user
     string userID = generateUniqueID(isAdmin, admins, customers);
-    
+
     Admin admin(userID, "", "", "");
     Customer customer(userID, "", "", "");
 
@@ -224,10 +244,13 @@ void addNewUser(vector<Admin> &admins, vector<Customer> &customers, bool isAdmin
         }
     } while (temp != passRepeat);
 
-    if (isAdmin) {
+    if (isAdmin)
+    {
         admins.push_back(admin);
         FileHelper::saveAdmins(admins, ADMINS_FILE); // Save admins to file
-    } else {
+    }
+    else
+    {
         customers.push_back(customer);
         FileHelper::saveCustomers(customers, CUSTOMERS_FILE); // Save customers to file
     }
@@ -308,20 +331,119 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
     } while (exit == false);
 }
 
+int main()
+{
+    // Initialize default vectors
+    vector<Admin> admins;
+    vector<Customer> customers;
+    vector<Flight> flights;
+
+    try
+    {
+        // Try to open the files
+        ifstream flightsCheck(FLIGHTS_FILE);
+        ifstream adminsCheck(ADMINS_FILE);
+        ifstream customersCheck(CUSTOMERS_FILE);
+
+        if (!flightsCheck.good())
+            throw FileException("Flights file not found: " + FLIGHTS_FILE);
+        if (!adminsCheck.good())
+            throw FileException("Admins file not found: " + ADMINS_FILE);
+        if (!customersCheck.good())
+            throw FileException("Customers file not found: " + CUSTOMERS_FILE);
+
+        // Close file checks
+        flightsCheck.close();
+        adminsCheck.close();
+        customersCheck.close();
+
+        // Load data from files
+        flights = FileHelper::loadFlights(FLIGHTS_FILE);
+        admins = FileHelper::loadAdmins(ADMINS_FILE);
+        customers = FileHelper::loadCustomers(CUSTOMERS_FILE, flights);
+
+        printLine(screenWidth, CYAN);
+        printText("Data loaded from files", screenWidth, GREEN, true);
+        printLine(screenWidth, CYAN);
+    }
+    catch (const FileException &fe)
+    {
+        printLine(screenWidth, RED);
+        printText("File Error: " + string(fe.what()), screenWidth, RED, true);
+        printLine(screenWidth, RED);
+        system("pause");
+        return 1; // Exit program with error
+    }
+
+    bool exit = false;
+    int choice = 0;
+    int maxChoices = 3;
+
+    string menuOptions[4] = {"Admin", "Customer", "Save All Data", "Exit"};
+    int key;
+
+    do
+    {
+        system("cls");
+        getAirportManagementSystemText();
+        printLine(screenWidth, CYAN);
+        printText("Who Is Using?", screenWidth, WHITE, true);
+        printLine(screenWidth, CYAN);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (choice == i)
+                printText("=> " + to_string(i + 1) + ". " + menuOptions[i], screenWidth, YELLOW, true);
+            else
+                printText(to_string(i + 1) + ". " + menuOptions[i], screenWidth, WHITE, true);
+        }
+
+        printLine(screenWidth, CYAN);
+        hideCursor();
+        key = _getch();
+
+        if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
+            choice--;
+        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
+            choice++;
+        else if (key == '\r' || key == ' ')
+        {
+            switch (choice)
+            {
+            case 0:
+                registerAndLoginScreen(admins, customers, flights, true);
+                break;
+            case 1:
+                registerAndLoginScreen(admins, customers, flights, false);
+                break;
+            case 2:
+                saveAllData(admins, customers, flights);
+                system("pause");
+                break;
+            case 3:
+                exit = true;
+                break;
+            }
+        }
+    } while (!exit);
+
+    return 0;
+}
+
 /*int main()
 {
     // Initialize default vectors
     vector<Admin> admins;
     vector<Customer> customers;
     vector<Flight> flights;
-    
+
     // Try to load data from files
     bool filesExist = false;
-    
+
     ifstream flightsCheck(FLIGHTS_FILE);
     ifstream adminsCheck(ADMINS_FILE);
     ifstream customersCheck(CUSTOMERS_FILE);
-    
+
     if (flightsCheck.good() && adminsCheck.good() && customersCheck.good()) {
         filesExist = true;
         flightsCheck.close();
@@ -332,13 +454,13 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         adminsCheck.close();
         customersCheck.close();
     }
-    
+
     if (filesExist) {
         // Load data from files
         flights = FileHelper::loadFlights(FLIGHTS_FILE);
         admins = FileHelper::loadAdmins(ADMINS_FILE);
         customers = FileHelper::loadCustomers(CUSTOMERS_FILE, flights);
-        
+
         printLine(screenWidth, CYAN);
         printText("Data loaded from files", screenWidth, GREEN, true);
         printLine(screenWidth, CYAN);
@@ -367,10 +489,10 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
     //         Flight("PK304", "Islamabad", "Quetta", 17, 4, 23, 4, 2025, 700, 60),
     //         Flight("PK305", "Lahore", "Karachi", 20, 5, 24, 4, 2025, 1020, 110),
     //     };
-        
+
     //     // Save default data to files
     //     saveAllData(admins, customers, flights);
-        
+
     //     printLine(screenWidth, CYAN);
     //     printText("Default data created and saved to files", screenWidth, GREEN, true);
     //     printLine(screenWidth, CYAN);
@@ -441,101 +563,9 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
             }
         }
     } while (exit == false);
-    
+
     // Save all data before exiting
     saveAllData(admins, customers, flights);
-    
+
     return 0;
 }*/
-int main()
-{
-    // Initialize default vectors
-    vector<Admin> admins;
-    vector<Customer> customers;
-    vector<Flight> flights;
-
-    try {
-        // Try to open the files
-        ifstream flightsCheck(FLIGHTS_FILE);
-        ifstream adminsCheck(ADMINS_FILE);
-        ifstream customersCheck(CUSTOMERS_FILE);
-
-        if (!flightsCheck.good())
-            throw FileException("Flights file not found: " + FLIGHTS_FILE);
-        if (!adminsCheck.good())
-            throw FileException("Admins file not found: " + ADMINS_FILE);
-        if (!customersCheck.good())
-            throw FileException("Customers file not found: " + CUSTOMERS_FILE);
-
-        // Close file checks
-        flightsCheck.close();
-        adminsCheck.close();
-        customersCheck.close();
-
-        // Load data from files
-        flights = FileHelper::loadFlights(FLIGHTS_FILE);
-        admins = FileHelper::loadAdmins(ADMINS_FILE);
-        customers = FileHelper::loadCustomers(CUSTOMERS_FILE, flights);
-
-        printLine(screenWidth, CYAN);
-        printText("Data loaded from files", screenWidth, GREEN, true);
-        printLine(screenWidth, CYAN);
-    }
-    catch (const FileException& fe) {
-        printLine(screenWidth, RED);
-        printText("File Error: " + string(fe.what()), screenWidth, RED, true);
-        printLine(screenWidth, RED);
-        system("pause");
-        return 1; // Exit program with error
-    }
-
-    bool exit = false;
-    int choice = 0;
-    int maxChoices = 3;
-
-    string menuOptions[4] = {"Admin", "Customer", "Save All Data", "Exit"};
-    int key;
-
-    do {
-        system("cls");
-        getAirportManagementSystemText();
-        printLine(screenWidth, CYAN);
-        printText("Who Is Using?", screenWidth, WHITE, true);
-        printLine(screenWidth, CYAN);
-
-        for (int i = 0; i < 4; i++) {
-            if (choice == i)
-                printText("=> " + to_string(i + 1) + ". " + menuOptions[i], screenWidth, YELLOW, true);
-            else
-                printText(to_string(i + 1) + ". " + menuOptions[i], screenWidth, WHITE, true);
-        }
-
-        printLine(screenWidth, CYAN);
-        hideCursor();
-        key = _getch();
-
-        if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
-            choice--;
-        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
-            choice++;
-        else if (key == '\r' || key == ' ') {
-            switch (choice) {
-                case 0:
-                    registerAndLoginScreen(admins, customers, flights, true);
-                    break;
-                case 1:
-                    registerAndLoginScreen(admins, customers, flights, false);
-                    break;
-                case 2:
-                    saveAllData(admins, customers, flights);
-                    system("pause");
-                    break;
-                case 3:
-                    exit = true;
-                    break;
-            }
-        }
-    } while (!exit);
-
-    return 0;
-}
