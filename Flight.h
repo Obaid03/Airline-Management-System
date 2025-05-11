@@ -44,6 +44,8 @@ public:
     int getMonth() const;
     int getDay() const;
     string getDateInString() const;
+    double getDistance() const;
+    int getSeats() const;
 
     const vector<Customer> &getCustomers() const;//added const
     void setCustomers(Customer &cust);//created setter

@@ -28,16 +28,39 @@ public:
     }
 };
 
-void saveAllData(const vector<Admin> &admins, const vector<Customer> &customers, const vector<Flight> &flights)
+void saveAllData(bool showMessage, const vector<Admin> &admins, const vector<Customer> &customers, const vector<Flight> &flights)
 {
     FileHelper::saveFlights(flights, FLIGHTS_FILE);
     FileHelper::saveAdmins(admins, ADMINS_FILE);
     FileHelper::saveCustomers(customers, CUSTOMERS_FILE);
 
-    printLine(screenWidth, CYAN);
-    printText("All data saved successfully!", screenWidth, GREEN, true);
-    printLine(screenWidth, CYAN);
-    system("pause");
+    if (showMessage)
+    {
+        printLine(screenWidth, CYAN);
+        printText("All data saved successfully!", screenWidth, GREEN, true);
+        printLine(screenWidth, CYAN);
+        system("pause");
+    }
+}
+
+// Generate unique ID for new users
+string generateUniqueID(bool isAdmin, const vector<Admin> &admins, const vector<Customer> &customers)
+{
+    string prefix = isAdmin ? "A" : "C";
+
+    // Choose the appropriate vector based on isAdmin
+    int count;
+    if (isAdmin)
+    {
+        count = admins.size();
+    }
+    else
+    {
+        count = customers.size();
+    }
+
+    // Generate the ID with the prefix and count
+    return prefix + to_string(count + 1);
 }
 
 // login screen(when admin and user want to login)
@@ -123,59 +146,6 @@ void loginScreen(const vector<Customer> customers, const vector<Admin> admins, v
         }
 
     } while (flag == false);
-}
-
-// Generate unique ID for new users
-string generateUniqueID(bool isAdmin, const vector<Admin> &admins, const vector<Customer> &customers)
-{
-    string prefix = isAdmin ? "A" : "C";
-    int maxID = 0;
-
-    if (isAdmin)
-    {
-        for (const Admin &admin : admins)
-        {
-            string id = admin.getUserID();
-            if (id.length() > 1 && id[0] == prefix[0])
-            {
-                try
-                {
-                    int num = stoi(id.substr(1));
-                    if (num > maxID)
-                        maxID = num;
-                }
-                catch (...)
-                {
-                    // Skip if conversion fails
-                }
-            }
-        }
-    }
-    else
-    {
-        for (const Customer &customer : customers)
-        {
-            string id = customer.getUserID();
-            if (id.length() > 1 && id[0] == prefix[0])
-            {
-                try
-                {
-                    int num = stoi(id.substr(1));
-                    if (num > maxID)
-                        maxID = num;
-                }
-                catch (...)
-                {
-                    // Skip if conversion fails
-                }
-            }
-        }
-    }
-
-    // Format ID with leading zeros
-    return prefix + (maxID < 9 ? "00" : maxID < 99 ? "0"
-                                                   : "") +
-           to_string(maxID + 1);
 }
 
 // when new user is need to be added
@@ -338,6 +308,8 @@ int main()
     vector<Customer> customers;
     vector<Flight> flights;
 
+    bool fileExist = false;
+
     try
     {
         // Try to open the files
@@ -352,10 +324,23 @@ int main()
         if (!customersCheck.good())
             throw FileException("Customers file not found: " + CUSTOMERS_FILE);
 
+        fileExist = true;
         // Close file checks
         flightsCheck.close();
         adminsCheck.close();
         customersCheck.close();
+    }
+    catch (const FileException &fe)
+    {
+        fileExist = false;
+        printLine(screenWidth, RED);
+        printText("File Error: " + string(fe.what()), screenWidth, RED, true);
+        printLine(screenWidth, RED);
+        system("pause");
+    }
+
+    if (fileExist)
+    {
 
         // Load data from files
         flights = FileHelper::loadFlights(FLIGHTS_FILE);
@@ -366,13 +351,41 @@ int main()
         printText("Data loaded from files", screenWidth, GREEN, true);
         printLine(screenWidth, CYAN);
     }
-    catch (const FileException &fe)
+    else
     {
-        printLine(screenWidth, RED);
-        printText("File Error: " + string(fe.what()), screenWidth, RED, true);
-        printLine(screenWidth, RED);
+        // harcoded data for test purpose
+        admins = {
+            Admin("A001", "TestAdmin", "testadmin", "123"),
+            Admin("A002", "Bob", "bob@admin.com", "123"),
+            Admin("A003", "Charlie", "charlie@admin.com", "123"),
+            Admin("A004", "Diana", "diana@admin.com", "123"),
+            Admin("A005", "Evan", "evan@admin.com", "123")};
+
+        customers = {
+            Customer("C001", "TestUser", "testuser", "123"),
+            Customer("C002", "Gina", "gina@user.com", "123"),
+            Customer("C003", "Hassan", "hassan@user.com", "123"),
+            Customer("C004", "Isha", "isha@user.com", "123"),
+            Customer("C005", "Junaid", "junaid@user.com", "123")};
+
+        flights = {
+            Flight("PK301", "Karachi", "Lahore", 8, 1, 20, 4, 2025, 1020, 100),
+            Flight("PK302", "Lahore", "Islamabad", 11, 2, 21, 4, 2025, 380, 80),
+            Flight("PK303", "Karachi", "Islamabad", 14, 3, 22, 4, 2025, 1200, 90),
+            Flight("PK304", "Islamabad", "Quetta", 17, 4, 23, 4, 2025, 700, 60),
+            Flight("PK305", "Lahore", "Karachi", 20, 5, 24, 4, 2025, 1020, 110),
+        };
+
+        // Save default data to files
+
+        printLine(screenWidth, CYAN);
+        saveAllData(false, admins, customers, flights);
+        printLine(screenWidth, CYAN);
+
+        printLine(screenWidth, CYAN);
+        printText("Dummy Data Entered into Files (For Test Purposes)", screenWidth, GREEN, true);
+        printLine(screenWidth, CYAN);
         system("pause");
-        return 1; // Exit program with error
     }
 
     bool exit = false;
@@ -417,7 +430,7 @@ int main()
                 registerAndLoginScreen(admins, customers, flights, false);
                 break;
             case 2:
-                saveAllData(admins, customers, flights);
+                saveAllData(true, admins, customers, flights);
                 system("pause");
                 break;
             case 3:
@@ -427,6 +440,7 @@ int main()
         }
     } while (!exit);
 
+    saveAllData(true, admins, customers, flights);
     return 0;
 }
 

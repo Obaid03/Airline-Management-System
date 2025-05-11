@@ -54,6 +54,9 @@ string Flight::getTimeInString() const
 int Flight::getYear() const { return flightDate.getYear(); }
 int Flight::getMonth() const { return flightDate.getMonth(); }
 int Flight::getDay() const { return flightDate.getDay(); }
+double Flight::getDistance() const {return distanceInKms;};
+int Flight::getSeats() const {return numOfSeatsInFlight;};
+
 
 string Flight::getDateInString() const
 {

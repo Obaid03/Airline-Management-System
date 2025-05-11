@@ -52,7 +52,7 @@ public:
 
     void listAllFlights(vector<Flight> &allflights);
 
-    void listAllCustomers(vector<Flight>& allFlights);
+    void listAllCustomers(vector<Flight> &allFlights);
 
     void userPanel(vector<Flight> &allFlights) override;
 };
@@ -67,9 +67,9 @@ private:
 
 public:
     Customer(string userID = "", string userName = "", string userEmail = "", string userPassword = "");
-    const vector<Flight>& getFlightsBooked() const;
+    const vector<Flight> &getFlightsBooked() const;
     // Adds a booked flight to the customer's list
-void setBookedFlight(const Flight& f);
+    void setBookedFlight(const Flight &f);
 
     void editInformation();
 
