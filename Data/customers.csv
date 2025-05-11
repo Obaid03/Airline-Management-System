@@ -1,5 +1,5 @@
 UserName,Email,Password,BookedFlights
-TestUser,testuser,123,
+TestUser,testuser,123,PK301
 Gina,gina@user.com,123,
 Hassan,hassan@user.com,123,
 Isha,isha@user.com,123,
