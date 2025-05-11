@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <conio.h>
-
+#include "AirlineException.h"
 // Importing Other Header Files
 #include "Flight.h"
 #include "ConsoleManipulation.h"
@@ -72,100 +72,110 @@ void Flight::setCustomers(Customer &cust){//setter
 
 void Flight::AddFlight(vector<Flight> &allflights)
 {
-    // Existing flight numbers
-    // cout << "\nCurrent Flights:\n";
-    printLine(screenWidth, CYAN);
-    printText("Current Flights:", screenWidth, CYAN, false);
-
-    for (const Flight &flight : allflights)
-    {
-        // cout << "Flight Number -->" << flight.getFlightNumber() << "\n";
-        printText("Flight Number -->" + flight.getFlightNumber(), screenWidth, WHITE, false);
-    }
-    printLine(screenWidth, CYAN);
-
-    while (true)
-    {
-        int flag = 0;
-        string fn;
-        // cout << CYAN << "\nEnter Flight Number to add (or '0' to cancel): " << RESET;
-        printText("Enter Flight Number to add (or '0' to cancel):", screenWidth, CYAN, false);
-        cin >> fn;
-
-        // Cancelling
-        if (fn == "0")
-        {
-            printLine(screenWidth, CYAN);
-            // cout << RED << "Cancelled flight Adding.\n" << RESET;
-            printText("Cancelled flight Adding.", screenWidth, RED, true);
-            printLine(screenWidth, CYAN);
-            return;
-        }
-
+    
+        // Existing flight numbers
+        // cout << "\nCurrent Flights:\n";
+        printLine(screenWidth, CYAN);
+        printText("Current Flights:", screenWidth, CYAN, false);
+    
         for (const Flight &flight : allflights)
         {
-            if (flight.getFlightNumber() == fn)
+            // cout << "Flight Number -->" << flight.getFlightNumber() << "\n";
+            printText("Flight Number -->" + flight.getFlightNumber(), screenWidth, WHITE, false);
+        }
+        printLine(screenWidth, CYAN);
+    
+        while (true)
+        {
+            int flag = 0;
+            string fn;
+            // cout << CYAN << "\nEnter Flight Number to add (or '0' to cancel): " << RESET;
+            printText("Enter Flight Number to add (or '0' to cancel):", screenWidth, CYAN, false);
+            cin >> fn;
+    
+            // Cancelling
+            if (fn == "0")
             {
-                // cout << "Flight number already exists! Try again." << endl;
-                flag = 1;
+                printLine(screenWidth, CYAN);
+                // cout << RED << "Cancelled flight Adding.\n" << RESET;
+                printText("Cancelled flight Adding.", screenWidth, RED, true);
+                printLine(screenWidth, CYAN);
+                return;
+            }
+    
+            for (const Flight &flight : allflights)
+            {
+                if (flight.getFlightNumber() == fn)
+                {
+                    // cout << "Flight number already exists! Try again." << endl;
+                    flag = 1;
+                    break;
+                }
+            }
+    
+            if (!flag)
+            {
+                flightNumber = fn;
                 break;
             }
+            printLine(screenWidth, CYAN);
+            // cout << RED << "Invalid Flight Number! Try again.\n" << RESET;
+            printText("Invalid Flight Number! Try again.", screenWidth, RED, true);
+            printLine(screenWidth, CYAN);
         }
-
-        if (!flag)
-        {
-            flightNumber = fn;
-            break;
-        }
+    
+        int temp; // used for dates and times
+        // cout << "Enter city of Departure " << endl;
         printLine(screenWidth, CYAN);
-        // cout << RED << "Invalid Flight Number! Try again.\n" << RESET;
-        printText("Invalid Flight Number! Try again.", screenWidth, RED, true);
+        printText("Enter city of Departure", screenWidth, WHITE, false);
+        cin >> flightorigin;
+    
         printLine(screenWidth, CYAN);
-    }
-
-    int temp; // used for dates and times
-    // cout << "Enter city of Departure " << endl;
-    printLine(screenWidth, CYAN);
-    printText("Enter city of Departure", screenWidth, WHITE, false);
-    cin >> flightorigin;
-
-    printLine(screenWidth, CYAN);
-    // cout << "Enter city of Arrival " << endl;
-    printText("Enter city of Arrival", screenWidth, WHITE, false);
-    cin >> flightdestination;
-
-    printLine(screenWidth, CYAN);
-    // cout << "Enter Flight Time " << endl;
-    printText("Enter Flight Time", screenWidth, WHITE, false);
-    printText("Hour", screenWidth, WHITE, false);
-    cin >> temp;
-    flightTime.setHour(temp);
-    printText("Minutes", screenWidth, WHITE, false);
-    cin >> temp;
-    flightTime.setMinutes(temp);
-
-    printLine(screenWidth, CYAN);
-    // cout << "Enter Flight Date " << endl;
-    printText("Enter Flight Date", screenWidth, WHITE, false);
-    printText("Year", screenWidth, WHITE, false);
-    cin >> temp;
-    flightDate.setYear(temp);
-    printText("Month", screenWidth, WHITE, false);
-    cin >> temp;
-    flightDate.setMonth(temp);
-    printText("Day", screenWidth, WHITE, false);
-    cin >> temp;
-    flightDate.setDay(temp);
-
-    printLine(screenWidth, CYAN);
-    // cout << "Enter Distance in KM " << endl;
-    printText("Enter Distance in KM", screenWidth, WHITE, false);
-    cin >> distanceInKms;
-
-    printLine(screenWidth, CYAN);
-    // cout << "Enter Number of Seats Available " << endl;
-    printText("Enter Number of Seats Available", screenWidth, WHITE, false);
-    cin >> numOfSeatsInFlight;
+        // cout << "Enter city of Arrival " << endl;
+        printText("Enter city of Arrival", screenWidth, WHITE, false);
+        cin >> flightdestination;
+    
+        printLine(screenWidth, CYAN);
+        // cout << "Enter Flight Time " << endl;
+        printText("Enter Flight Time", screenWidth, WHITE, false);
+        printText("Hour", screenWidth, WHITE, false);
+           temp= getValidIntInput(1,12);
+            //cin >> temp;
+            flightTime.setHour(temp);
+            printText("Minutes", screenWidth, WHITE, false);
+            //cin >> temp;
+            temp= getValidIntInput(1,60);
+            flightTime.setMinutes(temp);
+        
+            printLine(screenWidth, CYAN);
+            // cout << "Enter Flight Date " << endl;
+            printText("Enter Flight Date", screenWidth, WHITE, false);
+            printText("Year", screenWidth, WHITE, false);
+            temp= getValidIntInput(2025,3000);
+            //cin >> temp;
+            flightDate.setYear(temp);
+            printText("Month", screenWidth, WHITE, false);
+            temp= getValidIntInput(1,12);
+            //cin >> temp;
+            flightDate.setMonth(temp);
+            printText("Day", screenWidth, WHITE, false);
+            temp= getValidIntInput(1,30);
+           // cin >> temp;
+            flightDate.setDay(temp);
+        
+            printLine(screenWidth, CYAN);
+            // cout << "Enter Distance in KM " << endl;
+            printText("Enter Distance in KM", screenWidth, WHITE, false);
+            distanceInKms= getValidIntInput(1,5000);
+            ///cin >> distanceInKms;
+        
+            printLine(screenWidth, CYAN);
+            // cout << "Enter Number of Seats Available " << endl;
+            printText("Enter Number of Seats Available", screenWidth, WHITE, false);
+            numOfSeatsInFlight= getValidIntInput(1,500);
+           // cin >> numOfSeatsInFlight;
+        
+    
 }
 
 void Flight::RemoveFlight(vector<Flight> &allflights)
