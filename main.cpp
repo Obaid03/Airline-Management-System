@@ -25,6 +25,7 @@ void saveAllData(const vector<Admin>& admins, const vector<Customer>& customers,
     printLine(screenWidth, CYAN);
     printText("All data saved successfully!", screenWidth, GREEN, true);
     printLine(screenWidth, CYAN);
+    system("pause");
 }
 
 // login screen(when admin and user want to login)
