@@ -118,32 +118,32 @@ void FileHelper::saveCustomers(const vector<Customer> &customers, const string &
                 << customer.getUserPassword() << ",";
 
         // Write booked flight numbers separated by '|'
-        // vector<Flight> flights = customer.getFlightsBooked();
-        // for (size_t i = 0; i < flights.size(); ++i) {
-        //     cout << flights[i].getFlightNumber() << endl;
-        //     outFile << flights[i].getFlightNumber();
-        //     if (i != flights.size() - 1)
-        //         outFile << "|";
-        // }
-        // Add these debug lines:
         vector<Flight> flights = customer.getFlightsBooked();
-        cout << "Debug - Number of flights: " << flights.size() << endl;
-
-        // If size is greater than 0, check first flight
-        if (flights.size() > 0)
-        {
-            cout << "Debug - First flight number: " << flights[0].getFlightNumber() << endl;
-        }
-
-        // Then proceed with your loop
-        for (size_t i = 0; i < flights.size(); ++i)
-        {
-            cout << "Debug - Processing flight " << i << ": " << flights[i].getFlightNumber() << endl;
+        for (size_t i = 0; i < flights.size(); ++i) {
+            cout << flights[i].getFlightNumber() << endl;
             outFile << flights[i].getFlightNumber();
             if (i != flights.size() - 1)
                 outFile << "|";
         }
-        outFile << "\n";
+        // debug lines:
+        // vector<Flight> flights = customer.getFlightsBooked();
+        // // cout << "Debug - Number of flights: " << flights.size() << endl;
+
+        // // If size is greater than 0, check first flight
+        // if (flights.size() > 0)
+        // {
+        //     cout << "Debug - First flight number: " << flights[0].getFlightNumber() << endl;
+        // }
+
+        // // Then proceed with your loop
+        // for (size_t i = 0; i < flights.size(); ++i)
+        // {
+        //     cout << "Debug - Processing flight " << i << ": " << flights[i].getFlightNumber() << endl;
+        //     outFile << flights[i].getFlightNumber();
+        //     if (i != flights.size() - 1)
+        //         outFile << "|";
+        // }
+        // outFile << "\n";
     }
     outFile.close();
 }

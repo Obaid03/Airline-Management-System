@@ -236,8 +236,8 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
 {
     bool exit = false; // exit condition to check at the end of do while
     int choice = 0;
-    int maxChoices = 2;
-    string menuOptions[3] = {"Register", "Login", "<Go Back>"};
+    int maxChoices = 3;
+    string menuOptions[maxChoices] = {"Register", "Login", "<Go Back>"};
     int key;
     do
     {
@@ -251,7 +251,7 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
             printText("--[Customer]--", screenWidth, GREEN, true);
         printLine(screenWidth, CYAN);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < maxChoices; i++)
         {
             if (choice == i)
             {
@@ -271,7 +271,7 @@ void registerAndLoginScreen(vector<Admin> &admins, vector<Customer> &customers, 
         {
             choice--;
         }
-        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
+        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices - 1))
         {
             choice++;
         }
@@ -312,7 +312,6 @@ int main()
 
     try
     {
-        // Try to open the files
         ifstream flightsCheck(FLIGHTS_FILE);
         ifstream adminsCheck(ADMINS_FILE);
         ifstream customersCheck(CUSTOMERS_FILE);
@@ -325,7 +324,6 @@ int main()
             throw FileException("Customers file not found: " + CUSTOMERS_FILE);
 
         fileExist = true;
-        // Close file checks
         flightsCheck.close();
         adminsCheck.close();
         customersCheck.close();
@@ -342,7 +340,6 @@ int main()
     if (fileExist)
     {
 
-        // Load data from files
         flights = FileHelper::loadFlights(FLIGHTS_FILE);
         admins = FileHelper::loadAdmins(ADMINS_FILE);
         customers = FileHelper::loadCustomers(CUSTOMERS_FILE, flights);
@@ -376,7 +373,6 @@ int main()
             Flight("PK305", "Lahore", "Karachi", 20, 5, 24, 4, 2025, 1020, 110),
         };
 
-        // Save default data to files
 
         printLine(screenWidth, CYAN);
         saveAllData(false, admins, customers, flights);
@@ -390,9 +386,9 @@ int main()
 
     bool exit = false;
     int choice = 0;
-    int maxChoices = 3;
+    int maxChoices = 4;
 
-    string menuOptions[4] = {"Admin", "Customer", "Save All Data", "Exit"};
+    string menuOptions[maxChoices] = {"Admin", "Customer", "Save All Data", "Exit"};
     int key;
 
     do
@@ -403,7 +399,7 @@ int main()
         printText("Who Is Using?", screenWidth, WHITE, true);
         printLine(screenWidth, CYAN);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < maxChoices; i++)
         {
             if (choice == i)
                 printText("=> " + to_string(i + 1) + ". " + menuOptions[i], screenWidth, YELLOW, true);
@@ -417,7 +413,7 @@ int main()
 
         if ((key == 'w' || key == 'W' || key == 72) && (choice > 0))
             choice--;
-        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices))
+        else if ((key == 's' || key == 'S' || key == 80) && (choice < maxChoices - 1))
             choice++;
         else if (key == '\r' || key == ' ')
         {
