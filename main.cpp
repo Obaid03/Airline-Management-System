@@ -64,7 +64,7 @@ string generateUniqueID(bool isAdmin, const vector<Admin> &admins, const vector<
 }
 
 // login screen(when admin and user want to login)
-void loginScreen(const vector<Customer> customers, const vector<Admin> admins, vector<Flight> &allFlights, bool isAdmin)
+void loginScreen(const vector<Customer> &customers, const vector<Admin> &admins, vector<Flight> &allFlights, bool isAdmin)
 {
     bool flag = false; // flag true if email entered by user is equal to an email in storage(the email user wants to log in to)
     string temp;
@@ -441,6 +441,7 @@ int main()
     } while (!exit);
 
     saveAllData(true, admins, customers, flights);
+    // FileHelper::saveCustomers(customers, CUSTOMERS_FILE);
     return 0;
 }
 
