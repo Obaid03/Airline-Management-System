@@ -1,7 +1,4 @@
-
-
 // Contains Flight Class
-
 #ifndef FLIGHT_H
 #define FLIGHT_H
 #include <vector>
