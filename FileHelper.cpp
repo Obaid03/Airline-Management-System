@@ -125,6 +125,7 @@ void FileHelper::saveCustomers(const vector<Customer> &customers, const string &
             if (i != flights.size() - 1)
                 outFile << "|";
         }
+        outFile << "\n";
         // debug lines:
         // vector<Flight> flights = customer.getFlightsBooked();
         // // cout << "Debug - Number of flights: " << flights.size() << endl;
@@ -143,7 +144,7 @@ void FileHelper::saveCustomers(const vector<Customer> &customers, const string &
         //     if (i != flights.size() - 1)
         //         outFile << "|";
         // }
-        // outFile << "\n";
+        
     }
     outFile.close();
 }

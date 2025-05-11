@@ -12,9 +12,9 @@
 
 using namespace std;
 
-const string FLIGHTS_FILE = "flights.csv";
-const string ADMINS_FILE = "admins.csv";
-const string CUSTOMERS_FILE = "customers.csv";
+const string FLIGHTS_FILE = "Data/flights.csv";
+const string ADMINS_FILE = "Data/admins.csv";
+const string CUSTOMERS_FILE = "Data/customers.csv";
 
 class FileException : public exception
 {
