@@ -1,87 +1,183 @@
 # ✈️ Airline Management System
 
-A basic OOP implementation semester project in C++. This command-line-based system allows administrators to manage flights and customers, while users (admins and customers) can interact through a custom-built menu system.
+A command-line based **Airline Management System** built in C++ as a semester project. This system demonstrates Object-Oriented Programming (OOP) principles including inheritance, polymorphism, and encapsulation. It provides separate interfaces for administrators and customers to manage flights and bookings efficiently.
+
+---
+
+## 📸 Screenshots
+
+### Main Menu
+![Main Menu](Other_Resources/Screenshots/menu.png)
+
+### Admin Dashboard
+![Admin Dashboard](Other_Resources/Screenshots/Admin.png)
+
+### Customer Dashboard
+![Customer Dashboard](Other_Resources/Screenshots/customer.png)
 
 ---
 
 ## 🔧 Technologies Used
 
 - **Language**: C++
-- **Concepts**: Object-Oriented Programming (OOP), Inheritance, Polymorphism
-- **Interface**: Console-based menu system (custom print functions)
+- **Paradigm**: Object-Oriented Programming (OOP)
+- **Key Concepts**: Inheritance, Polymorphism, Abstraction, Encapsulation
+- **Interface**: Console-based menu system with custom print functions
 - **Storage**: File handling *(under development)*
 
 ---
 
-## 🚀 How to Run
+## 🚀 Getting Started
 
 ### ✅ Prerequisites
-- C++ Compiler (e.g., MinGW with `g++`)
-- Command-line interface (CMD or Terminal)
 
-### 🛠️ Compile
+- C++ Compiler (e.g., `g++`, MinGW, or Visual Studio)
+- Command-line interface (Terminal, CMD, or PowerShell)
+
+### 🛠️ Compilation
+
+Clone the repository and compile the source files:
+
 ```bash
+git clone https://github.com/Obaid03/AirlineManagementSystem.git
+cd AirlineManagementSystem
 g++ main.cpp User.cpp ConsoleManipulation.cpp Flight.cpp -o AirlineManagement.exe
+```
+
+### ▶️ Run the Program
+
+```bash
+./AirlineManagement.exe
 ```
 
 ---
 
 ## 📌 Features
-### Main Menu
-
-![Main Menu Image](Other_Resources/Screenshots/menu.png)
-
 
 ### 🛫 Admin Panel
-- Add new flights
-- Remove existing flights
-- View all available flights
-- View all registered customers
-- Edit admin information
-![Main Menu Image](Other_Resources/Screenshots/admin.png)
 
-### 🧍‍♂️ Customer Panel
-- Book new flights
-- Cancel booked flights
-- View personal and booking information
-- Edit profile details
-![Main Menu Image](Other_Resources/Screenshots/customer.png)
+- ➕ **Add new flights** – Create and schedule new flights
+- ❌ **Remove flights** – Delete existing flights from the system
+- 📋 **View all flights** – Display complete flight information
+- 👥 **View all customers** – List all registered users
+- ✏️ **Edit admin info** – Update admin profile details
+
+### 🧍 Customer Panel
+
+- 🎫 **Book flights** – Search and book available flights
+- 🚫 **Cancel bookings** – Remove existing reservations
+- 📄 **View booking details** – Check personal flight information
+- ✏️ **Edit profile** – Update personal information
 
 ### ✈️ Flight Management
-- View complete flight details:
-  - Flight Number
-  - Origin and Destination
-  - Date and Time
-  - Distance and Available Seats
-- Track customers booked on each flight
+
+Each flight contains:
+
+- 🔢 Flight Number
+- 🌍 Origin & Destination
+- 📅 Date & Time
+- 📏 Distance
+- 💺 Available Seats
+- 👤 Customer Booking List
 
 ---
 
-## 🧱 Class Architecture
+## 🧱 System Architecture
 
-### `User` (Abstract Base Class)
-- Contains common user data: ID, Name, Email, Password
-- Credential verification function
-- Pure virtual function: `userPanel()`
-- Derived by: `Admin` and `Customer`
+### Class Structure
 
-### `Admin` (Derived from User)
-- Controls the system (CRUD operations on flights/customers)
-- Can list all flights and all registered users
+```
+User (Abstract Base Class)
+├── Admin
+└── Customer
 
-### `Customer` (Derived from User)
-- Books and manages flight reservations
-- Holds personal booking data
+Flight (Independent Class)
+```
 
-### `Flight`
-- Stores flight metadata (number, cities, time, date, seats, distance)
-- Manages customer bookings
-- Overloaded `<<` operator for formatted output
+### 📦 `User` (Abstract Base Class)
+
+- **Attributes**: User ID, Name, Email, Password
+- **Methods**:
+  - Credential verification
+  - Pure virtual function: `userPanel()`
+- **Derived Classes**: `Admin` and `Customer`
+
+### 🔐 `Admin` (Derived from User)
+
+- Manages the entire system
+- CRUD operations on flights and customers
+- Full access to system data
+
+### 👤 `Customer` (Derived from User)
+
+- Books and cancels flight reservations
+- Manages personal profile and booking history
+
+### 🛩️ `Flight`
+
+- Stores flight metadata (number, route, schedule, capacity)
+- Tracks customer bookings
+- Implements overloaded `<<` operator for formatted console output
+
+---
+
+## 📂 Project Structure
+
+```
+AirlineManagementSystem/
+├── main.cpp                    # Entry point
+├── User.cpp / User.h           # User base class
+├── Admin.cpp / Admin.h         # Admin class
+├── Customer.cpp / Customer.h   # Customer class
+├── Flight.cpp / Flight.h       # Flight class
+├── ConsoleManipulation.cpp     # Console UI utilities
+├── Other_Resources/
+│   └── Screenshots/
+│       ├── menu.png
+│       ├── admin.png
+│       └── customer.png
+└── README.md
+```
+
+---
+
+## 🎯 Future Enhancements
+
+- 💾 Complete file handling implementation for persistent storage
+- 🔍 Search and filter functionality for flights
+- 💳 Payment integration simulation
+- 📊 Analytics dashboard for admins
+- 🎨 GUI implementation (Qt or similar framework)
 
 ---
 
 ## 👨‍💻 Contributors
 
-- [Hasnain](https://github.com/Hasnain848)
-- [Ibrahim](https://github.com/maybethemuhammadibrahim)
-- [Obaid](https://github.com/Obaid03)
+| Name | GitHub Profile |
+|------|----------------|
+| **Hasnain** | [@Hasnain848](https://github.com/Hasnain848) |
+| **Ibrahim** | [@maybethemuhammadibrahim](https://github.com/maybethemuhammadibrahim) |
+| **Obaid** | [@Obaid03](https://github.com/Obaid03) |
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - feel free to use and modify for educational purposes.
+
+---
+
+## 🙏 Acknowledgments
+
+- Developed as a semester project to demonstrate OOP concepts in C++
+- Thanks to all contributors for their collaboration and effort
+
+---
+
+## 📧 Contact
+
+For questions or suggestions, feel free to reach out via GitHub issues or contact any of the contributors directly.
+
+---
+
+**⭐ If you find this project helpful, please consider giving it a star!**
